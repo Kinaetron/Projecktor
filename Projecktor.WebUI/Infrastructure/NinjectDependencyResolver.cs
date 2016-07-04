@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Ninject;
+using Projecktor.Domain.Concrete;
+using Projecktor.Domain.Abstract;
 
 namespace Projecktor.WebUI.Infrastructure
 {
@@ -22,8 +24,12 @@ namespace Projecktor.WebUI.Infrastructure
             return kernel.GetAll(serviceType);
         }
 
-        private void AddBindings() {
-            // put bindings here
+        private void AddBindings()
+        {
+            kernel.Bind(typeof(IRepository<>)).To(typeof(EfRepository<>));
+            kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<ITextPostRepository>().To<TextPostRepository>();
+            kernel.Bind<IContext>().To<Context>();
         }
     }
 }
