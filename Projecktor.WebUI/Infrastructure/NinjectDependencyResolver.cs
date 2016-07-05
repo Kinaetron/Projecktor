@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using Ninject;
 using Projecktor.Domain.Concrete;
 using Projecktor.Domain.Abstract;
+using Projecktor.WebUI.Infrastructure.Abstract;
+using Projecktor.WebUI.Infrastructure.Concrete;
 
 namespace Projecktor.WebUI.Infrastructure
 {
@@ -30,6 +32,9 @@ namespace Projecktor.WebUI.Infrastructure
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<ITextPostRepository>().To<TextPostRepository>();
             kernel.Bind<IContext>().To<Context>();
+            kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<ITextPostRepository>().To<TextPostRepository>();
+            kernel.Bind<ISecurityService>().To<SecurityService>();
         }
     }
 }

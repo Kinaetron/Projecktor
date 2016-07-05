@@ -130,6 +130,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Abstract\ISecurityService.cs" />
+    <Compile Include="Infrastructure\Abstract\ITextPostService.cs" />
+    <Compile Include="Infrastructure\Abstract\IUserService.cs" />
+    <Compile Include="Infrastructure\Concrete\SecurityService.cs" />
+    <Compile Include="Infrastructure\Concrete\TextPostService.cs" />
+    <Compile Include="Infrastructure\Concrete\UserService.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
