@@ -1,0 +1,20 @@
+﻿@model SignupViewModel
+
+@{
+    ViewBag.Title = "Projecktor";
+}
+<h2>Projecktor</h2>
+
+<p>
+    @using (var signupForm = Html.BeginForm("SignUp", "Home"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
+        @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" })
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+
+        <input type="submit" value="Create Account" />
+    }
+</p>
+

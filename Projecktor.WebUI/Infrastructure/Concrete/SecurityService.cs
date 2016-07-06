@@ -1,8 +1,7 @@
 ﻿using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+using Projecktor.WebUI.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.SessionState;
@@ -42,9 +41,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return Crypto.VerifyHashedPassword(user.Password, password);
         }
 
-        public User CreateUser(string username, string password, bool login = true)
+        public User CreateUser(SignupViewModel signupModel, bool login = true)
         {
-            var user = users.Create(username, password);
+            var user = users.Create(signupModel.Username, signupModel.Password);
 
             if (login == true) {
                 Login(user);
