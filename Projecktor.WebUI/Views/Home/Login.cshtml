@@ -1,0 +1,23 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "Log in | Projecktor";
+}
+
+<h2>Login</h2>
+
+<p>
+    @using (var signupForm = Html.BeginForm("Login", "Home"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" })
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+
+        <input type="submit" value="Login" />
+    }
+</p>
+
+<div>
+    @Html.ActionLink("Register", "Register")
+</div>

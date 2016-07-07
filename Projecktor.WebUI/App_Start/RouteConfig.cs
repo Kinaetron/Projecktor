@@ -16,8 +16,13 @@ namespace Projecktor.WebUI
             routes.Add(new SubdomainRoute());
 
             routes.MapRoute(
+                 name: "TextPost",
+                 url: "textpost",
+                 defaults: new { controller = "dashboard", action = "textpost" });
+
+            routes.MapRoute(
                    name: "Followers",
-                   url:  "followers",
+                   url: "followers",
                    defaults: new { controller = "dashboard", action = "followers" });
 
             routes.MapRoute(
@@ -44,7 +49,7 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                     name: "Default",
-                    url: "{action}",
+                    url:  "{action}",
                     defaults: new { controller = "home", action = "index" });
 
         }

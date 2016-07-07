@@ -1,0 +1,16 @@
+﻿@model CreateTextPostViewModel
+
+@{
+    ViewBag.Title = "TextPost | Projecktor";
+}
+
+<h2>TextPost</h2>
+
+<p>
+    @using (var form = Html.BeginForm("TextPost", "Dashboard"))
+    {
+        @Html.AntiForgeryToken()
+        @Html.TextAreaFor(m => m.TextPost)
+        <input type="submit" value="Post" />
+    }
+</p>

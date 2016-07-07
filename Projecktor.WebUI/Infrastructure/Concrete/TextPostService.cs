@@ -23,11 +23,16 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return textPosts.GetBy(id);
         }
 
-        public TextPost Create(User user, string text, DateTime? created = null)
+        public TextPost Create(User user, string text, DateTime? created = null) {
+            return Create(user.Id, text, created);
+        }
+
+        public TextPost Create(int userId, string text, DateTime? created = null)
         {
             var textPost = new TextPost()
             {
                 Text = text,
+                AuthorId = userId,
                 DateCreated = created.HasValue ? created.Value : DateTime.Now
             };
 
@@ -35,6 +40,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             context.SaveChanges();
 
             return textPost;
+        }
+
+        public IEnumerable<TextPost> GetTimeLineFor(int userId)
+        {
+            return textPosts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
+                                   t.AuthorId == userId).OrderByDescending(t => t.DateCreated);
         }
     }
 }

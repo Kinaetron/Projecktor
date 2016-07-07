@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Projecktor.WebUI.Models;
 
 namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
+        // GET: Home
+        public ActionResult Index()
+        {
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var timeline = TextPosts.GetTimeLineFor(Security.UserId).ToArray();
+            return View("Dashboard", timeline);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Follow()
@@ -32,11 +44,20 @@ namespace Projecktor.WebUI.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpGet]
+        public ActionResult TextPost() {
+            return View("TextPost", new CreateTextPostViewModel());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create()
+        public ActionResult TextPost(CreateTextPostViewModel model)
         {
-            throw new NotImplementedException();
+            if(ModelState.IsValid == true) {
+                TextPosts.Create(Security.UserId, model.TextPost);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

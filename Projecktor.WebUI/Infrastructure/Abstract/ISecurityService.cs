@@ -6,7 +6,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
     public interface ISecurityService
     {
         bool Authenticate(string username, string password);
-        User CreateUser(SignupViewModel signupModel, bool login = true);
+        User CreateUser(RegisterViewModel signupModel, bool login = true);
         bool DoesUserExist(string username);
         User GetCurrentUser();
         bool IsAuthenticated { get; }

@@ -3,7 +3,7 @@
 
 namespace Projecktor.WebUI.Models
 {
-    public class SignupViewModel
+    public class RegisterViewModel
     {
         [Required(ErrorMessage = "Please enter your desired username.")]
         public string Username { get; set; }

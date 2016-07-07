@@ -25,6 +25,22 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return users.GetBy(username);
         }
 
+        public User GetAllFor(int id)
+        {
+            return users.GetBy(id,
+                               includeTextPosts: true,
+                               includeFollowers: true,
+                               includeFollowing: true);
+        }
+
+        public User GetAllFor(string username)
+        {
+            return users.GetBy(username,
+                               includeTextPosts: true,
+                               includeFollowers: true,
+                               includeFollowing: true);
+        }
+
         public User Create(string username, string password, DateTime? created = null)
         {
             var user = new User()

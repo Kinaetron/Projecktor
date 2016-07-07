@@ -41,7 +41,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return Crypto.VerifyHashedPassword(user.Password, password);
         }
 
-        public User CreateUser(SignupViewModel signupModel, bool login = true)
+        public User CreateUser(RegisterViewModel signupModel, bool login = true)
         {
             var user = users.Create(signupModel.Username, signupModel.Password);
 

@@ -1,0 +1,9 @@
+﻿@model UserViewModel
+
+@{
+    ViewBag.Title =  " | Projecktor";
+}
+
+@foreach (var post in Model.TextPosts) {
+    <p>@post.Text</p>
+}
