@@ -1,0 +1,14 @@
+﻿body {
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #A77DC2;
+}
+
+.posts {
+    width:540px;
+    padding: 10px;
+    margin: 20px auto 20px auto;
+    text-align: left;
+    color: #808080;
+    background-color: #FFFFFF;
+}

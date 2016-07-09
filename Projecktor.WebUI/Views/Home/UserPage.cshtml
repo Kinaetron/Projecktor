@@ -1,9 +1,9 @@
 ﻿@model UserViewModel
 
 @{
-    ViewBag.Title =  " | Projecktor";
+    ViewBag.Title =  "Projecktor External";
 }
 
-@foreach (var post in Model.TextPosts) {
-    <p>@post.Text</p>
+@foreach (var textPost in Model.TextPosts) {
+    @Html.Partial("_TextPostPartial", textPost);
 }

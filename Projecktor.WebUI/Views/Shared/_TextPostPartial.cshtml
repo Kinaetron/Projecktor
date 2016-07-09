@@ -1,0 +1,6 @@
+﻿@model TextPost
+
+<div class="posts">
+    <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) </label><br />
+    <p>@Model.Text</p>
+</div>

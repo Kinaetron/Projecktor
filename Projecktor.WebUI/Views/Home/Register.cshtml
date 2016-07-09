@@ -3,20 +3,18 @@
 @{
     ViewBag.Title = "Register | Projecktor";
 }
-<h2>Projecktor</h2>
 
-<p>
+<div class="forms">
     @using (var signupForm = Html.BeginForm("Register", "Home"))
     {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" })
-        @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" })
-        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
-
-        <input type="submit" value="Create Account" />
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary() <br />
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" }) <br />
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" }) <br />
+            @Html.PasswordFor(m => m.Password, new { placeholder = "Password" }) <br />
+            <input type="submit" value="Create Account" />
     }
-</p>
+</div>
 
 <div>
     @Html.ActionLink("Log in", "Login")
