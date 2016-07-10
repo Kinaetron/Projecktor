@@ -6,6 +6,12 @@
 
 <div>
     @Html.ActionLink("Text Post", "TextPost")
+    @Html.ActionLink("Users", "Profiles")
+
+    @using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Log Out" />
+    }
 </div>
 
     @if (Model.Any())

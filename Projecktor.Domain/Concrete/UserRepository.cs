@@ -13,11 +13,38 @@ namespace Projecktor.Domain.Concrete
     {
         public UserRepository(DbContext context, bool sharedContext) : base(context, sharedContext) { }
 
+        public IQueryable<User> AllUsers() {
+            return All();
+        }
+
+        public void CreateFollower(string username, User follower)
+        {
+            var user = GetBy(username);
+            DbSet.Attach(follower);
+
+            user.Followers.Add(follower);
+
+            if (ShareContext == false) {
+                Context.SaveChanges();
+            }
+        }
+
+        public void DeleteFollower(string username, User follower)
+        {
+            var user = GetBy(username);
+            DbSet.Attach(follower);
+
+            user.Followers.Remove(follower);
+
+            if (ShareContext == false) {
+                Context.SaveChanges();
+            }
+        }
+
         public User GetBy(string username, bool includeTextPosts = false,
                           bool includeFollowers = false, bool includeFollowing = false)
         {
             IQueryable<User> query = BuildUserQuery(includeTextPosts, includeFollowers, includeFollowing);
-
             return query.SingleOrDefault(u => u.Username == username);
         }
 
@@ -25,7 +52,6 @@ namespace Projecktor.Domain.Concrete
                           bool includeFollowers = false, bool includeFollowing = false)
         {
             IQueryable<User> query = BuildUserQuery(includeTextPosts, includeFollowers, includeFollowing);
-
             return Find(u => u.Id == id);
         }
 

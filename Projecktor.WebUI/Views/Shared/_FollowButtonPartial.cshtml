@@ -1,0 +1,17 @@
+﻿@model User
+
+
+@if (Security.IsAuthenticated == true && Model.Id != Security.UserId)
+{
+    var isFollowing = CurrentUser.Following.Any(u => u.Id == Model.Id);
+
+    var routeName = isFollowing ? "Unfollow" : "Follow";
+
+    using (var followForm = Html.BeginRouteForm(routeName, new { controller = "dashboard", action = routeName }))
+    {
+        @Html.HiddenFor(u => u.Username)
+        @Html.AntiForgeryToken()
+
+        <input type="submit" value="@routeName" />
+    }
+}

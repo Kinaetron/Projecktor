@@ -29,7 +29,7 @@ namespace Projecktor.Domain.Entites
         private ICollection<User> followers;
         public virtual ICollection<User> Followers
         {
-            get { return following ?? (followers = new Collection<User>()); }
+            get { return followers ?? (followers = new Collection<User>()); }
             set { followers = value; }
         }
     }

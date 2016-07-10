@@ -22,16 +22,35 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Follow()
+        public ActionResult Follow(string username)
         {
-            throw new NotImplementedException();
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Users.Follow(username, Security.GetCurrentUser());
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UnFollow(string username)
         {
-            throw new NotImplementedException();
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Users.Unfollow(username, Security.GetCurrentUser());
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        public ActionResult Profiles()
+        {
+            var users = Users.AllUsers();
+
+            return View(users);
         }
 
         public ActionResult Followers(string username)
@@ -58,6 +77,15 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Logout()
+        {
+            Security.Logout();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

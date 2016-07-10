@@ -3,6 +3,8 @@ using System.Web.Helpers;
 using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
 {
@@ -15,6 +17,23 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             this.context = context;
             users = context.Users;
+        }
+
+        public IEnumerable<User> AllUsers()
+        {
+            return users.AllUsers().ToArray();
+        }
+
+        public void Follow(string username, User follower)
+        {
+            users.CreateFollower(username, follower);
+            context.SaveChanges();
+        }
+
+        public void Unfollow(string username, User follower)
+        {
+            users.DeleteFollower(username, follower);
+            context.SaveChanges();
         }
 
         public User GetBy(int id) {

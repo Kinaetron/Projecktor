@@ -4,6 +4,8 @@
     ViewBag.Title =  "Projecktor External";
 }
 
+@Html.Partial("_FollowButtonPartial", Model.User)
+
 @foreach (var textPost in Model.TextPosts) {
     @Html.Partial("_TextPostPartial", textPost);
 }

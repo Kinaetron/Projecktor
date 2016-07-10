@@ -172,6 +172,8 @@
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Shared\_TextPostPartial.cshtml" />
+    <Content Include="Views\Dashboard\Profiles.cshtml" />
+    <Content Include="Views\Shared\_FollowButtonPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
