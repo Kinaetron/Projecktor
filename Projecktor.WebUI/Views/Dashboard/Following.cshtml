@@ -1,0 +1,19 @@
+﻿@model FollowViewModel
+
+@{
+    ViewBag.Title = "Following | Projecktor";
+}
+
+<h2>Following</h2>
+
+
+
+@if (Model.FollowData.Any() == true)
+{
+    foreach (var following in Model.FollowData) {
+        <span>@following.Username</span> @Html.Partial("_FollowButtonPartial", following)<br />
+    }
+}
+else {
+    <p>you're not following anyone</p>
+}

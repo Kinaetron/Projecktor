@@ -53,14 +53,30 @@ namespace Projecktor.WebUI.Controllers
             return View(users);
         }
 
-        public ActionResult Followers(string username)
+        public ActionResult Followers()
         {
-            throw new NotImplementedException();
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var followers = Users.GetAllFor(Security.UserId).Followers;
+
+            return View("Followers", new FollowViewModel() {
+                FollowData = followers
+            });
         }
 
         public ActionResult Following()
         {
-            throw new NotImplementedException();
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var followers = Users.GetAllFor(Security.UserId).Following;
+
+            return View("Following", new FollowViewModel() {
+                FollowData = followers
+            });
         }
 
         [HttpGet]

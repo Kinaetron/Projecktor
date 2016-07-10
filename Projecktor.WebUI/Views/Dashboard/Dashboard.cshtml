@@ -7,6 +7,8 @@
 <div>
     @Html.ActionLink("Text Post", "TextPost")
     @Html.ActionLink("Users", "Profiles")
+    @Html.ActionLink("Following", "Following")
+    @Html.ActionLink("Followers", "Followers")
 
     @using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
         @Html.AntiForgeryToken()
@@ -14,7 +16,7 @@
     }
 </div>
 
-    @if (Model.Any())
+    @if (Model.Any() == true)
     {
         foreach (var textPost in Model) {
             @Html.Partial("_TextPostPartial", textPost);

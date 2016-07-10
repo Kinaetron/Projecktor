@@ -1,0 +1,17 @@
+﻿@model FollowViewModel
+
+@{
+    ViewBag.Title = "Followers | Projecktor";
+}
+
+<h2>Followers</h2>
+
+@if(Model.FollowData.Any() == true)
+{
+    foreach (var follower in Model.FollowData) {
+        <span>@follower.Username</span> @Html.Partial("_FollowButtonPartial", follower)<br />
+    }
+}
+else {
+    <p>You have no followers</p>
+}

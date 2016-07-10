@@ -151,6 +151,7 @@
     <Compile Include="Infrastructure\Concrete\TextPostService.cs" />
     <Compile Include="Infrastructure\Concrete\UserService.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Models\FollowViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\CreateTextPostViewModel.cs" />
@@ -174,6 +175,8 @@
     <Content Include="Views\Shared\_TextPostPartial.cshtml" />
     <Content Include="Views\Dashboard\Profiles.cshtml" />
     <Content Include="Views\Shared\_FollowButtonPartial.cshtml" />
+    <Content Include="Views\Dashboard\Followers.cshtml" />
+    <Content Include="Views\Dashboard\Following.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
