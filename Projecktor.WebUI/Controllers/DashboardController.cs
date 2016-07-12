@@ -100,7 +100,6 @@ namespace Projecktor.WebUI.Controllers
         public ActionResult Logout()
         {
             Security.Logout();
-
             return RedirectToAction("Index", "Home");
         }
     }
