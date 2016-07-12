@@ -1,10 +1,6 @@
 ﻿using Projecktor.Domain.Abstract;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Projecktor.Domain.Concrete
 {
@@ -14,11 +10,12 @@ namespace Projecktor.Domain.Concrete
 
 
         public Context(DbContext context = null, IUserRepository users = null, 
-                       ITextPostRepository textPosts = null)
+                       ITextPostRepository textPosts = null, ILikeRepository likes = null)
         {
             db = context ?? new ProjecktorDatabase();
             Users = users ?? new UserRepository(db, true);
             TextPosts = textPosts ?? new TextPostRepository(db, true);
+            Likes = likes ?? new LikeRepository(db, true);
         }
 
         public ITextPostRepository TextPosts
@@ -28,6 +25,12 @@ namespace Projecktor.Domain.Concrete
         }
 
         public IUserRepository Users
+        {
+            get;
+            private set;
+        }
+
+        public ILikeRepository Likes
         {
             get;
             private set;

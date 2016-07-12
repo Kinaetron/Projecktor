@@ -78,14 +78,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IContext.cs" />
+    <Compile Include="Abstract\ILikeRepository.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\ITextPostRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\EfRepository.cs" />
+    <Compile Include="Concrete\LikeRepository.cs" />
     <Compile Include="Concrete\ProjecktorDatabase.cs" />
     <Compile Include="Concrete\TextPostRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
+    <Compile Include="Entites\Likes.cs" />
     <Compile Include="Entites\TextPost.cs" />
     <Compile Include="Entites\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

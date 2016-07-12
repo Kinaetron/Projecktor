@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Projecktor.Domain.Entites.TextPost>
+﻿@model IEnumerable<TextPost>
 
 @{
     ViewBag.Title = "Projecktor";
@@ -9,6 +9,7 @@
     @Html.ActionLink("Users", "Profiles")
     @Html.ActionLink("Following", "Following")
     @Html.ActionLink("Followers", "Followers")
+    @Html.ActionLink("Likes", "UserLikes")
 
     @using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
         @Html.AntiForgeryToken()

@@ -22,6 +22,13 @@ namespace Projecktor.Domain.Entites
             set { textPosts = value; }
         }
 
+        private ICollection<Like> likes;
+        public virtual ICollection<Like> Likes
+        {
+            get { return likes ?? (likes = new Collection<Like>()); }
+            set { likes = value; }
+        }
+
         private ICollection<User> following;
         public virtual ICollection<User> Following
         {

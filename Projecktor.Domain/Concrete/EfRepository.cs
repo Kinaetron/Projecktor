@@ -39,6 +39,8 @@ namespace Projecktor.Domain.Concrete
 
         public T Create(T t)
         {
+            DbSet.Attach(t);
+
             DbSet.Add(t);
 
             if (ShareContext == false) {
@@ -65,6 +67,8 @@ namespace Projecktor.Domain.Concrete
 
         public int Delete(T t)
         {
+            DbSet.Attach(t);
+
             DbSet.Remove(t);
 
             if (ShareContext == false) {

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<TextPost>
+
+@{
+    ViewBag.Title = "Likes | Projecktor";
+ }
+
+@if (Model.Any() == true)
+{
+    foreach (var textPost in Model) {
+        @Html.Partial("_TextPostPartial", textPost);
+    }
+}
+else
+{
+    <div class="posts">
+        <p>Like a post !</p>
+    </div>
+}
+

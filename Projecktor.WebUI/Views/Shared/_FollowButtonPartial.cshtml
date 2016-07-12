@@ -9,8 +9,8 @@
 
     using (var followForm = Html.BeginRouteForm(routeName, new { controller = "dashboard", action = routeName }))
     {
-        @Html.HiddenFor(u => u.Username)
         @Html.AntiForgeryToken()
+        @Html.HiddenFor(u => u.Username)
 
         <input type="submit" value="@routeName" />
     }

@@ -52,7 +52,7 @@ namespace Projecktor.Domain.Concrete
                           bool includeFollowers = false, bool includeFollowing = false)
         {
             IQueryable<User> query = BuildUserQuery(includeTextPosts, includeFollowers, includeFollowing);
-            return Find(u => u.Id == id);
+            return query.SingleOrDefault(u => u.Id == id);
         }
 
         private IQueryable<User> BuildUserQuery(bool includeTextPosts, bool includeFollowers, bool includeFollowing)

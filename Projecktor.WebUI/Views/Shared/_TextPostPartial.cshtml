@@ -3,4 +3,19 @@
 <div class="posts">
     <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) </label><br />
     <p>@Model.Text</p>
+
+    @if (Security.IsAuthenticated == true && Model.AuthorId != Security.UserId)
+    {
+        var Liked = CurrentUser.Likes.Any(u => u.PostId == Model.Id);
+
+        var routeName = Liked ? "Unlike" : "Like";
+
+        using (var followForm = Html.BeginRouteForm(routeName, new { controller = "dashboard", action = routeName })) {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(m => m.Id)
+
+            <input type="submit" value="@routeName" />
+        }
+    }
 </div>

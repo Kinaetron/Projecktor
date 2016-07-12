@@ -9,6 +9,7 @@ namespace Projecktor.Domain.Concrete
 
         public DbSet<User> Users { get; set; }
         public DbSet<TextPost> TextPosts { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -22,8 +23,10 @@ namespace Projecktor.Domain.Concrete
                     map.ToTable("Follow");
                 });
 
-            modelBuilder.Entity<User>().HasMany(u => u.TextPosts);
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasMany(u => u.TextPosts);
+            modelBuilder.Entity<User>().HasMany(u => u.Likes);
         }
     }
 }

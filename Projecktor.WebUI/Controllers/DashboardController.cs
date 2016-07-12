@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Projecktor.WebUI.Models;
+using Projecktor.Domain.Entites;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -18,6 +16,16 @@ namespace Projecktor.WebUI.Controllers
 
             var timeline = TextPosts.GetTimeLineFor(Security.UserId).ToArray();
             return View("Dashboard", timeline);
+        }
+
+        public ActionResult UserLikes()
+        {
+            if(Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var likeLine = Likes.GetLikesFor(Security.UserId).ToArray();
+            return View("Dashboard", likeLine);
         }
 
         [HttpPost]
@@ -90,6 +98,28 @@ namespace Projecktor.WebUI.Controllers
         {
             if(ModelState.IsValid == true) {
                 TextPosts.Create(Security.UserId, model.TextPost);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Like(TextPost post)
+        {
+            if(ModelState.IsValid == true) {
+                Likes.Like(Security.UserId, post.Id);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Unlike(TextPost post)
+        {
+            if (ModelState.IsValid == true) {
+                Likes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == post.Id));
             }
 
             return RedirectToAction("Index", "Dashboard");
