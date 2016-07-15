@@ -17,22 +17,22 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                  name: "TextPost",
-                 url: "textpost",
+                 url:  "textpost",
                  defaults: new { controller = "dashboard", action = "textpost" });
 
             routes.MapRoute(
               name: "Like",
-              url: "like",
+              url:  "like",
               defaults: new { controller = "dashboard", action = "like" });
 
             routes.MapRoute(
              name: "Unlike",
-             url: "unlike",
+             url:  "unlike",
              defaults: new { controller = "dashboard", action = "unlike" });
 
             routes.MapRoute(
                    name: "Followers",
-                   url: "followers",
+                   url:  "followers",
                    defaults: new { controller = "dashboard", action = "followers" });
 
             routes.MapRoute(
@@ -42,7 +42,7 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                    name: "Profiles",
-                   url: "profiles",
+                   url:  "profiles",
                    defaults: new { controller = "dashboard", action = "profiles" });
 
             routes.MapRoute(
@@ -66,9 +66,9 @@ namespace Projecktor.WebUI
                   defaults: new { controller = "dashboard", action = "index" });
 
             routes.MapRoute(
-                 name: "UserLikes",
-                 url:  "likes",
-                 defaults: new { controller = "dashboard", action = "userlikes" });
+                 name: "Likes",
+                 url: "likes",
+                 defaults: new { controller = "dashboard", action = "likes" });
 
             routes.MapRoute(
                     name: "Default",

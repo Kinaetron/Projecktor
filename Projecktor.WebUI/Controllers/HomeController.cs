@@ -31,6 +31,22 @@ namespace Projecktor.WebUI.Controllers
             });
         }
 
+        public ActionResult Likes(string subdomain)
+        {
+            if (Security.IsAuthenticated == false && subdomain == null) {
+                return View("Register", new RegisterViewModel());
+            }
+
+            var user = Users.GetAllFor(subdomain);
+            var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
+
+            return View("UserPage", new UserViewModel()
+            {
+                User = user,
+                TextPosts = likeLine
+            });
+        }
+
         [HttpGet]
         public ActionResult Register() {
             return View("Register", new RegisterViewModel());

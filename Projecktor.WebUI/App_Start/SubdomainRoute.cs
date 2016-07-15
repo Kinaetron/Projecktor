@@ -30,8 +30,8 @@ namespace Projecktor.WebUI
                 return null;
             }
 
-            string controller = (segments.Length > 0 && segments[0] != "") ? segments[0] : "Home";
-            string action = (segments.Length > 1) ? segments[1] : "Index";
+            string controller = "Home";
+            string action = (segments.Length > 0 && segments[0] != "") ? segments[0] : "Index";
 
             var routeData = new RouteData(this, new MvcRouteHandler());
             routeData.Values.Add("controller", controller); //Goes to the relevant Controller class

@@ -18,13 +18,13 @@ namespace Projecktor.WebUI.Controllers
             return View("Dashboard", timeline);
         }
 
-        public ActionResult UserLikes()
+        public ActionResult Likes()
         {
             if(Security.IsAuthenticated == false) {
                 return RedirectToAction("Index", "Home");
             }
 
-            var likeLine = Likes.GetLikesFor(Security.UserId).ToArray();
+            var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
             return View("Dashboard", likeLine);
         }
 
@@ -108,7 +108,7 @@ namespace Projecktor.WebUI.Controllers
         public ActionResult Like(TextPost post)
         {
             if(ModelState.IsValid == true) {
-                Likes.Like(Security.UserId, post.Id);
+                UserLikes.Like(Security.UserId, post.Id);
             }
 
             return RedirectToAction("Index", "Dashboard");
@@ -119,7 +119,7 @@ namespace Projecktor.WebUI.Controllers
         public ActionResult Unlike(TextPost post)
         {
             if (ModelState.IsValid == true) {
-                Likes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == post.Id));
+                UserLikes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == post.Id));
             }
 
             return RedirectToAction("Index", "Dashboard");
