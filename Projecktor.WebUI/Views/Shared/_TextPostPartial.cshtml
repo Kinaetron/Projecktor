@@ -11,17 +11,11 @@
             var Liked = CurrentUser.Likes.Any(u => u.PostId == Model.Id);
             var routeName = Liked ? "Unlike" : "Like";
 
-            using (var followForm = Html.BeginRouteForm(routeName, new { controller = "dashboard", action = routeName }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.HiddenFor(m => m.Id)
-
-                <input type="submit" value="@routeName" />
-            }
+            <input type="button" id="like_@Model.Id" onclick="LikePost(@Model.Id)" value="@routeName" />
         }
 
-        if(Model.AuthorId == Security.UserId) {
-           <input type="button" value="Delete" onclick="deletePost(@Model.Id)" />
+        if (Model.AuthorId == Security.UserId) {
+           <input type="button" value="Delete" onclick="DeletePost(@Model.Id)" />
         }
     }
 </div>

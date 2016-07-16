@@ -108,30 +108,27 @@ namespace Projecktor.WebUI.Controllers
         public JsonResult DeletePost(int postId)
         {
             TextPosts.Delete(postId);
+            return Json(new { msg = "Successful" });
+        }
+
+        [HttpPost]
+        public JsonResult Like(int postId)
+        {
+            if(ModelState.IsValid == true) {
+                UserLikes.Like(Security.UserId, postId);
+            }
 
             return Json(new { msg = "Successful" });
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Like(TextPost post)
-        {
-            if(ModelState.IsValid == true) {
-                UserLikes.Like(Security.UserId, post.Id);
-            }
-
-            return RedirectToAction("Index", "Dashboard");
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Unlike(TextPost post)
+        public JsonResult Unlike(int postId)
         {
             if (ModelState.IsValid == true) {
-                UserLikes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == post.Id));
+                UserLikes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == postId));
             }
 
-            return RedirectToAction("Index", "Dashboard");
+            return Json(new { msg = "Successful" });
         }
 
         [HttpPost]
