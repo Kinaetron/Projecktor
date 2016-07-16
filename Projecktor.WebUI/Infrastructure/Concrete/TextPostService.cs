@@ -41,6 +41,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return textPost;
         }
 
+        public void Delete(int postId)
+        {
+            var textPost = Getby(postId);
+
+            textPosts.Delete(textPost);
+            context.SaveChanges();
+        }
+
         public IEnumerable<TextPost> GetTimeLineFor(int userId)
         {
             return textPosts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||

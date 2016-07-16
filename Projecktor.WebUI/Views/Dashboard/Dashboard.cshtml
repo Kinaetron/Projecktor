@@ -17,6 +17,24 @@
     }
 </div>
 
+<script>
+    function deletePost(postId) {
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: '{postId:' + JSON.stringify(postId) + '}',
+            url: 'deletepost',
+            success: function () {
+                $("#posts_" + postId).remove();
+            },
+            error: function (result) {
+                alert("Something went terribly wrong " + result);
+            }
+        })
+        
+    }
+</script>
+
     @if (Model.Any() == true)
     {
         foreach (var textPost in Model) {

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
@@ -101,6 +102,14 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        public JsonResult DeletePost(int postId)
+        {
+            TextPosts.Delete(postId);
+
+            return Json(new { msg = "Successful" });
         }
 
         [HttpPost]

@@ -9,6 +9,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         TextPost Getby(int id);
         TextPost Create(int userId, string status, DateTime? created = null);
         TextPost Create(User user, string status, DateTime? created = null);
+        void Delete(int id);
         IEnumerable<TextPost> GetTimeLineFor(int userId);
     }
 }

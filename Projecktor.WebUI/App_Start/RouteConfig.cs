@@ -31,6 +31,11 @@ namespace Projecktor.WebUI
              defaults: new { controller = "dashboard", action = "unlike" });
 
             routes.MapRoute(
+            name: "DeletePost",
+            url:  "deletepost",
+            defaults: new { controller = "dashboard", action = "deletepost" });
+
+            routes.MapRoute(
                    name: "Followers",
                    url:  "followers",
                    defaults: new { controller = "dashboard", action = "followers" });
