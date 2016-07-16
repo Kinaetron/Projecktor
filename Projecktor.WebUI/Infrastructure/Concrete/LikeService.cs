@@ -1,6 +1,7 @@
 ﻿using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,8 +24,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             var like = new Like()
             {
-              UserId = userId,
-              PostId = postId
+                UserId = userId,
+                PostId = postId,
             };
 
             likes.Create(like);
@@ -43,7 +44,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public IEnumerable<TextPost> GetLikesFor(int userId)
         {
-            var userLikes = likes.FindAll(l => l.UserId == userId).ToList();
+            var userLikes = likes.FindAll(l => l.UserId == userId).ToList().
+                                   OrderByDescending(l => l.Id);
+
             List<TextPost> localPosts = new List<TextPost>();
 
             foreach (var l in userLikes) {
