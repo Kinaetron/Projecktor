@@ -1,0 +1,24 @@
+﻿@model TextPostViewModel
+
+<div class="posts" id="posts_@Model.TextPost.Id">
+    <label>@Html.RouteLink(Model.TextPost.Author.Username, new { controller = "home", subdomain = Model.TextPost.Author.Username, action = "index" }) </label><br />
+    <p>@Model.TextPost.Text</p>
+
+    @if (Security.IsAuthenticated == true)
+    {
+        if (Model.TextPost.AuthorId != Security.UserId)
+        {
+            var Liked = CurrentUser.Likes.Any(u => u.PostId == Model.TextPost.Id);
+            var routeName = Liked ? "Unlike" : "Like";
+
+            <input type="button" id="like_@Model.TextPost.Id" onclick="LikePost(@Model.TextPost.Id)" value="@routeName" />
+        }
+
+        <input type="button" onclick="Reblog(@Model.TextPost.Id)" value="Reblog" />
+
+        if (Model.TextPost.AuthorId == Security.UserId)
+        {
+            <input type="button" value="Delete" onclick="DeletePost(@Model.TextPost.Id)" />
+        }
+    }
+</div>

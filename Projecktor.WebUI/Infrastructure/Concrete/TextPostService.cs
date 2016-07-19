@@ -1,6 +1,7 @@
 ﻿using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+using Projecktor.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
     {
         private readonly IContext context;
         private readonly ITextPostRepository textPosts;
+        private readonly IReblogRepository reblogs;
+        private readonly IUserRepository users;
 
         public TextPostService(IContext context)
         {
             this.context = context;
             textPosts = context.TextPosts;
+            reblogs = context.Reblogs;
+            users = context.Users;
         }
 
         public TextPost Getby(int id) {
@@ -49,10 +54,74 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             context.SaveChanges();
         }
 
-        public IEnumerable<TextPost> GetTimeLineFor(int userId)
+        public IEnumerable<TextPostViewModel> GetPostsFor(int userId)
         {
-            return textPosts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
-                                   t.AuthorId == userId).OrderByDescending(t => t.DateCreated);
+            List<TextPostViewModel> posts = new List<TextPostViewModel>();
+
+            var userTextPosts = users.Find(u => u.Id == userId).TextPosts;
+
+            foreach (var post in userTextPosts)
+            {
+                TextPostViewModel model = new TextPostViewModel();
+
+                model.TextPost = post;
+                model.TimePosted = post.DateCreated;
+
+                posts.Add(model);
+            }
+
+            var userReblogs = users.Find(u => u.Id == userId).Reblogs;
+
+            foreach (var reblog in userReblogs)
+            {
+                TextPostViewModel model = new TextPostViewModel();
+
+                model.TextPost = textPosts.Find(t => t.Id == reblog.PostId);
+                model.TimePosted = reblog.DateCreated;
+
+                posts.Add(model);
+            }
+
+            return posts.OrderByDescending(p => p.TimePosted);
+        }
+
+        public IEnumerable<TextPostViewModel> GetTimeLineFor(int userId)
+        {
+            List<TextPostViewModel> timeline = new List<TextPostViewModel>();
+
+            var textPostData = textPosts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
+                                                 t.AuthorId == userId);
+
+            foreach (var data in textPostData)
+            {
+                TextPostViewModel model = new TextPostViewModel();
+
+                model.TextPost = data;
+                model.TimePosted = data.DateCreated;
+
+                timeline.Add(model);
+            }
+
+            var followingList = users.FindAll(u => u.Followers.Any(f => f.Id == userId)).ToList();
+            List<Reblog> reblogList = new List<Reblog>();
+
+            reblogList.AddRange(reblogs.FindAll(r => r.UserId == userId));
+
+            foreach (var following in followingList) {
+               reblogList.AddRange(reblogs.FindAll(r => r.UserId == following.Id));
+            }
+
+            foreach (var reblog in reblogList)
+            {
+                TextPostViewModel model = new TextPostViewModel();
+
+                model.TextPost = textPosts.Find(t => t.Id == reblog.PostId);
+                model.TimePosted = reblog.DateCreated;
+
+                timeline.Add(model);
+            }
+
+            return timeline.OrderByDescending(t => t.TimePosted);
         }
     }
 }

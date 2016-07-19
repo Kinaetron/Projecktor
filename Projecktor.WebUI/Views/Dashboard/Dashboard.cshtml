@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TextPost>
+﻿@model IEnumerable<TextPostViewModel>
 
 @{
     ViewBag.Title = "Projecktor";
@@ -18,65 +18,12 @@
     }
 </div>
 
-<script>
-    function DeletePost(postId)
-    {
-        $.ajax
-        ({
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            data: '{postId:' + JSON.stringify(postId) + '}',
-            url:  'deletepost',
-            success: function () {
-                $("#posts_" + postId).remove();
-            },
-            error: function (result) {
-                alert("Something went terribly wrong " + result);
-            }
-        })
-    }
-
-    function LikePost(postId)
-    {
-        if($('#like_' + postId).val() == "Like")
-        {
-            $.ajax
-            ({
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: '{postId:' + JSON.stringify(postId) + '}',
-                url: 'like',
-                success: function () {
-                    $('#like_' + postId).val("Unlike");
-                },
-                error: function () {
-                    alert("Something went terribly wrong");
-                }
-            })
-        }
-        else if($('#like_' + postId).val() == "Unlike")
-        {
-            $.ajax
-            ({
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: '{postId:' + JSON.stringify(postId) + '}',
-                url: 'unlike',
-                success: function () {
-                    $('#like_' + postId).val("Like");
-                },
-                error: function () {
-                    alert("Something went terribly wrong");
-                }
-            })
-        }
-    }
-</script>
+<script src="~/Scripts/ajaxscripts.js"></script>
 
     @if (Model.Any() == true)
     {
         foreach (var textPost in Model) {
-            @Html.Partial("_TextPostPartial", textPost);
+            @Html.Partial("_TextPostModelPartial", textPost);
         }
     }
     else

@@ -10,6 +10,7 @@ namespace Projecktor.Domain.Concrete
         public DbSet<User> Users { get; set; }
         public DbSet<TextPost> TextPosts { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Reblog> Reblogs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -27,6 +28,7 @@ namespace Projecktor.Domain.Concrete
 
             modelBuilder.Entity<User>().HasMany(u => u.TextPosts);
             modelBuilder.Entity<User>().HasMany(u => u.Likes);
+            modelBuilder.Entity<User>().HasMany(u => u.Reblogs);
         }
     }
 }

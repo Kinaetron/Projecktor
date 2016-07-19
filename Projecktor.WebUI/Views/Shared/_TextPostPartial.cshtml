@@ -14,8 +14,11 @@
             <input type="button" id="like_@Model.Id" onclick="LikePost(@Model.Id)" value="@routeName" />
         }
 
-        if (Model.AuthorId == Security.UserId) {
-           <input type="button" value="Delete" onclick="DeletePost(@Model.Id)" />
+        <input type="button" onclick="Reblog(@Model.Id)" value="Reblog" />
+
+        if (Model.AuthorId == Security.UserId)
+        {
+            <input type="button" value="Delete" onclick="DeletePost(@Model.Id)" />
         }
     }
 </div>

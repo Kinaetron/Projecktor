@@ -16,6 +16,7 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var timeline = TextPosts.GetTimeLineFor(Security.UserId).ToArray();
+
             return View("Dashboard", timeline);
         }
 
@@ -26,7 +27,8 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
-            return View("Dashboard", likeLine);
+
+            return View("Likes", likeLine);
         }
 
         [HttpPost]
@@ -40,6 +42,13 @@ namespace Projecktor.WebUI.Controllers
             Users.Follow(username, Security.GetCurrentUser());
 
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        [HttpPost]
+        public JsonResult Reblog(int postId)
+        {
+            UserReblogs.Reblog(CurrentUser.Id, postId);
+            return Json(new { msg = "Successful" });
         }
 
         [HttpPost]

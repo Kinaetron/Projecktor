@@ -124,6 +124,7 @@
     <Content Include="Content\projecktorstyle.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\ajaxscripts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
@@ -151,11 +152,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Abstract\ILikeService.cs" />
+    <Compile Include="Infrastructure\Abstract\IReblogService.cs" />
     <Compile Include="Infrastructure\Abstract\ISecurityService.cs" />
     <Compile Include="Infrastructure\Abstract\ITextPostService.cs" />
     <Compile Include="Infrastructure\Abstract\IUserService.cs" />
     <Compile Include="Infrastructure\Concrete\LikeService.cs" />
     <Compile Include="Infrastructure\Concrete\ProjecktorViewPage.cs" />
+    <Compile Include="Infrastructure\Concrete\ReblogService.cs" />
     <Compile Include="Infrastructure\Concrete\SecurityService.cs" />
     <Compile Include="Infrastructure\Concrete\TextPostService.cs" />
     <Compile Include="Infrastructure\Concrete\UserService.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\CreateTextPostViewModel.cs" />
+    <Compile Include="Models\TextPostViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -180,7 +184,7 @@
     <Content Include="Views\Dashboard\TextPost.cshtml" />
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
-    <Content Include="Views\Shared\_TextPostPartial.cshtml" />
+    <Content Include="Views\Shared\_TextPostModelPartial.cshtml" />
     <Content Include="Views\Dashboard\Profiles.cshtml" />
     <Content Include="Views\Shared\_FollowButtonPartial.cshtml" />
     <Content Include="Views\Dashboard\Followers.cshtml" />
@@ -188,6 +192,8 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Dashboard\Likes.cshtml" />
+    <Content Include="Views\Shared\_TextPostPartial.cshtml" />
+    <Content Include="Views\Home\Likes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

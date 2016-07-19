@@ -24,11 +24,9 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            return View("UserPage", new UserViewModel()
-            {
-                User = user,
-                TextPosts = user.TextPosts.OrderByDescending(t => t.DateCreated)
-            });
+            var userPosts = TextPosts.GetPostsFor(user.Id);
+
+            return View("UserPage", userPosts);
         }
 
         public ActionResult Likes(string subdomain)
@@ -40,11 +38,7 @@ namespace Projecktor.WebUI.Controllers
             var user = Users.GetAllFor(subdomain);
             var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
 
-            return View("UserPage", new UserViewModel()
-            {
-                User = user,
-                TextPosts = likeLine
-            });
+            return View("Likes", likeLine);
         }
 
         [HttpGet]

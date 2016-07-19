@@ -61,6 +61,11 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "unfollow" });
 
             routes.MapRoute(
+               name: "Reblog",
+               url: "reblog",
+               defaults: new { controller = "dashboard", action = "reblog" });
+
+            routes.MapRoute(
               name: "Logout",
               url:  "logout",
               defaults: new { controller = "dashboard", action = "logout" });

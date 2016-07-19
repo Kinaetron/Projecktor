@@ -1,11 +1,9 @@
-﻿@model UserViewModel
+﻿@model IEnumerable<TextPostViewModel>
 
 @{
     ViewBag.Title =  "Projecktor External";
 }
 
-@Html.Partial("_FollowButtonPartial", Model.User)
-
-@foreach (var textPost in Model.TextPosts) {
-    @Html.Partial("_TextPostPartial", textPost);
+@foreach (var textPost in Model) {
+    @Html.Partial("_TextPostModelPartial", textPost);
 }

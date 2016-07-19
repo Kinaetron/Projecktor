@@ -12,6 +12,7 @@ namespace Projecktor.WebUI.Controllers
         public IContext DataContext;
         public ITextPostService TextPosts { get; private set; }
         public ILikeService UserLikes { get; private set; }
+        public IReblogService UserReblogs { get; private set; }
         public User CurrentUser { get; set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; private set; }
@@ -22,6 +23,7 @@ namespace Projecktor.WebUI.Controllers
             Users = new UserService(DataContext);
             TextPosts = new TextPostService(DataContext);
             UserLikes = new LikeService(DataContext);
+            UserReblogs = new ReblogService(DataContext);
             Security = new SecurityService(Users);
             CurrentUser = Security.GetCurrentUser();
         }
