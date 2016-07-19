@@ -50,6 +50,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             var textPost = Getby(postId);
 
+            var reblogPosts = reblogs.FindAll(r => r.PostId == postId);
+
+            foreach (var reblogPost in reblogPosts) {
+                reblogs.Delete(reblogPost);
+            }
+
             textPosts.Delete(textPost);
             context.SaveChanges();
         }
