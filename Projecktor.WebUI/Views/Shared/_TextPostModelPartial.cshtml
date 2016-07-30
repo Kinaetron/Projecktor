@@ -1,8 +1,21 @@
 ﻿@model TextPostViewModel
 
 <div class="posts" id="posts_@Model.TextPost.Id">
-    <label>@Html.RouteLink(Model.TextPost.Author.Username, new { controller = "home", subdomain = Model.TextPost.Author.Username, action = "index" }) </label><br />
-    <p>@Model.TextPost.Text</p>
+
+    @if (Model.Reblogger != null)
+    {
+        <label>@Html.RouteLink(Model.Reblogger.Username, new { controller = "home", subdomain = Model.Reblogger.Username, action = "index" }) reblogged</label>
+
+        <label>@Html.RouteLink(Model.ReblogedFrom.Username, new { controller = "home", subdomain = Model.ReblogedFrom.Username, action = "index" }) </label><br />
+        <p>@Model.TextPost.Text</p>
+
+        <label>source: @Html.RouteLink(Model.TextPost.Author.Username, new { controller = "home", subdomain = Model.TextPost.Author.Username, action = "index" })</label><br /><br />
+    }
+    else
+    {
+        <label>@Html.RouteLink(Model.TextPost.Author.Username, new { controller = "home", subdomain = Model.TextPost.Author.Username, action = "index" }) </label><br />
+            <p>@Model.TextPost.Text</p>
+    }
 
     @if (Security.IsAuthenticated == true)
     {
@@ -14,10 +27,20 @@
             <input type="button" id="like_@Model.TextPost.Id" onclick="LikePost(@Model.TextPost.Id)" value="@routeName" />
         }
 
-        <input type="button" onclick="Reblog(@Model.TextPost.Id)" value="Reblog" />
 
-        if (Model.TextPost.AuthorId == Security.UserId)
+        if (Model.Reblogger == null) {
+            <input type="button" onclick="Reblog(@Model.TextPost.Id, @Model.TextPost.AuthorId)" value="Reblog" />
+        }
+        else {
+            <input type="button" onclick="Reblog(@Model.TextPost.Id, @Model.Reblogger.Id)" value="Reblog" />
+        }
+
+
+        if (Model.Reblogger != null && Model.Reblogger.Id == Security.UserId)
         {
+            <input type="button" value="Delete" onclick="DeleteReblog(@Model.ReblogId, @Model.TextPost.Id)" />
+        }
+        else if (Model.TextPost.AuthorId == Security.UserId && Model.Reblogger == null) {
             <input type="button" value="Delete" onclick="DeletePost(@Model.TextPost.Id)" />
         }
     }

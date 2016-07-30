@@ -7,11 +7,13 @@ namespace Projecktor.Domain.Entites
     {
         public int Id { get; set; }
         public int PostId { get; set; }
-        public int UserId { get; set; }
+
+        public int RebloggerId { get; set; }
+        public int ReblogFromdId { get; set; }
         public DateTime DateCreated { get; set; }
 
 
-        [ForeignKey("UserId")]
+        [ForeignKey("RebloggerId")]
         public virtual User User { get; set; }
     }
 }

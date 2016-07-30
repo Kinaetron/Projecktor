@@ -47,13 +47,29 @@ function LikePost(postId) {
     }
 }
 
-function Reblog(postId) {
+function Reblog(postId, rebloggedId) {
     $.ajax
    ({
        type: 'POST',
        contentType: 'application/json; charset=utf-8',
-       data: '{postId:' + JSON.stringify(postId) + '}',
+       data: '{postId:' + JSON.stringify(postId) + ', rebloggedId:' + JSON.stringify(rebloggedId) + '}',
        url: 'reblog',
+       error: function (result) {
+           alert("Something went terribly wrong " + result);
+       }
+   })
+}
+
+function DeleteReblog(reblogId, postId) {
+    $.ajax
+   ({
+       type: 'POST',
+       contentType: 'application/json; charset=utf-8',
+       data: '{postId:' + JSON.stringify(reblogId) + '}',
+       url: 'deletereblog',
+       success: function () {
+           $("#posts_" + postId).remove();
+       },
        error: function (result) {
            alert("Something went terribly wrong " + result);
        }

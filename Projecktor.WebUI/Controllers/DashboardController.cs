@@ -45,9 +45,16 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Reblog(int postId)
+        public JsonResult Reblog(int postId, int rebloggedId)
         {
-            UserReblogs.Reblog(CurrentUser.Id, postId);
+            UserReblogs.Reblog(CurrentUser.Id, rebloggedId, postId);
+            return Json(new { msg = "Successful" });
+        }
+
+        [HttpPost]
+        public JsonResult DeleteReblog(int postId)
+        {
+            UserReblogs.Delete(postId);
             return Json(new { msg = "Successful" });
         }
 

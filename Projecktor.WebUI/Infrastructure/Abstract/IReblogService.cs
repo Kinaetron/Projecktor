@@ -6,8 +6,8 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
 {
     public interface IReblogService
     {
-        Reblog Reblog(int userId, int postId);
-        Reblog Delete(Reblog reblog);
+        Reblog Reblog(int rebloggerId, int reblogedFrom ,int postId);
+        Reblog Delete(int reblogId);
         IEnumerable<TextPostViewModel> GetReblogsFor(int userId);
     }
 }

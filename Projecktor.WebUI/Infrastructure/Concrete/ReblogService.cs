@@ -22,11 +22,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             textPosts = context.TextPosts;
         }
 
-        public Reblog Reblog(int userId, int postId)
+        public Reblog Reblog(int rebloggerId, int reblogfromId ,int postId)
         {
             var reblog = new Reblog()
             {
-                UserId = userId,
+                RebloggerId = rebloggerId,
+                ReblogFromdId = reblogfromId,
                 PostId = postId,
                 DateCreated = DateTime.Now
             };
@@ -37,14 +38,19 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return reblog;
         }
 
-        public Reblog Delete(Reblog reblog)
+        public Reblog Delete(int reblogId)
         {
-            throw new NotImplementedException();
+            Reblog reblog = reblogs.Find(r => r.Id == reblogId);
+
+            reblogs.Delete(reblog);
+            context.SaveChanges();
+
+            return reblog;
         }
 
         public IEnumerable<TextPostViewModel> GetReblogsFor(int userId)
         {
-            var userReblogs = reblogs.FindAll(r => r.UserId == userId).ToList().
+            var userReblogs = reblogs.FindAll(r => r.RebloggerId == userId).ToList().
                                  OrderByDescending(r => r.Id);
 
             List<TextPostViewModel> reblogPosts = new List<TextPostViewModel>();
@@ -58,8 +64,6 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
                 reblogPosts.Add(data);
             }
-
-
 
             return reblogPosts;
         }

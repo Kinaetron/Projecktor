@@ -111,16 +111,19 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             var followingList = users.FindAll(u => u.Followers.Any(f => f.Id == userId)).ToList();
             List<Reblog> reblogList = new List<Reblog>();
 
-            reblogList.AddRange(reblogs.FindAll(r => r.UserId == userId));
+            reblogList.AddRange(reblogs.FindAll(r => r.RebloggerId == userId));
 
             foreach (var following in followingList) {
-               reblogList.AddRange(reblogs.FindAll(r => r.UserId == following.Id));
+               reblogList.AddRange(reblogs.FindAll(r => r.RebloggerId == following.Id));
             }
 
             foreach (var reblog in reblogList)
             {
                 TextPostViewModel model = new TextPostViewModel();
 
+                model.ReblogId = reblog.Id;
+                model.Reblogger = users.Find(reblog.RebloggerId);
+                model.ReblogedFrom = users.Find(reblog.ReblogFromdId);
                 model.TextPost = textPosts.Find(t => t.Id == reblog.PostId);
                 model.TimePosted = reblog.DateCreated;
 
