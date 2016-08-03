@@ -5,9 +5,9 @@ namespace Projecktor.Domain.Abstract
     public interface IContext : IDisposable
     {
         IUserRepository Users { get; }
-        ITextPostRepository TextPosts { get; }
+        IPostRepository Posts { get; }
         ILikeRepository Likes { get; }
-        IReblogRepository Reblogs { get; }
+        ITextRepository Texts { get; }
 
         int SaveChanges();
     }

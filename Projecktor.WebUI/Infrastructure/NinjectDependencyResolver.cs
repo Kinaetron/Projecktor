@@ -30,10 +30,8 @@ namespace Projecktor.WebUI.Infrastructure
         {
             kernel.Bind(typeof(IRepository<>)).To(typeof(EfRepository<>));
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<ITextPostRepository>().To<TextPostRepository>();
             kernel.Bind<IContext>().To<Context>();
             kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<ITextPostRepository>().To<TextPostRepository>();
             kernel.Bind<ISecurityService>().To<SecurityService>();
         }
     }

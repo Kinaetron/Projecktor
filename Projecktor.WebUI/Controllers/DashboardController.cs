@@ -15,9 +15,11 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var timeline = TextPosts.GetTimeLineFor(Security.UserId).ToArray();
+            var timeline = Posts.GetTimeLineFor(Security.UserId).ToArray();
 
             return View("Dashboard", timeline);
+
+            throw new NotImplementedException();
         }
 
         public ActionResult Likes()
@@ -26,9 +28,11 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
+            //var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
 
-            return View("Likes", likeLine);
+            //return View("Likes", likeLine);
+
+            throw new NotImplementedException();
         }
 
         [HttpPost]
@@ -45,16 +49,16 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Reblog(int postId, int rebloggedId)
+        public JsonResult Reblog(int textId, int reblogId, int sourceId)
         {
-            UserReblogs.Reblog(CurrentUser.Id, rebloggedId, postId);
+            Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
             return Json(new { msg = "Successful" });
         }
 
         [HttpPost]
         public JsonResult DeleteReblog(int postId)
         {
-            UserReblogs.Delete(postId);
+            Posts.DeleteReblog(postId);
             return Json(new { msg = "Successful" });
         }
 
@@ -114,7 +118,7 @@ namespace Projecktor.WebUI.Controllers
         public ActionResult TextPost(CreateTextPostViewModel model)
         {
             if(ModelState.IsValid == true) {
-                TextPosts.Create(Security.UserId, model.TextPost);
+                Posts.Create(Security.UserId, model.TextPost);
             }
 
             return RedirectToAction("Index", "Dashboard");
@@ -123,7 +127,7 @@ namespace Projecktor.WebUI.Controllers
         [HttpPost]
         public JsonResult DeletePost(int postId)
         {
-            TextPosts.Delete(postId);
+            Posts.Delete(postId);
             return Json(new { msg = "Successful" });
         }
 

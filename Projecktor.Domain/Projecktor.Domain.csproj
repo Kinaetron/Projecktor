@@ -79,20 +79,20 @@
   <ItemGroup>
     <Compile Include="Abstract\IContext.cs" />
     <Compile Include="Abstract\ILikeRepository.cs" />
-    <Compile Include="Abstract\IReblogRepository.cs" />
+    <Compile Include="Abstract\IPostsRepository.cs" />
     <Compile Include="Abstract\IRepository.cs" />
-    <Compile Include="Abstract\ITextPostRepository.cs" />
+    <Compile Include="Abstract\ITextRepository.cs" />
     <Compile Include="Abstract\IUserRepository.cs" />
     <Compile Include="Concrete\Context.cs" />
     <Compile Include="Concrete\EfRepository.cs" />
     <Compile Include="Concrete\LikeRepository.cs" />
+    <Compile Include="Concrete\PostRepository.cs" />
     <Compile Include="Concrete\ProjecktorDatabase.cs" />
-    <Compile Include="Concrete\ReblogReposiory.cs" />
-    <Compile Include="Concrete\TextPostRepository.cs" />
+    <Compile Include="Concrete\TextRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Entites\Like.cs" />
-    <Compile Include="Entites\Reblog.cs" />
-    <Compile Include="Entites\TextPost.cs" />
+    <Compile Include="Entites\Post.cs" />
+    <Compile Include="Entites\Text.cs" />
     <Compile Include="Entites\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

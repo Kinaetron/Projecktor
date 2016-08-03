@@ -15,11 +15,18 @@ namespace Projecktor.Domain.Entites
         public DateTime DateCreated { get; set; }
 
 
-        private ICollection<TextPost> textPosts;
-        public virtual ICollection<TextPost> TextPosts
+        private ICollection<Post> posts;
+        public virtual ICollection<Post> Posts
         {
-            get { return textPosts ?? (textPosts = new Collection<TextPost>()); }
-            set { textPosts = value; }
+            get { return posts ?? (posts = new Collection<Post>()); }
+            set { posts = value; }
+        }
+
+        private ICollection<Text> texts;
+        public virtual ICollection<Text> Texts
+        {
+            get { return texts ?? (texts = new Collection<Text>()); }
+            set { texts = value; }
         }
 
         private ICollection<Like> likes;
@@ -27,13 +34,6 @@ namespace Projecktor.Domain.Entites
         {
             get { return likes ?? (likes = new Collection<Like>()); }
             set { likes = value; }
-        }
-
-        private ICollection<Reblog> reblogs;
-        public virtual ICollection<Reblog> Reblogs
-        {
-            get { return reblogs ?? (reblogs = new Collection<Reblog>()); }
-            set { reblogs = value; }
         }
 
         private ICollection<User> following;

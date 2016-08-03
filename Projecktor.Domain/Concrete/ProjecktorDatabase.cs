@@ -8,9 +8,9 @@ namespace Projecktor.Domain.Concrete
         public ProjecktorDatabase() : base("ProjecktorConnection") { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<TextPost> TextPosts { get; set; }
         public DbSet<Like> Likes { get; set; }
-        public DbSet<Reblog> Reblogs { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Text> Texts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,9 +26,9 @@ namespace Projecktor.Domain.Concrete
 
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().HasMany(u => u.TextPosts);
             modelBuilder.Entity<User>().HasMany(u => u.Likes);
-            modelBuilder.Entity<User>().HasMany(u => u.Reblogs);
+            modelBuilder.Entity<User>().HasMany(u => u.Posts);
+            modelBuilder.Entity<User>().HasMany(u => u.Texts);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Projecktor.Domain.Concrete
             var query = DbSet.AsQueryable();
 
             if (includeTextPosts == true) {
-                query = DbSet.Include(u => u.TextPosts);
+                query = DbSet.Include(u => u.Posts);
             }
 
             if (includeFollowers == true) {

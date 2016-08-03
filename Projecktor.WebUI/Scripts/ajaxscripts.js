@@ -47,12 +47,12 @@ function LikePost(postId) {
     }
 }
 
-function Reblog(postId, rebloggedId) {
+function Reblog(textId, reblogId, sourceId) {
     $.ajax
    ({
        type: 'POST',
        contentType: 'application/json; charset=utf-8',
-       data: '{postId:' + JSON.stringify(postId) + ', rebloggedId:' + JSON.stringify(rebloggedId) + '}',
+       data: '{textId:' + JSON.stringify(textId) + ', reblogId:' + JSON.stringify(reblogId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
        url: 'reblog',
        error: function (result) {
            alert("Something went terribly wrong " + result);
@@ -60,12 +60,12 @@ function Reblog(postId, rebloggedId) {
    })
 }
 
-function DeleteReblog(reblogId, postId) {
+function DeleteReblog(postId) {
     $.ajax
    ({
        type: 'POST',
        contentType: 'application/json; charset=utf-8',
-       data: '{postId:' + JSON.stringify(reblogId) + '}',
+       data: '{postId:' + JSON.stringify(postId) + '}',
        url: 'deletereblog',
        success: function () {
            $("#posts_" + postId).remove();

@@ -6,6 +6,6 @@ namespace Projecktor.WebUI.Models
     public class UserViewModel
     {
         public User User { get; set; }
-        public IEnumerable<TextPost> TextPosts { get; set; }
+        public IEnumerable<string> Texts { get; set; }
     }
 }
