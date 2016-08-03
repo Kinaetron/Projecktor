@@ -1,5 +1,7 @@
-﻿using Projecktor.Domain.Entites;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using Projecktor.Domain.Entites;
+using Projecktor.WebUI.Models;
 
 namespace Projecktor.WebUI.Infrastructure.Abstract
 {
@@ -7,6 +9,6 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
     {
         Like Like(int userId, int postId);
         Like Unlike(Like like);
-        //IEnumerable<TextPost> GetLikesFor(int userId);
-    }
+        IEnumerable<TextPostViewModel> GetLikesFor(int userId);
+     }
 }

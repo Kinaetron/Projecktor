@@ -21,7 +21,7 @@
     {
         if (Model.Author.Id != Security.UserId)
         {
-            var Liked = CurrentUser.Likes.Any(u => u.PostId == Model.PostId);
+            var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
             var routeName = Liked ? "Unlike" : "Like";
 
             <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId)" value="@routeName" />

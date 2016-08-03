@@ -18,8 +18,6 @@ namespace Projecktor.WebUI.Controllers
             var timeline = Posts.GetTimeLineFor(Security.UserId).ToArray();
 
             return View("Dashboard", timeline);
-
-            throw new NotImplementedException();
         }
 
         public ActionResult Likes()
@@ -28,11 +26,9 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            //var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
+            var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
 
-            //return View("Likes", likeLine);
-
-            throw new NotImplementedException();
+            return View("Dashboard", likeLine);
         }
 
         [HttpPost]
