@@ -128,10 +128,10 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Like(int postId)
+        public JsonResult Like(int postId, int sourceId)
         {
             if(ModelState.IsValid == true) {
-                UserLikes.Like(Security.UserId, postId);
+                UserLikes.Like(Security.UserId, postId, sourceId);
             }
 
             return Json(new { msg = "Successful" });

@@ -9,24 +9,24 @@
             $("#posts_" + postId).remove();
         },
         error: function (result) {
-            alert("Something went terribly wrong " + result);
+            alert("Something went terribly wrong delete" + result);
         }
     })
 }
 
-function LikePost(postId) {
+function LikePost(postId, sourceId) {
     if ($('#like_' + postId).val() == "Like") {
         $.ajax
         ({
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
-            data: '{postId:' + JSON.stringify(postId) + '}',
+            data: '{postId:' + JSON.stringify(postId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
             url: 'like',
             success: function () {
                 $('#like_' + postId).val("Unlike");
             },
             error: function () {
-                alert("Something went terribly wrong");
+                alert("Something went terribly wrong with like");
             }
         })
     }
@@ -41,7 +41,7 @@ function LikePost(postId) {
                 $('#like_' + postId).val("Like");
             },
             error: function () {
-                alert("Something went terribly wrong");
+                alert("Something went terribly wrong with unlike");
             }
         })
     }
@@ -55,7 +55,7 @@ function Reblog(textId, reblogId, sourceId) {
        data: '{textId:' + JSON.stringify(textId) + ', reblogId:' + JSON.stringify(reblogId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
        url: 'reblog',
        error: function (result) {
-           alert("Something went terribly wrong " + result);
+           alert("Something went terribly wrong reblog" + result);
        }
    })
 }
@@ -71,7 +71,7 @@ function DeleteReblog(postId) {
            $("#posts_" + postId).remove();
        },
        error: function (result) {
-           alert("Something went terribly wrong " + result);
+           alert("Something went terribly wrong delete reblog" + result);
        }
    })
 }

@@ -24,7 +24,14 @@
             var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
             var routeName = Liked ? "Unlike" : "Like";
 
-            <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId)" value="@routeName" />
+
+            if (Model.Source != null) {
+                <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId, @Model.Source.Id)" value="@routeName" />
+            }
+            else {
+                <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId, @Model.PostId)" value="@routeName" />
+            }
+
         }
 
 
@@ -43,4 +50,6 @@
             <input type="button" value="Delete" onclick="DeletePost(@Model.PostId)" />
         }
     }
+
+    <label>Notes: @Model.PostCount</label>
 </div>

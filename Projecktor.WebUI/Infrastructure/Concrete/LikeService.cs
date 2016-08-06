@@ -25,12 +25,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             texts = context.Texts;
         }
 
-        public Like Like(int userId, int postId)
+        public Like Like(int userId, int postId, int sourceId)
         {
             var like = new Like()
             {
                 UserId = userId,
                 PostId = postId,
+                SourceId = sourceId,
                 DateCreated = DateTime.Now
             };
 

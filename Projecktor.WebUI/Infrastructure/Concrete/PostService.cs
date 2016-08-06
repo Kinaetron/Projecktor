@@ -15,6 +15,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly IPostRepository posts;
         private readonly ITextRepository texts;
         private readonly IUserRepository users;
+        private readonly ILikeRepository likes;
 
         public PostService(IContext context)
         {
@@ -22,6 +23,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             posts = context.Posts;
             texts = context.Texts;
             users = context.Users;
+            likes = context.Likes;
         }
 
         public Post Getby(int id) {
@@ -103,6 +105,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             {
                 TextId = post.TextId,
                 Author = users.Find(u => u.Id == post.AuthorId),
+                PostCount = posts.FindAll(c => c.SourceId == post.SourceId && post.SourceId != 0).Count(),
                 Text = texts.Find(t => t.Id == post.TextId).Post,
                 TimePosted = post.DateCreated,
                 ReblogedFrom = users.Find(u => u.Id == post.ReblogId),
@@ -130,6 +133,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
                 model.Source = posts.Find(u => u.Id == p.SourceId);
 
+                if (p.SourceId > 0) {
+                    model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
+                                      likes.FindAll(l => l.SourceId == p.SourceId).Count();
+                }
+                else {
+                    model.PostCount = posts.FindAll(c => c.SourceId == p.Id).Count() +
+                                      likes.FindAll(l => l.SourceId == p.Id).Count();
+                }
+
                 modelPosts.Add(model);
             }
 
@@ -155,6 +167,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
                 model.Source = posts.Find(u => u.Id == p.SourceId);
 
+                if(p.SourceId > 0) {
+                    model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
+                                      likes.FindAll(l => l.SourceId == p.SourceId).Count();
+                }
+                else {
+                    model.PostCount = posts.FindAll(c => c.SourceId == p.Id).Count() +
+                                      likes.FindAll(l => l.SourceId == p.Id).Count();
+                }
 
                 timeline.Add(model);
             }

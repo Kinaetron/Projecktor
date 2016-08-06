@@ -9,6 +9,7 @@ namespace Projecktor.Domain.Entites
         public int Id { get; set; }
         public int UserId { get; set; }
         public int PostId { get; set; }
+        public int SourceId { get; set; }
         public DateTime DateCreated { get; set; }
 
         [ForeignKey("UserId")]

@@ -8,6 +8,7 @@ namespace Projecktor.WebUI.Models
     {
         public int PostId { get; set; }
         public int TextId { get; set; }
+        public int PostCount { get; set; }
 
         public User Author { get; set; }
         public User ReblogedFrom { get; set; }

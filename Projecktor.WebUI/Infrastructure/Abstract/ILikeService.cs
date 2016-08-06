@@ -7,7 +7,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
 {
     public interface ILikeService
     {
-        Like Like(int userId, int postId);
+        Like Like(int userId, int postId, int sourceId);
         Like Unlike(Like like);
         IEnumerable<TextPostViewModel> GetLikesFor(int userId);
      }
