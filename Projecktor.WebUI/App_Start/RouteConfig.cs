@@ -86,6 +86,11 @@ namespace Projecktor.WebUI
                  defaults: new { controller = "dashboard", action = "likes" });
 
             routes.MapRoute(
+                   name: "Post",
+                   url: "post/{id}",
+                   defaults: new { controller = "home", action = "post" });
+
+            routes.MapRoute(
                     name: "Default",
                     url:  "{action}",
                     defaults: new { controller = "home", action = "index" });

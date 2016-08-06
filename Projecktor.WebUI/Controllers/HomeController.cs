@@ -24,11 +24,9 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            //var userPosts = TextPosts.GetPostsFor(user.Id);
+            var userPosts = Posts.GetPostsFor(user.Id).ToList();
 
-            //return View("UserPage", userPosts);
-
-            throw new NotImplementedException();
+            return View("UserPage", userPosts);
         }
 
         public ActionResult Likes(string subdomain)
@@ -38,11 +36,32 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var user = Users.GetAllFor(subdomain);
-            //var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
+            var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
 
-            //return View("Likes", likeLine);
+            return View("UserPage", likeLine);
 
             throw new NotImplementedException();
+        }
+
+        public ActionResult Post(string subdomain, int id)
+        {
+            if (Security.IsAuthenticated == false && subdomain == null) {
+                return View("Register", new RegisterViewModel());
+            }
+
+           var user = Users.GetAllFor(subdomain);
+
+            if (user == null) {
+                return new HttpNotFoundResult();
+            }
+
+            var post = Posts.GetPost(id);
+
+            if(user.Id != post.Author.Id) {
+                return new HttpNotFoundResult();
+            }
+
+            return View("Post", post);
         }
 
         [HttpGet]

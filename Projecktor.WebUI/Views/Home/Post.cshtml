@@ -1,0 +1,7 @@
+﻿@model TextPostViewModel
+
+@{
+    ViewBag.Title = Model.Author.Username;
+}
+
+@Html.Partial("_TextPostModelPartial", Model);

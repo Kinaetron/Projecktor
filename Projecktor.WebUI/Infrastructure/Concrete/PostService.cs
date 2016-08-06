@@ -95,11 +95,28 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             context.SaveChanges();
         }
 
+        public TextPostViewModel GetPost(int postId)
+        {
+            var post = posts.Find(postId);
+
+            TextPostViewModel model = new TextPostViewModel()
+            {
+                TextId = post.TextId,
+                Author = users.Find(u => u.Id == post.AuthorId),
+                Text = texts.Find(t => t.Id == post.TextId).Post,
+                TimePosted = post.DateCreated,
+                ReblogedFrom = users.Find(u => u.Id == post.ReblogId),
+                Source = posts.Find(u => u.Id == post.SourceId)
+            };
+
+            return model;
+        }
+
         public IEnumerable<TextPostViewModel> GetPostsFor(int userId)
         {
             List<TextPostViewModel> modelPosts = new List<TextPostViewModel>();
 
-            var userTextPosts = posts.FindAll(p => p.AuthorId == userId);
+            var userTextPosts = posts.FindAll(p => p.AuthorId == userId).ToList();
 
 
             foreach (var p in userTextPosts)
@@ -111,7 +128,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Text = texts.Find(t => t.Id == p.TextId).Post;
                 model.TimePosted = p.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
-                model.Source = users.Find(u => u.Id == p.SourceId);
+                model.Source = posts.Find(u => u.Id == p.SourceId);
 
                 modelPosts.Add(model);
             }
@@ -136,7 +153,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Text = texts.Find(t => t.Id == p.TextId).Post;
                 model.TimePosted = p.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
-                model.Source = users.Find(u => u.Id == p.SourceId);
+                model.Source = posts.Find(u => u.Id == p.SourceId);
 
 
                 timeline.Add(model);

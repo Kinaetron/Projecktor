@@ -13,6 +13,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         Post Reblog(int userId, int textId, int reblogId, int sourceId);
         void Delete(int id);
         void DeleteReblog(int id);
+        TextPostViewModel GetPost(int postId);
         IEnumerable<TextPostViewModel> GetPostsFor(int userId);
         IEnumerable<TextPostViewModel> GetTimeLineFor(int userId);
     }

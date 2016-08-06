@@ -65,7 +65,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Text = texts.Find(t => t.Id == details.TextId).Post;
                 model.TimePosted = like.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == details.ReblogId);
-                model.Source = users.Find(u => u.Id == details.SourceId);
+                model.Source = posts.Find(u => u.Id == details.SourceId);
 
                 postLikes.Add(model);
             }

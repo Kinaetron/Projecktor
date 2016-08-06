@@ -11,7 +11,7 @@ namespace Projecktor.WebUI.Models
 
         public User Author { get; set; }
         public User ReblogedFrom { get; set; }
-        public User Source { get; set; }
+        public Post Source { get; set; }
         public string Text { get; set; }
 
         public DateTime TimePosted { get; set; }
