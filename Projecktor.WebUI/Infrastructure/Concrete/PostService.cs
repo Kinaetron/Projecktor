@@ -101,16 +101,23 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             var post = posts.Find(postId);
 
-            TextPostViewModel model = new TextPostViewModel()
-            {
-                TextId = post.TextId,
-                Author = users.Find(u => u.Id == post.AuthorId),
-                PostCount = posts.FindAll(c => c.SourceId == post.SourceId && post.SourceId != 0).Count(),
-                Text = texts.Find(t => t.Id == post.TextId).Post,
-                TimePosted = post.DateCreated,
-                ReblogedFrom = users.Find(u => u.Id == post.ReblogId),
-                Source = posts.Find(u => u.Id == post.SourceId)
-            };
+            TextPostViewModel model = new TextPostViewModel();
+
+            model.TextId = post.TextId;
+            model.Author = users.Find(u => u.Id == post.AuthorId);
+            model.Text = texts.Find(t => t.Id == post.TextId).Post;
+            model.TimePosted = post.DateCreated;
+            model.ReblogedFrom = users.Find(u => u.Id == post.ReblogId);
+            model.Source = posts.Find(u => u.Id == post.SourceId);
+
+            if (post.SourceId > 0) {
+                model.PostCount = posts.FindAll(c => c.SourceId == post.SourceId).Count() +
+                                  likes.FindAll(l => l.SourceId == post.SourceId).Count();
+            }
+            else {
+                model.PostCount = posts.FindAll(c => c.SourceId == post.Id).Count() +
+                                  likes.FindAll(l => l.SourceId == post.Id).Count();
+            }
 
             return model;
         }

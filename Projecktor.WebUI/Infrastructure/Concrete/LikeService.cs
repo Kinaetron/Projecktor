@@ -68,6 +68,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.ReblogedFrom = users.Find(u => u.Id == details.ReblogId);
                 model.Source = posts.Find(u => u.Id == details.SourceId);
 
+                if (like.SourceId > 0) {
+                    model.PostCount = posts.FindAll(c => c.SourceId == like.SourceId).Count() +
+                                      likes.FindAll(l => l.SourceId == like.SourceId).Count();
+                }
+                else {
+                    model.PostCount = posts.FindAll(c => c.SourceId == like.Id).Count() +
+                                      likes.FindAll(l => l.SourceId == like.Id).Count();
+                }
+
                 postLikes.Add(model);
             }
 
