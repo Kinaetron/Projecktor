@@ -51,5 +51,13 @@
         }
     }
 
-    <label>Notes: @Model.PostCount</label>
+    @if (Model.ReblogedFrom == null) {
+        <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Author.Id, action = "notes" })</label>
+    }
+    else {
+        <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Source.Id, action = "notes" })</label>
+    }
+
+
+
 </div>

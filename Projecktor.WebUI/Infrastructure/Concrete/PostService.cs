@@ -188,5 +188,37 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             return timeline.OrderByDescending(t => t.TimePosted);
         }
+
+        public IEnumerable<Note> Notes(int postId)
+        {
+            List<Note> notes = new List<Note>();
+
+            var userTextPosts = posts.FindAll(p => p.SourceId == postId).ToList();
+
+            foreach (var post in userTextPosts)
+            {
+                Note model = new Note();
+
+                model.Author = users.Find(u => u.Id == post.AuthorId);
+                model.ReblogFrom = users.Find(u => u.Id == post.ReblogId);
+                model.DateCreated = post.DateCreated;
+
+                notes.Add(model);
+            }
+
+            var userLikes = likes.FindAll(l => l.SourceId == postId).ToList();
+
+            foreach (var like in userLikes)
+            {
+                Note model = new Note();
+
+                model.Author = like.User;
+                model.DateCreated = like.DateCreated;
+
+                notes.Add(model);
+            }
+
+            return notes.OrderByDescending(d => d.DateCreated);
+        }
     }
 }

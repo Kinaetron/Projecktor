@@ -64,6 +64,13 @@ namespace Projecktor.WebUI.Controllers
             return View("Post", post);
         }
 
+        public ActionResult Notes(int id)
+        {
+            var notes = Posts.Notes(id);
+
+            return View("Notes", notes);
+        }
+
         [HttpGet]
         public ActionResult Register() {
             return View("Register", new RegisterViewModel());
