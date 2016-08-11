@@ -193,7 +193,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             List<Note> notes = new List<Note>();
 
-            var userTextPosts = posts.FindAll(p => p.SourceId == postId).ToList();
+            var sourceTextPost = posts.Find(p => p.Id == postId);
+
+            Note source = new Note {
+                Source = sourceTextPost.Author
+            };
+            notes.Add(source);
+
+             var userTextPosts = posts.FindAll(p => p.SourceId == postId).ToList();
 
             foreach (var post in userTextPosts)
             {
@@ -218,7 +225,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 notes.Add(model);
             }
 
-            return notes.OrderByDescending(d => d.DateCreated);
+            return notes.OrderBy(d => d.DateCreated);
         }
     }
 }

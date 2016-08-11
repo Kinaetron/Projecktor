@@ -4,17 +4,20 @@
     ViewBag.Title = "Notes";
 }
 
-<h2>Note</h2>
+<h2>Notes</h2>
 
 @if(Model.Any() == true)
 {
     foreach (var note in Model)
     {
-        if(note.ReblogFrom == null) {
+        if (note.Source != null) {
+            <p> @note.Source.Username posted this </p><br />
+        }
+        else if (note.ReblogFrom == null) {
             <p>@note.Author.Username liked this post</p><br/>
         }
         else {
-            <p>@note.Author.Username reblogged this from @note.ReblogFrom.Username</p><br/>
+            <p> @note.Author.Username reblogged this from @note.ReblogFrom.Username</p><br />
         }
     }
 }
