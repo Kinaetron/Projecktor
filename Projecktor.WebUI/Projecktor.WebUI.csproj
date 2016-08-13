@@ -151,10 +151,12 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Abstract\IHashtagService.cs" />
     <Compile Include="Infrastructure\Abstract\ILikeService.cs" />
     <Compile Include="Infrastructure\Abstract\IPostService.cs" />
     <Compile Include="Infrastructure\Abstract\ISecurityService.cs" />
     <Compile Include="Infrastructure\Abstract\IUserService.cs" />
+    <Compile Include="Infrastructure\Concrete\HashtagService.cs" />
     <Compile Include="Infrastructure\Concrete\LikeService.cs" />
     <Compile Include="Infrastructure\Concrete\PostService.cs" />
     <Compile Include="Infrastructure\Concrete\ProjecktorViewPage.cs" />

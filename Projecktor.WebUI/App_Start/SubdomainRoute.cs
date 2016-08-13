@@ -34,7 +34,7 @@ namespace Projecktor.WebUI
             string action = (segments.Length > 0 && segments[0] != "") ? segments[0] : "Index";
 
 
-            int id = (segments.Length > 1 && segments[0] != "") ? int.Parse(segments[1]) : 0;
+            string id = (segments.Length > 1 && segments[0] != "") ? segments[1] : "0";
 
             var routeData = new RouteData(this, new MvcRouteHandler());
             routeData.Values.Add("controller", controller); //Goes to the relevant Controller class

@@ -51,13 +51,23 @@
         }
     }
 
+   @if (Model.Hashtags != null)
+   {
+        <br />
+        <br />
+
+        foreach (var tag in Model.Hashtags) {
+            <label>@Html.RouteLink("#"+tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" })</label>
+       }
+
+        <br />
+        <br />
+   }
+
     @if (Model.ReblogedFrom == null) {
         <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Author.Id, action = "notes" })</label>
     }
     else {
         <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Source.Id, action = "notes" })</label>
     }
-
-
-
 </div>

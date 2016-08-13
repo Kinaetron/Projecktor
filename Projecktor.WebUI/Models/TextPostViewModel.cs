@@ -14,6 +14,7 @@ namespace Projecktor.WebUI.Models
         public User ReblogedFrom { get; set; }
         public Post Source { get; set; }
         public string Text { get; set; }
+        public Hashtag[] Hashtags { get; set; }
 
         public DateTime TimePosted { get; set; }
     }

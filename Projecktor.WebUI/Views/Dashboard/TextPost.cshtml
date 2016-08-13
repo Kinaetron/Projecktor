@@ -11,6 +11,7 @@
     {
         @Html.AntiForgeryToken()
         @Html.TextAreaFor(m => m.TextPost)
+        @Html.TextAreaFor(m => m.Hashtags)
         <input type="submit" value="Post" />
     }
 </p>

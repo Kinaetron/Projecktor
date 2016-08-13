@@ -16,6 +16,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         TextPostViewModel GetPost(int postId);
         IEnumerable<TextPostViewModel> GetPostsFor(int userId);
         IEnumerable<TextPostViewModel> GetTimeLineFor(int userId);
+        IEnumerable<TextPostViewModel> GetTagged(string tag);
         IEnumerable<Note> Notes(int postId);
     }
 }

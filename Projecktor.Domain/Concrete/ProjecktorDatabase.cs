@@ -11,6 +11,7 @@ namespace Projecktor.Domain.Concrete
         public DbSet<Like> Likes { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Text> Texts { get; set; }
+        public DbSet<Hashtag> HashTags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -26,6 +27,7 @@ namespace Projecktor.Domain.Concrete
 
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>().HasMany(u => u.Hashtags);
             modelBuilder.Entity<User>().HasMany(u => u.Likes);
             modelBuilder.Entity<User>().HasMany(u => u.Posts);
             modelBuilder.Entity<User>().HasMany(u => u.Texts);

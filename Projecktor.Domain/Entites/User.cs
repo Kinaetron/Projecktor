@@ -36,6 +36,13 @@ namespace Projecktor.Domain.Entites
             set { likes = value; }
         }
 
+        private ICollection<Hashtag> hashtags;
+        public virtual ICollection<Hashtag> Hashtags
+        {
+            get { return hashtags ?? (hashtags = new Collection<Hashtag>()); }
+            set { hashtags = value; }
+        }
+
         private ICollection<User> following;
         public virtual ICollection<User> Following
         {

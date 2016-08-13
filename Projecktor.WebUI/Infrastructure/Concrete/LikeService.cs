@@ -15,6 +15,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly IPostRepository posts;
         private readonly IUserRepository users;
         private readonly ITextRepository texts;
+        private readonly IHashtagRepository hashtags;
 
         public LikeService(IContext context)
         {
@@ -23,6 +24,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             posts = context.Posts;
             users = context.Users;
             texts = context.Texts;
+            hashtags = context.Hashtags;
         }
 
         public Like Like(int userId, int postId, int sourceId)
@@ -67,6 +69,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.TimePosted = like.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == details.ReblogId);
                 model.Source = posts.Find(u => u.Id == details.SourceId);
+
+                model.Hashtags = hashtags.FindAll(h => h.PostId == details.Id).ToArray();
 
                 if (like.SourceId > 0) {
                     model.PostCount = posts.FindAll(c => c.SourceId == like.SourceId).Count() +

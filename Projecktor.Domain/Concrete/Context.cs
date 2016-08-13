@@ -10,14 +10,15 @@ namespace Projecktor.Domain.Concrete
 
 
         public Context(DbContext context = null, IUserRepository users = null, 
-                       IPostRepository posts = null, ILikeRepository likes = null, ITextRepository texts = null)
+                       IPostRepository posts = null, ILikeRepository likes = null, 
+                       ITextRepository texts = null, IHashtagRepository hashtags = null)
         {
             db = context ?? new ProjecktorDatabase();
             Users = users ?? new UserRepository(db, true);
             Posts = posts ?? new PostRepository(db, true);
             Texts = texts ?? new TextRepository(db, true);
             Likes = likes ?? new LikeRepository(db, true);
-
+            Hashtags = hashtags ?? new HashtagRepository(db, true);
         }
 
         public IUserRepository Users
@@ -39,6 +40,12 @@ namespace Projecktor.Domain.Concrete
         }
 
         public ILikeRepository Likes
+        {
+            get;
+            private set;
+        }
+
+        public IHashtagRepository Hashtags
         {
             get;
             private set;

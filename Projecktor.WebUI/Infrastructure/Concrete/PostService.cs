@@ -16,6 +16,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly ITextRepository texts;
         private readonly IUserRepository users;
         private readonly ILikeRepository likes;
+        private readonly IHashtagRepository hashtags;
 
         public PostService(IContext context)
         {
@@ -24,6 +25,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             texts = context.Texts;
             users = context.Users;
             likes = context.Likes;
+            hashtags = context.Hashtags;
         }
 
         public Post Getby(int id) {
@@ -110,6 +112,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             model.ReblogedFrom = users.Find(u => u.Id == post.ReblogId);
             model.Source = posts.Find(u => u.Id == post.SourceId);
 
+            model.Hashtags = hashtags.FindAll(h => h.PostId == post.Id).ToArray();
+
             if (post.SourceId > 0) {
                 model.PostCount = posts.FindAll(c => c.SourceId == post.SourceId).Count() +
                                   likes.FindAll(l => l.SourceId == post.SourceId).Count();
@@ -139,6 +143,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.TimePosted = p.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
                 model.Source = posts.Find(u => u.Id == p.SourceId);
+
+                model.Hashtags = hashtags.FindAll(h => h.PostId == p.Id).ToArray();
 
                 if (p.SourceId > 0) {
                     model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
@@ -183,12 +189,53 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                                       likes.FindAll(l => l.SourceId == p.Id).Count();
                 }
 
+                model.Hashtags = hashtags.FindAll(h => h.PostId == p.Id).ToArray();
+
                 timeline.Add(model);
             }
 
             return timeline.OrderByDescending(t => t.TimePosted);
         }
 
+
+        public IEnumerable<TextPostViewModel> GetTagged(string tag)
+        {
+            List<TextPostViewModel> taggedPosts = new List<TextPostViewModel>();
+
+            var tags = hashtags.FindAll(h => h.Tag == tag).ToList();
+
+            foreach (var t in tags)
+            {
+                TextPostViewModel model = new TextPostViewModel();
+
+                var tagPost = posts.Find(p => p.Id == t.PostId);
+
+                model.PostId = tagPost.Id;
+                model.TextId = tagPost.TextId;
+                model.Author = users.Find(u => u.Id == tagPost.AuthorId);
+                model.Text = texts.Find(text => text.Id == tagPost.TextId).Post;
+                model.TimePosted = tagPost.DateCreated;
+                model.ReblogedFrom = users.Find(u => u.Id == tagPost.ReblogId);
+                model.Source = posts.Find(u => u.Id == tagPost.SourceId);
+
+                if (tagPost.SourceId > 0)
+                {
+                    model.PostCount = posts.FindAll(c => c.SourceId == tagPost.SourceId).Count() +
+                                      likes.FindAll(l => l.SourceId == tagPost.SourceId).Count();
+                }
+                else
+                {
+                    model.PostCount = posts.FindAll(c => c.SourceId == tagPost.Id).Count() +
+                                      likes.FindAll(l => l.SourceId == tagPost.Id).Count();
+                }
+
+                model.Hashtags = hashtags.FindAll(h => h.PostId == tagPost.Id).ToArray();
+
+                taggedPosts.Add(model);
+            }
+
+            return taggedPosts.OrderByDescending(p => p.TimePosted);
+        }
         public IEnumerable<Note> Notes(int postId)
         {
             List<Note> notes = new List<Note>();

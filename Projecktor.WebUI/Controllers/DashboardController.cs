@@ -113,8 +113,13 @@ namespace Projecktor.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult TextPost(CreateTextPostViewModel model)
         {
-            if(ModelState.IsValid == true) {
-                Posts.Create(Security.UserId, model.TextPost);
+            if(ModelState.IsValid == true)
+            {
+                Post made = Posts.Create(Security.UserId, model.TextPost);
+
+                if(model.Hashtags != null) {
+                    Hashtags.Create(made.Id, model.Hashtags);
+                }
             }
 
             return RedirectToAction("Index", "Dashboard");

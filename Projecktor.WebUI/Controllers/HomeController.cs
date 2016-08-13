@@ -39,11 +39,16 @@ namespace Projecktor.WebUI.Controllers
             var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
 
             return View("UserPage", likeLine);
-
-            throw new NotImplementedException();
         }
 
-        public ActionResult Post(string subdomain, int id)
+        public ActionResult Tagged(string id)
+        {
+            var taggedPosts = Posts.GetTagged(id);
+
+            return View("UserPage", taggedPosts);
+        }
+
+        public ActionResult Post(string subdomain, string id)
         {
             if (Security.IsAuthenticated == false && subdomain == null) {
                 return View("Register", new RegisterViewModel());
@@ -55,7 +60,7 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            var post = Posts.GetPost(id);
+            var post = Posts.GetPost(int.Parse(id));
 
             if(user.Id != post.Author.Id) {
                 return new HttpNotFoundResult();
@@ -64,9 +69,9 @@ namespace Projecktor.WebUI.Controllers
             return View("Post", post);
         }
 
-        public ActionResult Notes(int id)
+        public ActionResult Notes(string id)
         {
-            var notes = Posts.Notes(id);
+            var notes = Posts.Notes(int.Parse(id));
 
             return View("Notes", notes);
         }

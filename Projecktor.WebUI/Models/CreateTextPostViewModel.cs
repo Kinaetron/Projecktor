@@ -7,5 +7,6 @@ namespace Projecktor.WebUI.Models
         [Required]
         [MaxLength(500, ErrorMessage =" Post can't be more than 500 characters")]
         public string TextPost { get; set; }
+        public string Hashtags { get; set; }
     }
 }
