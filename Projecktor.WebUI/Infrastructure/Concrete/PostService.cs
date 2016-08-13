@@ -71,9 +71,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             };
 
             posts.Create(post);
-
             context.SaveChanges();
-
             return post;
         }
 

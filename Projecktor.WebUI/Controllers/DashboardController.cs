@@ -47,7 +47,13 @@ namespace Projecktor.WebUI.Controllers
         [HttpPost]
         public JsonResult Reblog(int textId, int reblogId, int sourceId)
         {
-            Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
+            Post madeReblog = Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
+            Hashtag[] tags = Hashtags.GetHashTagsFor(sourceId).ToArray();
+
+            if (tags != null) {
+                Hashtags.Create(madeReblog.Id, tags);
+            }
+
             return Json(new { msg = "Successful" });
         }
 
@@ -55,6 +61,7 @@ namespace Projecktor.WebUI.Controllers
         public JsonResult DeleteReblog(int postId)
         {
             Posts.DeleteReblog(postId);
+            Hashtags.Delete(postId);
             return Json(new { msg = "Successful" });
         }
 
@@ -129,6 +136,7 @@ namespace Projecktor.WebUI.Controllers
         public JsonResult DeletePost(int postId)
         {
             Posts.Delete(postId);
+            Hashtags.Delete(postId);
             return Json(new { msg = "Successful" });
         }
 

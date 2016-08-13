@@ -36,5 +36,37 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 context.SaveChanges();
             }
         }
+
+        public void Create(int postId, Hashtag[] hashtagArray)
+        {
+            foreach (var tag in hashtagArray)
+            {
+                var entry = new Hashtag()
+                {
+                    PostId = postId,
+                    Tag = tag.Tag
+                };
+
+                hashtags.Create(entry);
+                context.SaveChanges();
+            }
+        }
+
+        public void Delete(int postId)
+        {
+            var deleteHashtags = hashtags.FindAll(h => h.PostId == postId);
+
+            foreach (var tag in deleteHashtags) {
+                hashtags.Delete(tag);
+            }
+
+            context.SaveChanges();
+        }
+
+        public IEnumerable<Hashtag> GetHashTagsFor(int postId)
+        {
+            var getHashtags = hashtags.FindAll(h => h.PostId == postId);
+            return getHashtags;
+        }
     }
 }
