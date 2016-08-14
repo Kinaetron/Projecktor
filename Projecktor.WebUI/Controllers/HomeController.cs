@@ -1,9 +1,8 @@
-﻿using Projecktor.WebUI.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
+using Projecktor.WebUI.Models;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -74,6 +73,19 @@ namespace Projecktor.WebUI.Controllers
             var notes = Posts.Notes(int.Parse(id));
 
             return View("Notes", notes);
+        }
+
+        public ActionResult Search(string id)
+        {
+            SearchModel model = new SearchModel()
+            {
+                FoundPosts = Posts.GetTagged(id),
+                FoundUsers = Users.SearchFor(id)
+            };
+
+            return View("SearchPage", model);
+
+            throw new NotImplementedException();
         }
 
         [HttpGet]

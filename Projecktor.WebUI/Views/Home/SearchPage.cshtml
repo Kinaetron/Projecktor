@@ -1,0 +1,11 @@
+﻿@model SearchModel
+
+<div>
+    @foreach (var user in Model.FoundUsers) {
+        <span>@user.Username</span> @Html.Partial("_FollowButtonPartial", user)<br />
+    }
+</div>
+
+@foreach (var textPost in Model.FoundPosts) {
+    @Html.Partial("_TextPostModelPartial", textPost);
+}

@@ -96,6 +96,11 @@ namespace Projecktor.WebUI
                   defaults: new { controller = "home", action = "tagged" });
 
             routes.MapRoute(
+                  name: "Search",
+                  url:  "search/{id}",
+                  defaults: new { controller = "home", action = "search" });
+
+            routes.MapRoute(
                     name: "Default",
                     url:  "{action}",
                     defaults: new { controller = "home", action = "index" });

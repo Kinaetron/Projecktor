@@ -60,6 +60,11 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                                includeFollowing: true);
         }
 
+        public IEnumerable<User> SearchFor(string username)
+        {
+            return users.FindAll(u => u.Username.Contains(username));
+        }
+
         public User Create(string username, string password, DateTime? created = null)
         {
             var user = new User()

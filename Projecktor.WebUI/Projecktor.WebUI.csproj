@@ -168,6 +168,7 @@
     <Compile Include="Models\Note.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\CreateTextPostViewModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\TextPostViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -197,6 +198,8 @@
     <Content Include="Views\Home\Likes.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Home\Notes.cshtml" />
+    <Content Include="Views\Shared\_Search.cshtml" />
+    <Content Include="Views\Home\SearchPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
