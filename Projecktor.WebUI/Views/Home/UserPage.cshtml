@@ -1,9 +1,9 @@
-﻿@model IEnumerable<TextPostViewModel>
+﻿@model IEnumerable<PostViewModel>
 
 @{
     ViewBag.Title =  "Projecktor External";
 }
 
 @foreach (var textPost in Model) {
-    @Html.Partial("_TextPostModelPartial", textPost);
+    @Html.Partial("_PostModelPartial", textPost);
 }

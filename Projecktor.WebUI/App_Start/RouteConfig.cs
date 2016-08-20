@@ -21,6 +21,11 @@ namespace Projecktor.WebUI
                  defaults: new { controller = "dashboard", action = "textpost" });
 
             routes.MapRoute(
+                name: "ImagePost",
+                url: "imagepost",
+                defaults: new { controller = "dashboard", action = "imagepost" });
+
+            routes.MapRoute(
               name: "Like",
               url:  "like",
               defaults: new { controller = "dashboard", action = "like" });
@@ -99,6 +104,11 @@ namespace Projecktor.WebUI
                   name: "Search",
                   url:  "search/{id}",
                   defaults: new { controller = "home", action = "search" });
+
+            routes.MapRoute(
+                name: "Image",
+                url: "image",
+                defaults: new { controller = "home", action = "image" });
 
             routes.MapRoute(
                     name: "Default",

@@ -32,11 +32,11 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return posts.GetBy(id);
         }
 
-        public Post Create(User user, string blogpost) {
-            return Create(user.Id, blogpost);
+        public Post CreateTextPost(User user, string blogpost) {
+            return CreateTextPost(user.Id, blogpost);
         }
 
-        public Post Create(int userId, string blogpost)
+        public Post CreateTextPost(int userId, string blogpost)
         {
             var text = new Text() {
                 Post = blogpost
@@ -59,16 +59,56 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return post;
         }
 
+        public Post CreateImagePost(User user, string comment, string[] imageLocation) {
+            return CreateImagePost(user.Id, comment, imageLocation);
+        }
+
+        public Post CreateImagePost(int userId, string comment, string[] imageLocation)
+        {
+            var text = new Text() {
+                Post = comment
+            };
+
+            texts.Create(text);
+            context.SaveChanges();
+
+            Post post = new Post();
+
+            post.AuthorId = userId;
+            post.DateCreated = DateTime.Now;
+            post.TextId = text.Id;
+
+            post.Image1 = imageLocation[0];
+            post.Image2 = imageLocation[1];
+            post.Image3 = imageLocation[2];
+            post.Image4 = imageLocation[3];
+            post.Image5 = imageLocation[4];
+            post.Image6 = imageLocation[5];
+
+            posts.Create(post);
+
+            context.SaveChanges();
+
+            return post;
+        }
+
         public Post Reblog(int userId, int textId, int reblogId, int sourceId)
         {
-            var post = new Post()
-            {
-                AuthorId = userId,
-                TextId = textId,
-                ReblogId = reblogId,
-                SourceId = sourceId,
-                DateCreated = DateTime.Now
-            };
+            Post sourcPost = posts.Find(sourceId);
+
+            Post post = new Post();
+
+            post.AuthorId = userId;
+            post.TextId = textId;
+            post.ReblogId = reblogId;
+            post.SourceId = sourceId;
+            post.Image1 = sourcPost.Image1;
+            post.Image2 = sourcPost.Image2;
+            post.Image3 = sourcPost.Image3;
+            post.Image4 = sourcPost.Image4;
+            post.Image5 = sourcPost.Image5;
+            post.Image6 = sourcPost.Image6;
+            post.DateCreated = DateTime.Now;
 
             posts.Create(post);
             context.SaveChanges();
@@ -77,7 +117,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public void Delete(int postId)
         {
-            var post = Getby(postId);
+            Post post = Getby(postId);
 
             foreach (var reference in posts.FindAll(p => p.TextId == post.TextId)) {
                 posts.Delete(reference);
@@ -91,17 +131,17 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public void DeleteReblog(int postId)
         {
-            var post = Getby(postId);
+            Post post = Getby(postId);
 
             posts.Delete(post);
             context.SaveChanges();
         }
 
-        public TextPostViewModel GetPost(int postId)
+        public PostViewModel GetPost(int postId)
         {
-            var post = posts.Find(postId);
+            Post post = posts.Find(postId);
 
-            TextPostViewModel model = new TextPostViewModel();
+            PostViewModel model = new PostViewModel();
 
             model.TextId = post.TextId;
             model.Author = users.Find(u => u.Id == post.AuthorId);
@@ -109,6 +149,25 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             model.TimePosted = post.DateCreated;
             model.ReblogedFrom = users.Find(u => u.Id == post.ReblogId);
             model.Source = posts.Find(u => u.Id == post.SourceId);
+
+            if (post.Image1 != null) {
+                model.Images.Add(post.Image1);
+            }
+            if (post.Image2 != null) {
+                model.Images.Add(post.Image2);
+            }
+            if (post.Image3 != null) {
+                model.Images.Add(post.Image3);
+            }
+            if (post.Image4 != null) {
+                model.Images.Add(post.Image4);
+            }
+            if (post.Image5 != null) {
+                model.Images.Add(post.Image5);
+            }
+            if (post.Image6 != null) {
+                model.Images.Add(post.Image6);
+            }
 
             model.Hashtags = hashtags.FindAll(h => h.PostId == post.Id).ToArray();
 
@@ -124,16 +183,16 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return model;
         }
 
-        public IEnumerable<TextPostViewModel> GetPostsFor(int userId)
+        public IEnumerable<PostViewModel> GetPostsFor(int userId)
         {
-            List<TextPostViewModel> modelPosts = new List<TextPostViewModel>();
+            List<PostViewModel> modelPosts = new List<PostViewModel>();
 
-            var userTextPosts = posts.FindAll(p => p.AuthorId == userId).ToList();
+            List<Post> userTextPosts = posts.FindAll(p => p.AuthorId == userId).ToList();
 
 
             foreach (var p in userTextPosts)
             {
-                TextPostViewModel model = new TextPostViewModel();
+                PostViewModel model = new PostViewModel();
 
                 model.TextId = p.TextId;
                 model.Author = users.Find(u => u.Id == p.AuthorId);
@@ -143,6 +202,25 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Source = posts.Find(u => u.Id == p.SourceId);
 
                 model.Hashtags = hashtags.FindAll(h => h.PostId == p.Id).ToArray();
+
+                if(p.Image1 != null) {
+                    model.Images.Add(p.Image1);
+                }
+                if (p.Image2 != null) {
+                    model.Images.Add(p.Image2);
+                }
+                if (p.Image3 != null) {
+                    model.Images.Add(p.Image3);
+                }
+                if (p.Image4 != null) {
+                    model.Images.Add(p.Image4);
+                }
+                if (p.Image5 != null) {
+                    model.Images.Add(p.Image5);
+                }
+                if (p.Image6 != null) {
+                    model.Images.Add(p.Image6);
+                }
 
                 if (p.SourceId > 0) {
                     model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
@@ -159,16 +237,16 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return modelPosts.OrderByDescending(m => m.TimePosted);
         }
 
-        public IEnumerable<TextPostViewModel> GetTimeLineFor(int userId)
+        public IEnumerable<PostViewModel> GetTimeLineFor(int userId)
         {
-            List<TextPostViewModel> timeline = new List<TextPostViewModel>();
+            List<PostViewModel> timeline = new List<PostViewModel>();
 
-            var timelinePosts = posts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
+            List<Post> timelinePosts = posts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
                                                  t.AuthorId == userId).ToList();
 
             foreach (var p in timelinePosts)
             {
-                TextPostViewModel model = new TextPostViewModel();
+                PostViewModel model = new PostViewModel();
 
                 model.PostId = p.Id;
                 model.TextId = p.TextId;
@@ -178,7 +256,26 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
                 model.Source = posts.Find(u => u.Id == p.SourceId);
 
-                if(p.SourceId > 0) {
+                if (p.Image1 != null) {
+                    model.Images.Add(p.Image1);
+                }
+                if (p.Image2 != null) {
+                    model.Images.Add(p.Image2);
+                }
+                if (p.Image3 != null) {
+                    model.Images.Add(p.Image3);
+                }
+                if (p.Image4 != null) {
+                    model.Images.Add(p.Image4);
+                }
+                if (p.Image5 != null) {
+                    model.Images.Add(p.Image5);
+                }
+                if (p.Image6 != null) {
+                    model.Images.Add(p.Image6);
+                }
+
+                if (p.SourceId > 0) {
                     model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
                                       likes.FindAll(l => l.SourceId == p.SourceId).Count();
                 }
@@ -196,15 +293,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         }
 
 
-        public IEnumerable<TextPostViewModel> GetTagged(string tag)
+        public IEnumerable<PostViewModel> GetTagged(string tag)
         {
-            List<TextPostViewModel> taggedPosts = new List<TextPostViewModel>();
+            List<PostViewModel> taggedPosts = new List<PostViewModel>();
 
-            var tags = hashtags.FindAll(h => h.Tag == tag).ToList();
+            List<Hashtag> tags = hashtags.FindAll(h => h.Tag == tag).ToList();
 
             foreach (var t in tags)
             {
-                TextPostViewModel model = new TextPostViewModel();
+                PostViewModel model = new PostViewModel();
 
                 var tagPost = posts.Find(p => p.Id == t.PostId);
 
@@ -215,6 +312,25 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.TimePosted = tagPost.DateCreated;
                 model.ReblogedFrom = users.Find(u => u.Id == tagPost.ReblogId);
                 model.Source = posts.Find(u => u.Id == tagPost.SourceId);
+
+                if (tagPost.Image1 != null) {
+                    model.Images.Add(tagPost.Image1);
+                }
+                if (tagPost.Image2 != null) {
+                    model.Images.Add(tagPost.Image2);
+                }
+                if (tagPost.Image3 != null) {
+                    model.Images.Add(tagPost.Image3);
+                }
+                if (tagPost.Image4 != null) {
+                    model.Images.Add(tagPost.Image4);
+                }
+                if (tagPost.Image5 != null) {
+                    model.Images.Add(tagPost.Image5);
+                }
+                if (tagPost.Image6 != null) {
+                    model.Images.Add(tagPost.Image6);
+                }
 
                 if (tagPost.SourceId > 0)
                 {
@@ -234,11 +350,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             return taggedPosts.OrderByDescending(p => p.TimePosted);
         }
+
         public IEnumerable<Note> Notes(int postId)
         {
             List<Note> notes = new List<Note>();
 
-            var sourceTextPost = posts.Find(p => p.Id == postId);
+            Post sourceTextPost = posts.Find(p => p.Id == postId);
 
             Note source = new Note {
                 Source = sourceTextPost.Author

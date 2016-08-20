@@ -75,6 +75,7 @@ namespace Projecktor.WebUI.Controllers
             return View("Notes", notes);
         }
 
+
         public ActionResult Search(string id)
         {
             SearchModel model = new SearchModel()
@@ -84,8 +85,11 @@ namespace Projecktor.WebUI.Controllers
             };
 
             return View("SearchPage", model);
+        }
 
-            throw new NotImplementedException();
+        public ActionResult Image(string path)
+        {
+            return File(path, "image");
         }
 
         [HttpGet]

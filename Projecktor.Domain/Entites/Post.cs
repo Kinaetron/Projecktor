@@ -13,6 +13,12 @@ namespace Projecktor.Domain.Entites
         public int TextId { get; set; }
         public int ReblogId { get; set; }
         public int SourceId { get; set; }
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
+        public string Image4 { get; set; }
+        public string Image5 { get; set; }
+        public string Image6 { get; set; }
         public DateTime DateCreated { get; set; }
     }
 }

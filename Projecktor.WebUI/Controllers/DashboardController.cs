@@ -1,8 +1,13 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+
+
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
+
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -110,7 +115,7 @@ namespace Projecktor.WebUI.Controllers
                 FollowData = followers
             });
         }
-
+  
         [HttpGet]
         public ActionResult TextPost() {
             return View("TextPost", new CreateTextPostViewModel());
@@ -122,7 +127,7 @@ namespace Projecktor.WebUI.Controllers
         {
             if(ModelState.IsValid == true)
             {
-                Post made = Posts.Create(Security.UserId, model.TextPost);
+                Post made = Posts.CreateTextPost(Security.UserId, model.TextPost);
 
                 if(model.Hashtags != null) {
                     Hashtags.Create(made.Id, model.Hashtags);
@@ -131,6 +136,37 @@ namespace Projecktor.WebUI.Controllers
 
             return RedirectToAction("Index", "Dashboard");
         }
+
+        [HttpGet]
+        public ActionResult ImagePost() {
+            return View("ImagePost", new CreateImagePostViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ImagePost(CreateImagePostViewModel model)
+        {
+            string[] imagePath = new string[6];
+            HttpPostedFileBase[] images = model.Images.ToArray();
+
+            for (int i = 0; i < model.Images.Count(); i++)
+            {
+                string imageName = Path.GetFileName(images[i].FileName);
+                string physicalPath = Server.MapPath("~/images/" + imageName);
+
+                images[i].SaveAs(physicalPath);
+                imagePath[i] = physicalPath;
+            }
+
+            Post made = Posts.CreateImagePost(Security.UserId, model.Text, imagePath);
+
+            if(model.Hashtags != null) {
+                Hashtags.Create(made.Id, model.Hashtags);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
 
         [HttpPost]
         public JsonResult DeletePost(int postId)

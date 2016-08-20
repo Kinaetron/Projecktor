@@ -8,15 +8,17 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
     public interface IPostService
     {
         Post Getby(int id);
-        Post Create(int userId, string status);
-        Post Create(User user, string status);
+        Post CreateTextPost(int userId, string status);
+        Post CreateTextPost(User user, string status);
+        Post CreateImagePost(int userId, string comment, string[] imageLocation);
+        Post CreateImagePost(User user, string comment,  string[] imageLocation);
         Post Reblog(int userId, int textId, int reblogId, int sourceId);
         void Delete(int id);
         void DeleteReblog(int id);
-        TextPostViewModel GetPost(int postId);
-        IEnumerable<TextPostViewModel> GetPostsFor(int userId);
-        IEnumerable<TextPostViewModel> GetTimeLineFor(int userId);
-        IEnumerable<TextPostViewModel> GetTagged(string tag);
+        PostViewModel GetPost(int postId);
+        IEnumerable<PostViewModel> GetPostsFor(int userId);
+        IEnumerable<PostViewModel> GetTimeLineFor(int userId);
+        IEnumerable<PostViewModel> GetTagged(string tag);
         IEnumerable<Note> Notes(int postId);
     }
 }

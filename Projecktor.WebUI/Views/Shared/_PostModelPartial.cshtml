@@ -1,4 +1,4 @@
-﻿@model TextPostViewModel
+﻿@model PostViewModel
 
 <div class="posts" id="posts_@Model.PostId">
 
@@ -7,6 +7,11 @@
         <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) reblogged</label>
 
         <label>@Html.RouteLink(Model.ReblogedFrom.Username, new { controller = "home", subdomain = Model.ReblogedFrom.Username, action = "index" }) </label><br />
+
+        foreach (var item in Model.Images) {
+		 <img src="@Url.Action("image", "home", new { path = item } )", alt="" />
+	    }
+
         <p>@Model.Text</p>
 
         <label>source: @Html.RouteLink(Model.Source.Author.Username, new { controller = "home", subdomain = Model.Source.Author.Username, id = Model.Source.Id, action = "post" })</label><br /><br />
@@ -14,6 +19,11 @@
     else
     {
         <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) </label><br />
+
+        foreach (var item in Model.Images) {
+		 <img src="@Url.Action("image", "home", new { path = item } )", alt="" />
+	    }
+
             <p>@Model.Text</p>
     }
 

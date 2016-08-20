@@ -6,6 +6,6 @@ namespace Projecktor.WebUI.Models
     public class SearchModel
     {
         public IEnumerable<User> FoundUsers { get; set; }
-        public IEnumerable<TextPostViewModel> FoundPosts { get; set; }
+        public IEnumerable<PostViewModel> FoundPosts { get; set; }
     }
 }

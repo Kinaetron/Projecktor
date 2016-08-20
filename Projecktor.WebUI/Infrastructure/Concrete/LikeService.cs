@@ -51,15 +51,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return like;
         }
 
-        public IEnumerable<TextPostViewModel> GetLikesFor(int userId)
+        public IEnumerable<PostViewModel> GetLikesFor(int userId)
         {
             var userLikes = likes.FindAll(l => l.UserId == userId).ToList();
 
-            List<TextPostViewModel> postLikes = new List<TextPostViewModel>();
+            List<PostViewModel> postLikes = new List<PostViewModel>();
 
             foreach (var like in userLikes)
             {
-                TextPostViewModel model = new TextPostViewModel();
+                PostViewModel model = new PostViewModel();
                 Post details = posts.Find(like.PostId);
 
                 model.PostId = like.PostId;
@@ -71,6 +71,25 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Source = posts.Find(u => u.Id == details.SourceId);
 
                 model.Hashtags = hashtags.FindAll(h => h.PostId == details.Id).ToArray();
+
+                if (details.Image1 != null) {
+                    model.Images.Add(details.Image1);
+                }
+                if (details.Image2 != null) {
+                    model.Images.Add(details.Image2);
+                }
+                if (details.Image3 != null) {
+                    model.Images.Add(details.Image3);
+                }
+                if (details.Image4 != null) {
+                    model.Images.Add(details.Image4);
+                }
+                if (details.Image5 != null) {
+                    model.Images.Add(details.Image5);
+                }
+                if (details.Image6 != null) {
+                    model.Images.Add(details.Image6);
+                }
 
                 if (like.SourceId > 0) {
                     model.PostCount = posts.FindAll(c => c.SourceId == like.SourceId).Count() +
