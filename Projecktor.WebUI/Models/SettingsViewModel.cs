@@ -2,7 +2,7 @@
 
 namespace Projecktor.WebUI.Models
 {
-    public class LoginViewModel
+    public class SettingsViewModel
     {
         [Required(ErrorMessage = "Please enter your username")]
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
@@ -10,5 +10,8 @@ namespace Projecktor.WebUI.Models
 
         [Required(ErrorMessage = "Please enter your password")]
         public string Password { get; set; }
+
+        [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
+        public string Email { get; set; }
     }
 }

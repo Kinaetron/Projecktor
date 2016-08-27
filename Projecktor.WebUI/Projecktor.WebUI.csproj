@@ -171,6 +171,7 @@
     <Compile Include="Models\CreateTextPostViewModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
+    <Compile Include="Models\SettingsViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Home\SearchPage.cshtml" />
     <Content Include="Views\Dashboard\ImagePost.cshtml" />
+    <Content Include="Views\Dashboard\Settings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

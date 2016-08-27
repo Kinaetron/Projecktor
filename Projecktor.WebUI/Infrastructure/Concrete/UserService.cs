@@ -65,12 +65,31 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return users.FindAll(u => u.Username.Contains(username));
         }
 
-        public User Create(string username, string password, DateTime? created = null)
+        public User Settings(string username, string password, string email, int userId)
+        {
+            User user = users.Find(u => u.Id == userId);
+
+            if(username != null) {
+               user.Username = username;
+            }
+            if(password != null) {
+                user.Password = Crypto.HashPassword(password);
+            }
+            if(email != null) {
+                user.Email = email;
+            }
+            context.SaveChanges();
+
+            return user;
+        }
+
+        public User Create(string username, string password, string email, DateTime? created = null)
         {
             var user = new User()
             {
                 Username = username,
                 Password = Crypto.HashPassword(password),
+                Email = email,
                 DateCreated = created.HasValue ? created.Value : DateTime.Now,
             };
 

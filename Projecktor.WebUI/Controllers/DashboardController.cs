@@ -4,7 +4,6 @@ using System.Web;
 using System.Linq;
 using System.Web.Mvc;
 
-
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
 
@@ -194,6 +193,26 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return Json(new { msg = "Successful" });
+        }
+
+        [HttpGet]
+        public ActionResult Settings()
+        {
+            User user = Users.GetBy(Security.UserId);
+            SettingsViewModel settings = new SettingsViewModel()
+            {
+                Username = user.Username,
+                Email = user.Email
+            };
+
+            return View("Settings", settings);
+        }
+
+        [HttpPost]
+        public ActionResult Settings(SettingsViewModel settings)
+        {
+            Users.Settings(settings.Username, settings.Password, settings.Email, Security.UserId);
+            return View("Settings", settings);
         }
 
         [HttpPost]

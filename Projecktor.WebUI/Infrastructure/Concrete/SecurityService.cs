@@ -43,7 +43,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public User CreateUser(RegisterViewModel signupModel, bool login = true)
         {
-            var user = users.Create(signupModel.Username, signupModel.Password);
+            var user = users.Create(signupModel.Username, signupModel.Password, signupModel.Email);
 
             if (login == true) {
                 Login(user);
