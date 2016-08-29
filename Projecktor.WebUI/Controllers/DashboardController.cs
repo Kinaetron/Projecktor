@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
-
+using System.Collections.Generic;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -19,7 +19,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var timeline = Posts.GetTimeLineFor(Security.UserId).ToArray();
+            var timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
 
             return View("Dashboard", timeline);
         }
@@ -88,6 +88,31 @@ namespace Projecktor.WebUI.Controllers
 
             return View(users);
         }
+
+        [HttpGet]
+        public JsonResult GetPosts(int pageIndex, int pageSize)
+        {
+            List<int> postIds = new List<int>();
+            var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+
+            foreach (PostViewModel item in timeline) {
+                postIds.Add(item.PostId);
+            }
+
+            return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ShowPost(List<int> data)
+        {
+            List<PostViewModel> models = new List<PostViewModel>();
+
+            foreach (var number in data) {
+                models.Add(Posts.GetPost(number));
+            }
+
+            return PartialView("_MultiPosts", models);
+        }
+
 
         public ActionResult Followers()
         {
@@ -211,7 +236,7 @@ namespace Projecktor.WebUI.Controllers
         [HttpPost]
         public ActionResult Settings(SettingsViewModel settings)
         {
-            Users.Settings(settings.Username, settings.Password, settings.Email, Security.UserId);
+            Users.Settings(settings.Username, settings.NewPassword, settings.Email, Security.UserId);
             return View("Settings", settings);
         }
 

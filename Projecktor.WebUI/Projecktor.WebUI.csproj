@@ -204,6 +204,7 @@
     <Content Include="Views\Home\SearchPage.cshtml" />
     <Content Include="Views\Dashboard\ImagePost.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
+    <Content Include="Views\Shared\_MultiPosts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

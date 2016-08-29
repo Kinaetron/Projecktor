@@ -143,6 +143,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             PostViewModel model = new PostViewModel();
 
+            model.PostId = post.Id;
             model.TextId = post.TextId;
             model.Author = users.Find(u => u.Id == post.AuthorId);
             model.Text = texts.Find(t => t.Id == post.TextId).Post;

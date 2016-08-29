@@ -7,7 +7,8 @@
         @Html.ValidationSummary() <br />
             <label>Username: </label> @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" }) <br />
             <label>Email: </label>    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" }) <br/>
-            <label>Password: </label> @Html.PasswordFor(m => m.Password, new { placeholder = "Password" }) <br />
+            <label>New Password: </label> @Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password" }) <br />
+            <label>Current Password: </label> @Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Password" }) <br />
             <input type="submit" value="Save" />
     }
 </p>

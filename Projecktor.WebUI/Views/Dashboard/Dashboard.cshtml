@@ -27,6 +27,10 @@
         foreach (var textPost in Model) {
             @Html.Partial("_PostModelPartial", textPost);
         }
+        <div id="container"></div>
+        <div id="progress" style="display:none">
+            <h4>Loading...</h4>
+        </div>
     }
     else
     {
