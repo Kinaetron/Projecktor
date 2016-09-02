@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,7 +19,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
-
             return View("Dashboard", timeline);
         }
 
@@ -31,7 +29,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
-
             return View("Dashboard", likeLine);
         }
 
@@ -44,7 +41,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             Users.Follow(username, Security.GetCurrentUser());
-
             return RedirectToAction("Index", "Dashboard");
         }
 
@@ -78,14 +74,12 @@ namespace Projecktor.WebUI.Controllers
             }
 
             Users.Unfollow(username, Security.GetCurrentUser());
-
             return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult Profiles()
         {
             var users = Users.AllUsers();
-
             return View(users);
         }
 

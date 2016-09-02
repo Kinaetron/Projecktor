@@ -137,51 +137,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             context.SaveChanges();
         }
 
-        public PostViewModel GetPost(int postId)
-        {
-            Post post = posts.Find(postId);
-
-            PostViewModel model = new PostViewModel();
-
-            model.PostId = post.Id;
-            model.TextId = post.TextId;
-            model.Author = users.Find(u => u.Id == post.AuthorId);
-            model.Text = texts.Find(t => t.Id == post.TextId).Post;
-            model.TimePosted = post.DateCreated;
-            model.ReblogedFrom = users.Find(u => u.Id == post.ReblogId);
-            model.Source = posts.Find(u => u.Id == post.SourceId);
-
-            if (post.Image1 != null) {
-                model.Images.Add(post.Image1);
-            }
-            if (post.Image2 != null) {
-                model.Images.Add(post.Image2);
-            }
-            if (post.Image3 != null) {
-                model.Images.Add(post.Image3);
-            }
-            if (post.Image4 != null) {
-                model.Images.Add(post.Image4);
-            }
-            if (post.Image5 != null) {
-                model.Images.Add(post.Image5);
-            }
-            if (post.Image6 != null) {
-                model.Images.Add(post.Image6);
-            }
-
-            model.Hashtags = hashtags.FindAll(h => h.PostId == post.Id).ToArray();
-
-            if (post.SourceId > 0) {
-                model.PostCount = posts.FindAll(c => c.SourceId == post.SourceId).Count() +
-                                  likes.FindAll(l => l.SourceId == post.SourceId).Count();
-            }
-            else {
-                model.PostCount = posts.FindAll(c => c.SourceId == post.Id).Count() +
-                                  likes.FindAll(l => l.SourceId == post.Id).Count();
-            }
-
-            return model;
+        public PostViewModel GetPost(int postId) {
+            return AssignPost(posts.Find(postId));
         }
 
         public IEnumerable<PostViewModel> GetPostsFor(int userId)
@@ -190,48 +147,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             List<Post> userTextPosts = posts.FindAll(p => p.AuthorId == userId).ToList();
 
-
             foreach (var p in userTextPosts)
             {
-                PostViewModel model = new PostViewModel();
-
-                model.TextId = p.TextId;
-                model.Author = users.Find(u => u.Id == p.AuthorId);
-                model.Text = texts.Find(t => t.Id == p.TextId).Post;
-                model.TimePosted = p.DateCreated;
-                model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
-                model.Source = posts.Find(u => u.Id == p.SourceId);
-
-                model.Hashtags = hashtags.FindAll(h => h.PostId == p.Id).ToArray();
-
-                if(p.Image1 != null) {
-                    model.Images.Add(p.Image1);
-                }
-                if (p.Image2 != null) {
-                    model.Images.Add(p.Image2);
-                }
-                if (p.Image3 != null) {
-                    model.Images.Add(p.Image3);
-                }
-                if (p.Image4 != null) {
-                    model.Images.Add(p.Image4);
-                }
-                if (p.Image5 != null) {
-                    model.Images.Add(p.Image5);
-                }
-                if (p.Image6 != null) {
-                    model.Images.Add(p.Image6);
-                }
-
-                if (p.SourceId > 0) {
-                    model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
-                                      likes.FindAll(l => l.SourceId == p.SourceId).Count();
-                }
-                else {
-                    model.PostCount = posts.FindAll(c => c.SourceId == p.Id).Count() +
-                                      likes.FindAll(l => l.SourceId == p.Id).Count();
-                }
-
+                PostViewModel model = AssignPost(p);
                 modelPosts.Add(model);
             }
 
@@ -241,52 +159,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public IEnumerable<PostViewModel> GetTimeLineFor(int userId)
         {
             List<PostViewModel> timeline = new List<PostViewModel>();
-
             List<Post> timelinePosts = posts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
                                                  t.AuthorId == userId).ToList();
 
             foreach (var p in timelinePosts)
             {
-                PostViewModel model = new PostViewModel();
-
-                model.PostId = p.Id;
-                model.TextId = p.TextId;
-                model.Author = users.Find(u => u.Id == p.AuthorId);
-                model.Text = texts.Find(t => t.Id == p.TextId).Post;
-                model.TimePosted = p.DateCreated;
-                model.ReblogedFrom = users.Find(u => u.Id == p.ReblogId);
-                model.Source = posts.Find(u => u.Id == p.SourceId);
-
-                if (p.Image1 != null) {
-                    model.Images.Add(p.Image1);
-                }
-                if (p.Image2 != null) {
-                    model.Images.Add(p.Image2);
-                }
-                if (p.Image3 != null) {
-                    model.Images.Add(p.Image3);
-                }
-                if (p.Image4 != null) {
-                    model.Images.Add(p.Image4);
-                }
-                if (p.Image5 != null) {
-                    model.Images.Add(p.Image5);
-                }
-                if (p.Image6 != null) {
-                    model.Images.Add(p.Image6);
-                }
-
-                if (p.SourceId > 0) {
-                    model.PostCount = posts.FindAll(c => c.SourceId == p.SourceId).Count() +
-                                      likes.FindAll(l => l.SourceId == p.SourceId).Count();
-                }
-                else {
-                    model.PostCount = posts.FindAll(c => c.SourceId == p.Id).Count() +
-                                      likes.FindAll(l => l.SourceId == p.Id).Count();
-                }
-
-                model.Hashtags = hashtags.FindAll(h => h.PostId == p.Id).ToArray();
-
+                PostViewModel model = AssignPost(p);
                 timeline.Add(model);
             }
 
@@ -297,59 +175,60 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public IEnumerable<PostViewModel> GetTagged(string tag)
         {
             List<PostViewModel> taggedPosts = new List<PostViewModel>();
-
             List<Hashtag> tags = hashtags.FindAll(h => h.Tag == tag).ToList();
 
             foreach (var t in tags)
             {
-                PostViewModel model = new PostViewModel();
-
-                var tagPost = posts.Find(p => p.Id == t.PostId);
-
-                model.PostId = tagPost.Id;
-                model.TextId = tagPost.TextId;
-                model.Author = users.Find(u => u.Id == tagPost.AuthorId);
-                model.Text = texts.Find(text => text.Id == tagPost.TextId).Post;
-                model.TimePosted = tagPost.DateCreated;
-                model.ReblogedFrom = users.Find(u => u.Id == tagPost.ReblogId);
-                model.Source = posts.Find(u => u.Id == tagPost.SourceId);
-
-                if (tagPost.Image1 != null) {
-                    model.Images.Add(tagPost.Image1);
-                }
-                if (tagPost.Image2 != null) {
-                    model.Images.Add(tagPost.Image2);
-                }
-                if (tagPost.Image3 != null) {
-                    model.Images.Add(tagPost.Image3);
-                }
-                if (tagPost.Image4 != null) {
-                    model.Images.Add(tagPost.Image4);
-                }
-                if (tagPost.Image5 != null) {
-                    model.Images.Add(tagPost.Image5);
-                }
-                if (tagPost.Image6 != null) {
-                    model.Images.Add(tagPost.Image6);
-                }
-
-                if (tagPost.SourceId > 0)
-                {
-                    model.PostCount = posts.FindAll(c => c.SourceId == tagPost.SourceId).Count() +
-                                      likes.FindAll(l => l.SourceId == tagPost.SourceId).Count();
-                }
-                else
-                {
-                    model.PostCount = posts.FindAll(c => c.SourceId == tagPost.Id).Count() +
-                                      likes.FindAll(l => l.SourceId == tagPost.Id).Count();
-                }
-
-                model.Hashtags = hashtags.FindAll(h => h.PostId == tagPost.Id).ToArray();
-
+                PostViewModel model = AssignPost(posts.Find(p => p.Id == t.PostId));
                 taggedPosts.Add(model);
             }
 
             return taggedPosts.OrderByDescending(p => p.TimePosted);
+        }
+
+        public PostViewModel AssignPost(Post userPost)
+        {
+            PostViewModel model = new PostViewModel();
+
+            model.PostId = userPost.Id;
+            model.TextId = userPost.TextId;
+            model.Author = users.Find(u => u.Id == userPost.AuthorId);
+            model.Text = texts.Find(t => t.Id == userPost.TextId).Post;
+            model.TimePosted = userPost.DateCreated;
+            model.ReblogedFrom = users.Find(u => u.Id == userPost.ReblogId);
+            model.Source = posts.Find(u => u.Id == userPost.SourceId);
+
+            if (userPost.Image1 != null) {
+                model.Images.Add(userPost.Image1);
+            }
+            if (userPost.Image2 != null) {
+                model.Images.Add(userPost.Image2);
+            }
+            if (userPost.Image3 != null) {
+                model.Images.Add(userPost.Image3);
+            }
+            if (userPost.Image4 != null) {
+                model.Images.Add(userPost.Image4);
+            }
+            if (userPost.Image5 != null) {
+                model.Images.Add(userPost.Image5);
+            }
+            if (userPost.Image6 != null) {
+                model.Images.Add(userPost.Image6);
+            }
+
+            model.Hashtags = hashtags.FindAll(h => h.PostId == userPost.Id).ToArray();
+
+            if (userPost.SourceId > 0) {
+                model.PostCount = posts.FindAll(c => c.SourceId == userPost.SourceId).Count() +
+                                  likes.FindAll(l => l.SourceId == userPost.SourceId).Count();
+            }
+            else {
+                model.PostCount = posts.FindAll(c => c.SourceId == userPost.Id).Count() +
+                                  likes.FindAll(l => l.SourceId == userPost.Id).Count();
+            }
+
+            return model;
         }
 
         public IEnumerable<Note> Notes(int postId)

@@ -13,7 +13,6 @@
 	    }
 
         <p>@Model.Text</p>
-
         <label>source: @Html.RouteLink(Model.Source.Author.Username, new { controller = "home", subdomain = Model.Source.Author.Username, id = Model.Source.Id, action = "post" })</label><br /><br />
     }
     else
@@ -23,7 +22,6 @@
         foreach (var item in Model.Images) {
 		 <img src="@Url.Action("image", "home", new { path = item } )", alt="" width="540" />
 	    }
-
             <p>@Model.Text</p>
     }
 
@@ -43,7 +41,6 @@
             }
 
         }
-
 
         if (Model.ReblogedFrom == null) {
             <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" />

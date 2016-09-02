@@ -2,8 +2,7 @@
 
 namespace Projecktor.Domain.Abstract
 {
-    public interface IPostRepository : IRepository<Post>
-    {
+    public interface IPostRepository : IRepository<Post> {
         Post GetBy(int id);
     }
 }

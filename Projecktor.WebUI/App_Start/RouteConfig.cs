@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Projecktor.WebUI
@@ -11,7 +7,7 @@ namespace Projecktor.WebUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
-             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.Add(new SubdomainRoute());
 
@@ -26,34 +22,34 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "imagepost" });
 
             routes.MapRoute(
-              name: "Like",
-              url:  "like",
-              defaults: new { controller = "dashboard", action = "like" });
+                name: "Like",
+                url:  "like",
+                defaults: new { controller = "dashboard", action = "like" });
 
             routes.MapRoute(
-             name: "Unlike",
-             url:  "unlike",
-             defaults: new { controller = "dashboard", action = "unlike" });
+                name: "Unlike",
+                url:  "unlike",
+                defaults: new { controller = "dashboard", action = "unlike" });
 
             routes.MapRoute(
-            name: "DeletePost",
-            url:  "deletepost",
-            defaults: new { controller = "dashboard", action = "deletepost" });
+                name: "DeletePost",
+                url:  "deletepost",
+                defaults: new { controller = "dashboard", action = "deletepost" });
 
             routes.MapRoute(
-                   name: "Followers",
-                   url:  "followers",
-                   defaults: new { controller = "dashboard", action = "followers" });
+                name: "Followers",
+                url:  "followers",
+                defaults: new { controller = "dashboard", action = "followers" });
 
             routes.MapRoute(
-                   name: "Following",
-                   url:  "following",
-                   defaults: new { controller = "dashboard", action = "following" });
+                name: "Following",
+                url:  "following",
+                defaults: new { controller = "dashboard", action = "following" });
 
             routes.MapRoute(
-                   name: "Profiles",
-                   url:  "profiles",
-                   defaults: new { controller = "dashboard", action = "profiles" });
+                name: "Profiles",
+                url:  "profiles",
+                defaults: new { controller = "dashboard", action = "profiles" });
 
             routes.MapRoute(
                 name: "Follow",
@@ -66,29 +62,29 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "unfollow" });
 
             routes.MapRoute(
-               name: "Reblog",
-               url: "reblog",
-               defaults: new { controller = "dashboard", action = "reblog" });
+                name: "Reblog",
+                url: "reblog",
+                defaults: new { controller = "dashboard", action = "reblog" });
 
             routes.MapRoute(
-             name: "DeleteReblog",
-             url: "deletereblog",
-             defaults: new { controller = "dashboard", action = "deletereblog" });
+                name: "DeleteReblog",
+                url: "deletereblog",
+                defaults: new { controller = "dashboard", action = "deletereblog" });
 
             routes.MapRoute(
-              name: "Logout",
-              url:  "logout",
-              defaults: new { controller = "dashboard", action = "logout" });
+                name: "Logout",
+                url:  "logout",
+                defaults: new { controller = "dashboard", action = "logout" });
 
             routes.MapRoute(
-                  name: "Dashboard",
-                  url:  "dashboard",
-                  defaults: new { controller = "dashboard", action = "index" });
+                name: "Dashboard",
+                url:  "dashboard",
+                defaults: new { controller = "dashboard", action = "index" });
 
             routes.MapRoute(
-                 name: "Likes",
-                 url: "likes",
-                 defaults: new { controller = "dashboard", action = "likes" });
+                name: "Likes",
+                url: "likes",
+                defaults: new { controller = "dashboard", action = "likes" });
 
             routes.MapRoute(
                 name: "Settings",
@@ -96,29 +92,29 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "settings" });
 
             routes.MapRoute(
-              name: "GetPosts",
-              url: "getposts",
-              defaults: new { controller = "dashboard", action = "getposts" });
+                name: "GetPosts",
+                url: "getposts",
+                defaults: new { controller = "dashboard", action = "getposts" });
 
             routes.MapRoute(
-            name: "ShowPost",
-            url: "showpost",
-            defaults: new { controller = "dashboard", action = "showpost" });
+                name: "ShowPost",
+                url: "showpost",
+                defaults: new { controller = "dashboard", action = "showpost" });
 
             routes.MapRoute(
-                   name: "Post",
-                   url: "post/{id}",
-                   defaults: new { controller = "home", action = "post" });
+                name: "Post",
+                url: "post/{id}",
+                defaults: new { controller = "home", action = "post" });
 
             routes.MapRoute(
-                  name: "Tagged",
-                  url: "tagged/{id}",
-                  defaults: new { controller = "home", action = "tagged" });
+                name: "Tagged",
+                url: "tagged/{id}",
+                defaults: new { controller = "home", action = "tagged" });
 
             routes.MapRoute(
-                  name: "Search",
-                  url:  "search/{id}",
-                  defaults: new { controller = "home", action = "search" });
+                name: "Search",
+                url:  "search/{id}",
+                defaults: new { controller = "home", action = "search" });
 
             routes.MapRoute(
                 name: "Image",
@@ -126,9 +122,9 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "home", action = "image" });
 
             routes.MapRoute(
-                    name: "Default",
-                    url:  "{action}",
-                    defaults: new { controller = "home", action = "index" });
+                name: "Default",
+                url:  "{action}",
+                defaults: new { controller = "home", action = "index" });
 
         }
     }

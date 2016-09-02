@@ -6,8 +6,7 @@ using System.Data.Entity;
 
 namespace Projecktor.Domain.Concrete
 {
-    public class LikeRepository : EfRepository<Like>, ILikeRepository
-    {
+    public class LikeRepository : EfRepository<Like>, ILikeRepository {
         public LikeRepository(DbContext context, bool sharedContext) : base(context, sharedContext) { }
     }
 }

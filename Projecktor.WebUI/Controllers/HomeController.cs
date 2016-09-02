@@ -24,7 +24,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var userPosts = Posts.GetPostsFor(user.Id).ToList();
-
             return View("UserPage", userPosts);
         }
 
@@ -36,14 +35,12 @@ namespace Projecktor.WebUI.Controllers
 
             var user = Users.GetAllFor(subdomain);
             var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
-
             return View("UserPage", likeLine);
         }
 
         public ActionResult Tagged(string id)
         {
             var taggedPosts = Posts.GetTagged(id);
-
             return View("UserPage", taggedPosts);
         }
 
@@ -64,14 +61,12 @@ namespace Projecktor.WebUI.Controllers
             if(user.Id != post.Author.Id) {
                 return new HttpNotFoundResult();
             }
-
             return View("Post", post);
         }
 
         public ActionResult Notes(string id)
         {
             var notes = Posts.Notes(int.Parse(id));
-
             return View("Notes", notes);
         }
 
@@ -87,8 +82,7 @@ namespace Projecktor.WebUI.Controllers
             return View("SearchPage", model);
         }
 
-        public ActionResult Image(string path)
-        {
+        public ActionResult Image(string path) {
             return File(path, "image");
         }
 
@@ -116,7 +110,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             Security.CreateUser(model);
-
             return View("Login", new LoginViewModel());
         }
 
@@ -144,7 +137,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             Security.Login(model.Username);
-
             return RedirectToAction("Index", "Dashboard");
         }
     }

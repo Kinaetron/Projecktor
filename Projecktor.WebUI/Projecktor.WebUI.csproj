@@ -147,7 +147,6 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjecktorControllerBase.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,8 +194,6 @@
     <Content Include="Views\Dashboard\Following.cshtml" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
-    <Content Include="Views\Dashboard\Likes.cshtml" />
-    <Content Include="Views\Shared\_TextPostPartial.cshtml" />
     <Content Include="Views\Home\Likes.cshtml" />
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Home\Notes.cshtml" />
@@ -205,6 +202,7 @@
     <Content Include="Views\Dashboard\ImagePost.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
     <Content Include="Views\Shared\_MultiPosts.cshtml" />
+    <Content Include="Views\Shared\_Links.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

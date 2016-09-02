@@ -2,7 +2,5 @@
 
 namespace Projecktor.Domain.Abstract
 {
-    public interface ITextRepository : IRepository<Text>
-    {
-    }
+    public interface ITextRepository : IRepository<Text> { }
 }

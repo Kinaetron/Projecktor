@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -37,16 +35,14 @@ namespace Projecktor.WebUI
             string id = (segments.Length > 1 && segments[0] != "") ? segments[1] : "0";
 
             var routeData = new RouteData(this, new MvcRouteHandler());
-            routeData.Values.Add("controller", controller); //Goes to the relevant Controller class
-            routeData.Values.Add("action", action); //Goes to the relevant action method on the specified Controller
-            routeData.Values.Add("subdomain", subdomain); // pass subdomain as argument to action method
-            routeData.Values.Add("id", id); // pass the id as arguement to action method
+            routeData.Values.Add("controller", controller);
+            routeData.Values.Add("action", action);
+            routeData.Values.Add("subdomain", subdomain);
+            routeData.Values.Add("id", id);
             return routeData;
         }
 
-        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
-        {
-            //Implement your formatting Url formating here
+        public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values) {
             return null;
         }
     }
