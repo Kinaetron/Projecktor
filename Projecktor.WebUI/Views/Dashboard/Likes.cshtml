@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PostViewModel>
+
+@{
+    ViewBag.Title = "Likes";
+}
+
+<div>
+    @Html.Partial("_Links")
+
+    @using (var logoutForm = Html.BeginForm("Logout", "Dashboard"))
+    {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Log Out" />
+    }
+</div>
+
+<script src="~/Scripts/actionScripts.js"></script>
+<script src="~/Scripts/infiniteScrollingScript.js"></script>
+<script src="~/Scripts/infintiteScrollingDashboardLikes.js"></script>
+
+@if (Model.Any() == true)
+{
+    foreach (var textPost in Model) {
+        @Html.Partial("_PostModelPartial", textPost);
+    }
+    <div id="container"></div>
+    <div id="progress" style="display:none">
+        <h4>Loading...</h4>
+    </div>
+}
+else
+{
+    <div class="posts">
+        <p>Make a post !</p>
+    </div>
+}

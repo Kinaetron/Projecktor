@@ -1,46 +1,4 @@
-﻿var pageSize = 10;
-var pageIndex = 1;
-
-$(document).ready(function ()
-{
-    $(window).scroll(function ()
-    {
-        if($(window).scrollTop() == $(document).height() - $(window).height()) {
-            GetPosts();
-        }
-    });
-});
-
-function GetPosts()
-{
-  $.ajax
-  ({
-      type: 'GET',
-      url:  'getposts',
-      data: {'pageIndex': JSON.stringify(pageIndex), 'pageSize': JSON.stringify(pageSize) },
-      dataType: 'json',
-      async: 'false',
-      success: function (dataId)
-      {
-          $.post("showpost", $.param({ data: dataId }, true), function (data) {
-              $('#container').append(data);
-          })
-          pageIndex++;
-      },
-      beforeSend: function () {
-          $("#progress").show();
-      },
-      complete: function () {
-          $("#progress").hide();
-      },
-      error: function () {
-          alert("Something went terribly wrong with infinite scrolling " + pageIndex);
-      }
-  })
-}
-
-
-function DeletePost(postId) {
+﻿function DeletePost(postId) {
     $.ajax
     ({
         type: 'POST',

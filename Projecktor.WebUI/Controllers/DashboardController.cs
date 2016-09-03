@@ -28,8 +28,8 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var likeLine = UserLikes.GetLikesFor(Security.UserId).ToArray();
-            return View("Dashboard", likeLine);
+            var likeLine = UserLikes.GetLikesFor(Security.UserId).Take(10).ToArray();
+            return View("Likes", likeLine);
         }
 
         [HttpPost]
@@ -90,6 +90,19 @@ namespace Projecktor.WebUI.Controllers
             var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in timeline) {
+                postIds.Add(item.PostId);
+            }
+
+            return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetLikes(int pageIndex, int pageSize)
+        {
+            List<int> postIds = new List<int>();
+            var likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+
+            foreach (PostViewModel item in likeLine) {
                 postIds.Add(item.PostId);
             }
 

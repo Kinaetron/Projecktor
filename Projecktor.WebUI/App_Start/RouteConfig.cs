@@ -97,6 +97,11 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "getposts" });
 
             routes.MapRoute(
+                name: "GetLikes",
+                url: "getlikes",
+                defaults: new { controller = "dashboard", action = "getlikes" });
+
+            routes.MapRoute(
                 name: "ShowPost",
                 url: "showpost",
                 defaults: new { controller = "dashboard", action = "showpost" });

@@ -31,6 +31,11 @@ namespace Projecktor.WebUI
             string controller = "Home";
             string action = (segments.Length > 0 && segments[0] != "") ? segments[0] : "Index";
 
+            if (action.Contains("?") == true) {
+                string[] segs = action.TrimStart('?').Split('?');
+                action = segs[0];
+            }
+
 
             string id = (segments.Length > 1 && segments[0] != "") ? segments[1] : "0";
 

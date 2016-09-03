@@ -23,7 +23,7 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            var userPosts = Posts.GetPostsFor(user.Id).ToList();
+            var userPosts = Posts.GetPostsFor(user.Id).Take(10).ToList();
             return View("UserPage", userPosts);
         }
 
@@ -34,7 +34,7 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var user = Users.GetAllFor(subdomain);
-            var likeLine = UserLikes.GetLikesFor(user.Id).ToArray();
+            var likeLine = UserLikes.GetLikesFor(user.Id).Take(10).ToArray();
             return View("UserPage", likeLine);
         }
 
