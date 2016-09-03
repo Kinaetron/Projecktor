@@ -1,7 +1,7 @@
 ﻿var pageSize = 10;
 var pageIndex = 1;
 
-function GetPosts(url) {
+function GetPosts(url, showpost) {
     $.ajax
     ({
         type: 'GET',
@@ -10,7 +10,7 @@ function GetPosts(url) {
         dataType: 'json',
         async: 'false',
         success: function (dataId) {
-            $.post("showpost", $.param({ data: dataId }, true), function (data) {
+            $.post(showpost, $.param({ data: dataId }, true), function (data) {
                 $('#container').append(data);
             })
             pageIndex++;

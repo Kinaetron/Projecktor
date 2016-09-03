@@ -136,6 +136,8 @@
     <None Include="Scripts\jquery-3.0.0.intellisense.js" />
     <Content Include="Scripts\infiniteScrollingDashboard.js" />
     <Content Include="Scripts\infiniteScrollingScript.js" />
+    <Content Include="Scripts\infiniteScrollingUserLikes.js" />
+    <Content Include="Scripts\infinteScrollingUserpage.js" />
     <Content Include="Scripts\infintiteScrollingDashboardLikes.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

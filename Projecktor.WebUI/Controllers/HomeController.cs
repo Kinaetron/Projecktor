@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 
 using Projecktor.WebUI.Models;
+using System.Collections.Generic;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -27,6 +28,21 @@ namespace Projecktor.WebUI.Controllers
             return View("UserPage", userPosts);
         }
 
+        [HttpGet]
+        public JsonResult GetUserPosts(string subdomain, int pageIndex, int pageSize)
+        {
+            var user = Users.GetAllFor(subdomain);
+
+            List<int> postIds = new List<int>();
+            var timeline = Posts.GetPostsFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+
+            foreach (PostViewModel item in timeline) {
+                postIds.Add(item.PostId);
+            }
+
+            return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Likes(string subdomain)
         {
             if (Security.IsAuthenticated == false && subdomain == null) {
@@ -35,7 +51,34 @@ namespace Projecktor.WebUI.Controllers
 
             var user = Users.GetAllFor(subdomain);
             var likeLine = UserLikes.GetLikesFor(user.Id).Take(10).ToArray();
-            return View("UserPage", likeLine);
+            return View("Likes", likeLine);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserLikes(string subdomain, int pageIndex, int pageSize)
+        {
+            var user = Users.GetAllFor(subdomain);
+
+            List<int> postIds = new List<int>();
+            var likeLine = UserLikes.GetLikesFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+
+            foreach (PostViewModel item in likeLine) {
+                postIds.Add(item.PostId);
+            }
+
+            return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult ShowUserPost(List<int> data)
+        {
+            List<PostViewModel> models = new List<PostViewModel>();
+
+            foreach (var number in data) {
+                models.Add(Posts.GetPost(number));
+            }
+
+            return PartialView("_MultiPosts", models);
         }
 
         public ActionResult Tagged(string id)

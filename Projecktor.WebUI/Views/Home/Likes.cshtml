@@ -1,19 +1,19 @@
-﻿@model IEnumerable<TextPost>
+﻿@model IEnumerable<PostViewModel>
 
 @{
-    ViewBag.Title = "Likes | Projecktor";
- }
+    ViewBag.Title = "Projecktor | Likes";
+}
 
-@if (Model.Any() == true)
+<script src="~/Scripts/infiniteScrollingScript.js"></script>
+<script src="~/Scripts/infiniteScrollingUserLikes.js"></script>
+
+@foreach (var textPost in Model)
 {
-    foreach (var textPost in Model) {
-        @Html.Partial("_TextPostPartial", textPost);
-    }
+    @Html.Partial("_PostModelPartial", textPost);
 }
-else
-{
-    <div class="posts">
-        <p>Like a post !</p>
-    </div>
-}
+
+<div id="container"></div>
+<div id="progress" style="display:none">
+    <h4>Loading...</h4>
+</div>
 

@@ -122,6 +122,21 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "home", action = "search" });
 
             routes.MapRoute(
+               name: "GetUserPosts",
+               url: "getuserposts",
+               defaults: new { controller = "home", action = "getuserposts" });
+
+            routes.MapRoute(
+                name: "GetUserLikes",
+                url: "getuserlikes",
+                defaults: new { controller = "home", action = "getuserlikes" });
+
+            routes.MapRoute(
+                name: "ShowUserPost",
+                url: "showuserpost",
+                defaults: new { controller = "home", action = "showuserpost" });
+
+            routes.MapRoute(
                 name: "Image",
                 url: "image",
                 defaults: new { controller = "home", action = "image" });
