@@ -220,6 +220,7 @@
     <Content Include="Views\Shared\_MultiPosts.cshtml" />
     <Content Include="Views\Shared\_Links.cshtml" />
     <Content Include="Views\Dashboard\Likes.cshtml" />
+    <Content Include="Views\Shared\_PostAttachment.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
