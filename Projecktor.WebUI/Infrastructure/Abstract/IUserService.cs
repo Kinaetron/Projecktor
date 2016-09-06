@@ -11,6 +11,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         void Unfollow(string username, User Unfollower);
         User GetBy(int id);
         User GetBy(string username);
+        User GetByEmail(string email);
         User GetAllFor(int id);
         User GetAllFor(string username);
         IEnumerable<User> SearchFor(string username);

@@ -32,7 +32,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public bool Authenticate(string username, string password)
         {
-            var user = users.GetBy(username);
+            User user = null;
+
+            if(username.Contains("@") == true) {
+                user = users.GetByEmail(username);
+            }
+            else {
+                user = users.GetBy(username);
+            }
 
             if (user == null) {
                 return false;
@@ -43,7 +50,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public User CreateUser(RegisterViewModel signupModel, bool login = true)
         {
-            var user = users.Create(signupModel.Username, signupModel.Password, signupModel.Email);
+            User user = users.Create(signupModel.Username, signupModel.Password, signupModel.Email);
 
             if (login == true) {
                 Login(user);
@@ -62,7 +69,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public void Login(string username)
         {
-            var user = users.GetBy(username);
+            User user = null;
+
+            if (username.Contains("@") == true) {
+                user = users.GetByEmail(username);
+            }
+            else {
+                user = users.GetBy(username);
+            }
+
             Login(user);
         }
 

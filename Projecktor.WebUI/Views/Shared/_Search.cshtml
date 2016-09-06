@@ -1,5 +1,23 @@
-﻿@using (var searchForm = Html.BeginForm("search", "Home"))
-{
-    @Html.TextBox("id")
-    <input type="submit" value="Search" />
-}
+﻿<script>
+    $(document).ready(function () {
+        $("#searchTerm").keypress(function (event) {
+            if (event.keyCode == 13) {
+                $("#searchButton").click();
+            }
+        })
+
+        var pathname = window.location.pathname;
+        var arr = pathname.split('/');
+        $('#searchTerm').val(arr[2].replace(/\%20/g, ' '));
+    });
+    function SearchLink() {
+        var searchTerm = $('#searchTerm').val();
+        var initUrl = '@Url.Action("search", "home", new { id = "xxxx" })';
+        var url = initUrl.replace("xxxx", searchTerm);
+        location.href = url;
+        return false;
+    }
+</script>
+
+<input type="text" id="searchTerm" />
+<input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />

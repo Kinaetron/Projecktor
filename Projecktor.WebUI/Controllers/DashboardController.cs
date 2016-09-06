@@ -243,6 +243,13 @@ namespace Projecktor.WebUI.Controllers
         [HttpPost]
         public ActionResult Settings(SettingsViewModel settings)
         {
+
+            if (Security.Authenticate(CurrentUser.Username, settings.CurrentPassword) == false)
+            {
+                ModelState.AddModelError("Username", "The password was incorrect");
+                return View("Settings", settings);
+            }
+
             Users.Settings(settings.Username, settings.NewPassword, settings.Email, Security.UserId);
             return View("Settings", settings);
         }

@@ -15,5 +15,8 @@ namespace Projecktor.Domain.Abstract
 
         User GetBy(string username, bool includeTextPosts = false,
                    bool includeFollowers = false, bool includeFollowing = false);
+
+        User GetByEmail(string email, bool includeTextPosts = false,
+                  bool includeFollowers = false, bool includeFollowing = false);
     }
 }

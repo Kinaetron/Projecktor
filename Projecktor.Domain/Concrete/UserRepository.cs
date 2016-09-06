@@ -1,11 +1,7 @@
 ﻿using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Projecktor.Domain.Concrete
 {
@@ -53,6 +49,13 @@ namespace Projecktor.Domain.Concrete
         {
             IQueryable<User> query = BuildUserQuery(includeTextPosts, includeFollowers, includeFollowing);
             return query.SingleOrDefault(u => u.Id == id);
+        }
+
+        public User GetByEmail(string email, bool includeTextPosts = false,
+                          bool includeFollowers = false, bool includeFollowing = false)
+        {
+            IQueryable<User> query = BuildUserQuery(includeTextPosts, includeFollowers, includeFollowing);
+            return query.SingleOrDefault(u => u.Email == email);
         }
 
         private IQueryable<User> BuildUserQuery(bool includeTextPosts, bool includeFollowers, bool includeFollowing)

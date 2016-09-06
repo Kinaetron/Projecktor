@@ -43,6 +43,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public User GetBy(string username) {
             return users.GetBy(username);
         }
+        public User GetByEmail(string email) {
+            return users.GetByEmail(email);
+        }
 
         public User GetAllFor(int id)
         {

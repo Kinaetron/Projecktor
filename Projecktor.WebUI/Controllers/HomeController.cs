@@ -11,7 +11,6 @@ namespace Projecktor.WebUI.Controllers
     {
         public HomeController() : base() { }
 
-        // GET: Home
         public ActionResult Index(string subdomain)
         {
             if(Security.IsAuthenticated == false && subdomain == null) {
@@ -112,7 +111,6 @@ namespace Projecktor.WebUI.Controllers
             var notes = Posts.Notes(int.Parse(id));
             return View("Notes", notes);
         }
-
 
         public ActionResult Search(string id)
         {
