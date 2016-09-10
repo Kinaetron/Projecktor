@@ -8,7 +8,7 @@
 
         <label>@Html.RouteLink(Model.ReblogedFrom.Username, new { controller = "home", subdomain = Model.ReblogedFrom.Username, action = "index" }) </label><br />
 
-        foreach (var item in Model.Images) {
+        foreach (string item in Model.Images) {
 		 <img src="@Url.Action("image", "home", new { path = item } )", alt="" width="540" />
 	    }
 
@@ -19,7 +19,7 @@
     {
         <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) </label><br />
 
-        foreach (var item in Model.Images) {
+        foreach (string item in Model.Images) {
 		 <img src="@Url.Action("image", "home", new { path = item } )", alt="" width="540" />
 	    }
             <p>@Model.Text</p>
@@ -63,7 +63,7 @@
         <br />
         <br />
 
-        foreach (var tag in Model.Hashtags) {
+        foreach (Hashtag tag in Model.Hashtags) {
             <label>@Html.RouteLink("#"+tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" })</label>
        }
 

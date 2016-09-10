@@ -88,7 +88,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public User Create(string username, string password, string email, DateTime? created = null)
         {
-            var user = new User()
+            User user = new User()
             {
                 Username = username,
                 Password = Crypto.HashPassword(password),

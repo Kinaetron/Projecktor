@@ -6,6 +6,6 @@
     }
 </div>
 
-@foreach (var textPost in Model.FoundPosts) {
+@foreach (PostViewModel textPost in Model.FoundPosts) {
     @Html.Partial("_PostModelPartial", textPost);
 }

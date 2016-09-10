@@ -5,7 +5,7 @@
 }
 
 <div>
-    @foreach (var user in Model) {
+    @foreach (User user in Model) {
         <span>@user.Username</span> @Html.Partial("_FollowButtonPartial", user)<br />
     }
 </div>

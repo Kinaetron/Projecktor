@@ -18,7 +18,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             hashtags = context.Hashtags;
         }
 
-        public void Create(int postId, string hashtagString)
+        public void Create(int postId, int userId, string hashtagString)
         {
             string[] tags = hashtagString.Split(',');
 
@@ -26,9 +26,10 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             {
                 string strippedTag = tag.Trim();
 
-                var entry = new Hashtag()
+                Hashtag entry = new Hashtag()
                 {
                     PostId = postId,
+                    UserId = userId,
                     Tag = strippedTag
                 };
 
@@ -37,13 +38,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             }
         }
 
-        public void Create(int postId, Hashtag[] hashtagArray)
+        public void Create(int postId, int userId, Hashtag[] hashtagArray)
         {
-            foreach (var tag in hashtagArray)
+            foreach (Hashtag tag in hashtagArray)
             {
                 var entry = new Hashtag()
                 {
                     PostId = postId,
+                    UserId = userId,
                     Tag = tag.Tag
                 };
 
@@ -56,7 +58,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             var deleteHashtags = hashtags.FindAll(h => h.PostId == postId);
 
-            foreach (var tag in deleteHashtags) {
+            foreach (Hashtag tag in deleteHashtags) {
                 hashtags.Delete(tag);
             }
 

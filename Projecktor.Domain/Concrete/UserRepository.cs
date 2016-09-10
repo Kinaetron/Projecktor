@@ -15,7 +15,7 @@ namespace Projecktor.Domain.Concrete
 
         public void CreateFollower(string username, User follower)
         {
-            var user = GetBy(username);
+            User user = GetBy(username);
             DbSet.Attach(follower);
 
             user.Followers.Add(follower);
@@ -27,7 +27,7 @@ namespace Projecktor.Domain.Concrete
 
         public void DeleteFollower(string username, User follower)
         {
-            var user = GetBy(username);
+            User user = GetBy(username);
             DbSet.Attach(follower);
 
             user.Followers.Remove(follower);

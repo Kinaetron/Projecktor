@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -6,13 +7,11 @@ using System.Web.Mvc;
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
 using System.Collections.Generic;
-using System;
 
 namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
-        // GET: Home
         public ActionResult Index()
         {
             HttpCookie cookie = Request.Cookies["login"];
@@ -25,7 +24,7 @@ namespace Projecktor.WebUI.Controllers
                 Security.Login(cookie.Value);
             }
 
-            var timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
+            IEnumerable<PostViewModel> timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
             return View("Dashboard", timeline);
         }
 
@@ -35,7 +34,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var likeLine = UserLikes.GetLikesFor(Security.UserId).Take(10).ToArray();
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Take(10).ToArray();
             return View("Likes", likeLine);
         }
 
@@ -58,7 +57,7 @@ namespace Projecktor.WebUI.Controllers
             Hashtag[] tags = Hashtags.GetHashTagsFor(sourceId).ToArray();
 
             if (tags != null) {
-                Hashtags.Create(madeReblog.Id, tags);
+                Hashtags.Create(madeReblog.Id, Security.UserId ,tags);
             }
 
             return Json(new { msg = "Successful" });
@@ -86,7 +85,7 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Profiles()
         {
-            var users = Users.AllUsers();
+            IEnumerable<User> users = Users.AllUsers();
             return View(users);
         }
 
@@ -107,7 +106,7 @@ namespace Projecktor.WebUI.Controllers
         public JsonResult GetLikes(int pageIndex, int pageSize)
         {
             List<int> postIds = new List<int>();
-            var likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in likeLine) {
                 postIds.Add(item.PostId);
@@ -134,7 +133,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var followers = Users.GetAllFor(Security.UserId).Followers;
+            IEnumerable<User> followers = Users.GetAllFor(Security.UserId).Followers;
 
             return View("Followers", new FollowViewModel() {
                 FollowData = followers
@@ -147,7 +146,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var followers = Users.GetAllFor(Security.UserId).Following;
+            IEnumerable<User> followers = Users.GetAllFor(Security.UserId).Following;
 
             return View("Following", new FollowViewModel() {
                 FollowData = followers
@@ -168,7 +167,7 @@ namespace Projecktor.WebUI.Controllers
                 Post made = Posts.CreateTextPost(Security.UserId, model.TextPost);
 
                 if(model.Hashtags != null) {
-                    Hashtags.Create(made.Id, model.Hashtags);
+                    Hashtags.Create(made.Id, Security.UserId, model.Hashtags);
                 }
             }
 
@@ -199,7 +198,7 @@ namespace Projecktor.WebUI.Controllers
             Post made = Posts.CreateImagePost(Security.UserId, model.Text, imagePath);
 
             if(model.Hashtags != null) {
-                Hashtags.Create(made.Id, model.Hashtags);
+                Hashtags.Create(made.Id, Security.UserId, model.Hashtags);
             }
 
             return RedirectToAction("Index", "Dashboard");

@@ -57,7 +57,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             List<PostViewModel> postLikes = new List<PostViewModel>();
 
-            foreach (var like in userLikes)
+            foreach (Like like in userLikes)
             {
                 PostViewModel model = new PostViewModel();
                 Post details = posts.Find(like.PostId);

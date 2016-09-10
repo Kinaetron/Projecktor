@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 
 using Projecktor.WebUI.Models;
+using Projecktor.Domain.Entites;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -37,7 +38,7 @@ namespace Projecktor.WebUI.Controllers
                 }
             }
 
-            var user = Users.GetAllFor(subdomain);
+            User user = Users.GetAllFor(subdomain);
 
             if (user == null) {
                 return new HttpNotFoundResult();
@@ -50,7 +51,7 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetUserPosts(string subdomain, int pageIndex, int pageSize)
         {
-            var user = Users.GetAllFor(subdomain);
+            User user = Users.GetAllFor(subdomain);
 
             List<int> postIds = new List<int>();
             var timeline = Posts.GetPostsFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
@@ -68,18 +69,18 @@ namespace Projecktor.WebUI.Controllers
                 return View("Register", new RegisterViewModel());
             }
 
-            var user = Users.GetAllFor(subdomain);
-            var likeLine = UserLikes.GetLikesFor(user.Id).Take(10).ToArray();
+            User user = Users.GetAllFor(subdomain);
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(user.Id).Take(10).ToArray();
             return View("Likes", likeLine);
         }
 
         [HttpGet]
         public JsonResult GetUserLikes(string subdomain, int pageIndex, int pageSize)
         {
-            var user = Users.GetAllFor(subdomain);
+            User user = Users.GetAllFor(subdomain);
 
             List<int> postIds = new List<int>();
-            var likeLine = UserLikes.GetLikesFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in likeLine) {
                 postIds.Add(item.PostId);
@@ -100,9 +101,17 @@ namespace Projecktor.WebUI.Controllers
             return PartialView("_MultiPosts", models);
         }
 
-        public ActionResult Tagged(string id)
+        public ActionResult Tagged(string subdomain, string id)
         {
-            var taggedPosts = Posts.GetTagged(id);
+            IEnumerable<PostViewModel> taggedPosts;
+
+            if(subdomain == null) {
+                taggedPosts = Posts.GetTagged(id);
+            }
+            else {
+                taggedPosts = Posts.GetTaggedUser(id, subdomain);
+            }
+
             return View("UserPage", taggedPosts);
         }
 
@@ -112,7 +121,7 @@ namespace Projecktor.WebUI.Controllers
                 return View("Register", new RegisterViewModel());
             }
 
-           var user = Users.GetAllFor(subdomain);
+           User user = Users.GetAllFor(subdomain);
 
             if (user == null) {
                 return new HttpNotFoundResult();
@@ -128,7 +137,7 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Notes(string id)
         {
-            var notes = Posts.Notes(int.Parse(id));
+            IEnumerable<Note> notes = Posts.Notes(int.Parse(id));
             return View("Notes", notes);
         }
 

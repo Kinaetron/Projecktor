@@ -2,7 +2,7 @@
 
 @if (Model.Any() == true)
 {
-    foreach (var textPost in Model) {
+    foreach (PostViewModel textPost in Model) {
         @Html.Partial("_PostModelPartial", textPost);
     }
 }

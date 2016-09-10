@@ -1,10 +1,11 @@
-﻿using Projecktor.Domain.Abstract;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+
+using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
 using Projecktor.WebUI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
 {
@@ -46,7 +47,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             context.SaveChanges();
 
-            var post = new Post()
+            Post post = new Post()
             {
                 AuthorId = userId,
                 DateCreated = DateTime.Now,
@@ -65,7 +66,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public Post CreateImagePost(int userId, string comment, string[] imageLocation)
         {
-            var text = new Text() {
+            Text text = new Text() {
                 Post = comment
             };
 
@@ -119,7 +120,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         {
             Post post = Getby(postId);
 
-            foreach (var reference in posts.FindAll(p => p.TextId == post.TextId)) {
+            foreach (Post reference in posts.FindAll(p => p.TextId == post.TextId)) {
                 posts.Delete(reference);
             }
 
@@ -177,7 +178,23 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             List<PostViewModel> taggedPosts = new List<PostViewModel>();
             List<Hashtag> tags = hashtags.FindAll(h => h.Tag == tag).ToList();
 
-            foreach (var t in tags)
+            foreach (Hashtag t in tags)
+            {
+                PostViewModel model = AssignPost(posts.Find(p => p.Id == t.PostId));
+                taggedPosts.Add(model);
+            }
+
+            return taggedPosts.OrderByDescending(p => p.TimePosted);
+        }
+
+        public IEnumerable<PostViewModel> GetTaggedUser(string tag, string username)
+        {
+            User user = users.GetBy(username);
+
+            List<PostViewModel> taggedPosts = new List<PostViewModel>();
+            List<Hashtag> tags = hashtags.FindAll(h => h.Tag == tag && h.UserId == user.Id).ToList();
+
+            foreach (Hashtag t in tags)
             {
                 PostViewModel model = AssignPost(posts.Find(p => p.Id == t.PostId));
                 taggedPosts.Add(model);
@@ -244,7 +261,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
              var userTextPosts = posts.FindAll(p => p.SourceId == postId).ToList();
 
-            foreach (var post in userTextPosts)
+            foreach (Post post in userTextPosts)
             {
                 Note model = new Note();
 
@@ -257,7 +274,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             var userLikes = likes.FindAll(l => l.SourceId == postId).ToList();
 
-            foreach (var like in userLikes)
+            foreach (Like like in userLikes)
             {
                 Note model = new Note();
 

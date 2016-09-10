@@ -10,7 +10,7 @@
 
 @if (Model.FollowData.Any() == true)
 {
-    foreach (var following in Model.FollowData) {
+    foreach (User following in Model.FollowData) {
         <span>@following.Username</span> @Html.Partial("_FollowButtonPartial", following)<br />
     }
 }
