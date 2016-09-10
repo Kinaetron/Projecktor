@@ -208,6 +208,27 @@ namespace Projecktor.WebUI.Controllers
         [HttpPost]
         public JsonResult DeletePost(int postId)
         {
+            Post post = Posts.Getby(postId);
+
+            if(post.Image1 != null) {
+                System.IO.File.Delete(post.Image1);
+            }
+            if (post.Image2 != null) {
+                System.IO.File.Delete(post.Image2);
+            }
+            if (post.Image3 != null) {
+                System.IO.File.Delete(post.Image3);
+            }
+            if (post.Image4 != null) {
+                System.IO.File.Delete(post.Image4);
+            }
+            if (post.Image5 != null) {
+                System.IO.File.Delete(post.Image5);
+            }
+            if (post.Image6 != null) {
+                System.IO.File.Delete(post.Image6);
+            }
+
             Posts.Delete(postId);
             Hashtags.Delete(postId);
             return Json(new { msg = "Successful" });

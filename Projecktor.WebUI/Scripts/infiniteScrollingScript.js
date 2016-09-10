@@ -21,8 +21,5 @@ function GetPosts(url, showpost) {
         complete: function () {
             $("#progress").hide();
         },
-        error: function () {
-            alert("Something went terribly wrong with infinite scrolling " + pageIndex);
-        }
     })
 }
