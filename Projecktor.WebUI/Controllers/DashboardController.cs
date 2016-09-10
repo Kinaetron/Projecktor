@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
 using System.Collections.Generic;
+using System;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -14,8 +15,14 @@ namespace Projecktor.WebUI.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (Security.IsAuthenticated == false) {
+            HttpCookie cookie = Request.Cookies["login"];
+
+            if (Security.IsAuthenticated == false && cookie == null) {
                 return RedirectToAction("Index", "Home");
+            }
+
+            if(Security.IsAuthenticated == false && cookie != null) {
+                Security.Login(cookie.Value);
             }
 
             var timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
@@ -241,6 +248,7 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Settings(SettingsViewModel settings)
         {
 
@@ -259,6 +267,14 @@ namespace Projecktor.WebUI.Controllers
         public ActionResult Logout()
         {
             Security.Logout();
+
+            HttpCookie cookie = Request.Cookies["login"];
+            HttpContext.Response.Cookies.Remove("login");
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            cookie.Value = null;
+            cookie.Domain = null;
+            HttpContext.Response.SetCookie(cookie);
+
             return RedirectToAction("Index", "Home");
         }
     }

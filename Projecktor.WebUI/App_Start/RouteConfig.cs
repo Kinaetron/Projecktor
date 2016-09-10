@@ -145,7 +145,6 @@ namespace Projecktor.WebUI
                 name: "Default",
                 url:  "{action}",
                 defaults: new { controller = "home", action = "index" });
-
         }
     }
 }

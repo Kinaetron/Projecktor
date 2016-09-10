@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+using System.Collections.Generic;
 
 using Projecktor.WebUI.Models;
-using System.Collections.Generic;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -13,8 +14,27 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Index(string subdomain)
         {
-            if(Security.IsAuthenticated == false && subdomain == null) {
+            HttpCookie cookie = Request.Cookies["login"];
+
+            if(Security.IsAuthenticated == false && subdomain == null)
+            {
+                if(cookie != null) {
+                    Security.Login(cookie.Value);
+                    return RedirectToAction("Index", "Dashboard");
+                }
+
                 return View("Register", new RegisterViewModel());
+            }
+
+
+            if(Security.IsAuthenticated == true && subdomain == null) {
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            if(Security.IsAuthenticated == false && subdomain != null) {
+                if (cookie != null) {
+                    Security.Login(cookie.Value);
+                }
             }
 
             var user = Users.GetAllFor(subdomain);
@@ -178,6 +198,12 @@ namespace Projecktor.WebUI.Controllers
             }
 
             Security.Login(model.Username);
+
+            HttpCookie cookie = new HttpCookie("login", Security.GetCurrentUser().Username);
+            cookie.Domain = ".projecktor.com";
+            cookie.Expires = DateTime.Now.AddYears(1);
+            HttpContext.Response.Cookies.Add(cookie);
+
             return RedirectToAction("Index", "Dashboard");
         }
     }

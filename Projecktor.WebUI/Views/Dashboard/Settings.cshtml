@@ -3,7 +3,7 @@
 <p>
     @using (var signupForm = Html.BeginForm("Settings", "Dashboard"))
     {
-
+        @Html.AntiForgeryToken()
         @Html.ValidationSummary() <br />
             <label>Username: </label> @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" }) <br />
             <label>Email: </label>    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" }) <br/>
