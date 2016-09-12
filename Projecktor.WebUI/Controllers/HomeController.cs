@@ -15,7 +15,7 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Index(string subdomain)
         {
-            HttpCookie cookie = Request.Cookies["login"];
+            HttpCookie cookie = Request.Cookies["loggedIn"];
 
             if(Security.IsAuthenticated == false && subdomain == null)
             {
@@ -208,10 +208,10 @@ namespace Projecktor.WebUI.Controllers
 
             Security.Login(model.Username);
 
-            HttpCookie cookie = new HttpCookie("login", Security.GetCurrentUser().Username);
+            HttpCookie cookie = new HttpCookie("loggedIn", Security.GetCurrentUser().Username);
             cookie.Domain = ".projecktor.com";
             cookie.Expires = DateTime.Now.AddYears(1);
-            HttpContext.Response.Cookies.Add(cookie);
+            Response.Cookies.Add(cookie);
 
             return RedirectToAction("Index", "Dashboard");
         }

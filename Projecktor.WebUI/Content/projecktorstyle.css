@@ -2,6 +2,8 @@
     text-align: center;
     color: #FFFFFF;
     background-color: #A77DC2;
+    position: relative;
+    top: 30px;
 }
 
 .posts {
@@ -11,4 +13,9 @@
     text-align: left;
     color: #808080;
     background-color: #FFFFFF;
+}
+
+#navigationBar {
+    position: fixed;
+    right: 850px;
 }

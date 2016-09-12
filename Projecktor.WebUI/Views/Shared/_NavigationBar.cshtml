@@ -21,3 +21,19 @@
 
 <input type="text" id="searchTerm" />
 <input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />
+
+@Html.ActionLink("Home", "Index")
+
+@if (Security.IsAuthenticated == true)
+{
+    @Html.ActionLink("Users", "Profiles")
+    @Html.ActionLink("Following", "Following")
+    @Html.ActionLink("Followers", "Followers")
+    @Html.ActionLink("Likes", "Likes")
+    @Html.ActionLink("Settings", "Settings")
+
+    using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
+        @Html.AntiForgeryToken()
+        <input type="submit" value="Log Out" />
+    }
+}
