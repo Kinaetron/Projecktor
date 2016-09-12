@@ -9,6 +9,7 @@ using Projecktor.Domain.Entites;
 
 namespace Projecktor.WebUI.Controllers
 {
+
     public class HomeController : ProjecktorControllerBase
     {
         public HomeController() : base() { }
@@ -211,7 +212,7 @@ namespace Projecktor.WebUI.Controllers
             HttpCookie cookie = new HttpCookie("loggedIn", Security.GetCurrentUser().Username);
             cookie.Domain = ".projecktor.com";
             cookie.Expires = DateTime.Now.AddYears(1);
-            Response.Cookies.Add(cookie);
+            Response.AppendCookie(cookie);
 
             return RedirectToAction("Index", "Dashboard");
         }
