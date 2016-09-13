@@ -14,7 +14,7 @@ namespace Projecktor.WebUI.Controllers
     {
         public ActionResult Index()
         {
-            HttpCookie cookie = Request.Cookies["login"];
+            HttpCookie cookie = Request.Cookies["loggedIn"];
 
             if (Security.IsAuthenticated == false && cookie == null) {
                 return RedirectToAction("Index", "Home");

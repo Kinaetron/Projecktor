@@ -1,9 +1,13 @@
 ﻿body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
     text-align: center;
     color: #FFFFFF;
     background-color: #A77DC2;
     position: relative;
-    top: 30px;
+    top: 50px;
 }
 
 .posts {
@@ -17,5 +21,7 @@
 
 #navigationBar {
     position: fixed;
-    right: 850px;
+    background-color: #A77DC2;
+    width: 100%;
+    box-shadow: 0 0 0 1px #888888;
 }
