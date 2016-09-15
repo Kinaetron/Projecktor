@@ -152,6 +152,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\imagepostScript.js" />
+    <Content Include="Scripts\scrollup.js" />
     <Content Include="Scripts\textpostScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>

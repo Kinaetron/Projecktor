@@ -26,3 +26,13 @@
     width: 100%;
     box-shadow: 0 0 0 1px #888888;
 }
+
+#toTop {
+    padding: 5px 3px;
+    background: #000;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    right: 5px;
+    display: none;
+}
