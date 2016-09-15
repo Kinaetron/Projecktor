@@ -1,20 +1,16 @@
 ﻿@model CreateImagePostViewModel
 
-@{
-    ViewBag.Title = "ImagePost | Projecktor";
-}
 
-<h2>ImagePost</h2>
-
-<p>
-    @using (var form = Html.BeginForm("ImagePost", "Dashboard", FormMethod.Post, new { enctype ="multipart/form-data" }))
+<div class="imagepostpop pop">
+    @using (var form = Html.BeginForm("ImagePost", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.LabelFor(m => m.Images)
         @Html.TextBoxFor(m => m.Images, new { type = "file", multiple = "multiple" })
         @Html.TextAreaFor(m => m.Text)
         @Html.TextAreaFor(m => m.Hashtags)
-    
+
+        <a class="close" href="/">Cancel</a>
         <input type="submit" value="Post" />
     }
-</p>
+</div>

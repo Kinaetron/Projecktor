@@ -4,13 +4,23 @@
     ViewBag.Title = "Projecktor";
 }
 
-<div>
-    @Html.Partial("_Links")
-</div>
+<link href="~/Content/textpostSheet.css" rel="stylesheet" />
+<link href="~/Content/imagpostSheet.css" rel="stylesheet" />
 
 <script src="~/Scripts/actionScripts.js"></script>
 <script src="~/Scripts/infiniteScrollingScript.js"></script>
 <script src="~/Scripts/infiniteScrollingDashboard.js"></script>
+<script src="~/Scripts/imagepostScript.js"></script>
+<script src="~/Scripts/textpostScript.js"></script>
+
+<div>
+    <a href="/imagepost" id="imagepost">Image Post</a>
+    <a href="/textpost" id="textpost">Text Post</a>
+</div>
+
+@Html.Partial("_TextPost", new CreateTextPostViewModel())
+@Html.Partial("_ImagePost", new CreateImagePostViewModel())
+
 
     @if (Model.Any() == true)
     {

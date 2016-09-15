@@ -22,7 +22,6 @@ namespace Projecktor.WebUI.Models
             get { return images; }
             set { images = value; }
         }
-
         public DateTime TimePosted { get; set; }
     }
 }

@@ -123,7 +123,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\imagpostSheet.css" />
     <Content Include="Content\projecktorstyle.css" />
+    <Content Include="Content\textpostSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\actionScripts.js" />
@@ -149,6 +151,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\imagepostScript.js" />
+    <Content Include="Scripts\textpostScript.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +204,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Dashboard\TextPost.cshtml" />
     <Content Include="Views\Dashboard\Dashboard.cshtml" />
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Shared\_PostModelPartial.cshtml" />
@@ -215,12 +218,12 @@
     <Content Include="Views\Home\Notes.cshtml" />
     <Content Include="Views\Shared\_NavigationBar.cshtml" />
     <Content Include="Views\Home\SearchPage.cshtml" />
-    <Content Include="Views\Dashboard\ImagePost.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
     <Content Include="Views\Shared\_MultiPosts.cshtml" />
-    <Content Include="Views\Shared\_Links.cshtml" />
     <Content Include="Views\Dashboard\Likes.cshtml" />
     <Content Include="Views\Shared\_PostAttachment.cshtml" />
+    <Content Include="Views\Shared\_ImagePost.cshtml" />
+    <Content Include="Views\Shared\_TextPost.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

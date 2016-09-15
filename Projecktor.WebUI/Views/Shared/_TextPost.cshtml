@@ -1,17 +1,13 @@
 ﻿@model CreateTextPostViewModel
 
-@{
-    ViewBag.Title = "TextPost | Projecktor";
-}
-
-<h2>TextPost</h2>
-
-<p>
+<div class="textpostopen open">
     @using (var form = Html.BeginForm("TextPost", "Dashboard"))
     {
         @Html.AntiForgeryToken()
         @Html.TextAreaFor(m => m.TextPost)
         @Html.TextAreaFor(m => m.Hashtags)
+
+        <a class="stop" href="/">Cancel</a>
         <input type="submit" value="Post" />
     }
-</p>
+</div>

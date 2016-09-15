@@ -1,18 +1,8 @@
 ﻿@model IEnumerable<PostViewModel>
 
 @{
-    ViewBag.Title = "Likes";
+    ViewBag.Title = "Likes | Projecktor";
 }
-
-<div>
-    @Html.Partial("_Links")
-
-    @using (var logoutForm = Html.BeginForm("Logout", "Dashboard"))
-    {
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Log Out" />
-    }
-</div>
 
 <script src="~/Scripts/actionScripts.js"></script>
 <script src="~/Scripts/infiniteScrollingScript.js"></script>
