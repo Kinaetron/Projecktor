@@ -1,4 +1,5 @@
 ﻿$(window).scroll(function () {
+
     if ($(this).scrollTop()) {
         $('#toTop').fadeIn();
     } else {
@@ -8,6 +9,6 @@
 
 $(document).ready(function () {
     $("#toTop").click(function () {
-        $("html, body").animate({ scrollTop: 0 }, 500);
+        $("html, body").animate({ scrollTop: 0 }, 200);
     });
 });

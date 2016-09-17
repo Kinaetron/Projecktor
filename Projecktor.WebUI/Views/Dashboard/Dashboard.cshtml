@@ -24,8 +24,8 @@
 
     @if (Model.Any() == true)
     {
-        foreach (PostViewModel textPost in Model) {
-            @Html.Partial("_PostModelPartial", textPost);
+        foreach (PostViewModel post in Model) {
+            @Html.Partial("_PostModelPartial", post);
         }
        @Html.Partial("_PostAttachment")
     }
@@ -35,5 +35,3 @@
             <p>Make a post !</p>
          </div>
     }
-
-<a href="" id="toTop" title="Back to top">To The Top!</a>
