@@ -11,6 +11,8 @@
     });
 
     $('.stop').on('click', function () {
+        $(this).closest('form').find("#TextPost, textarea").val("");
+        $(this).closest('form').find("#Hashtags, textarea").val("");
         unselect($('#textpost'));
         return false;
     });

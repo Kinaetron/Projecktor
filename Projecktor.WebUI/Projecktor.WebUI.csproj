@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\imagpostSheet.css" />
+    <Content Include="Scripts\postValidation.js" />
     <Content Include="Content\projecktorstyle.css" />
     <Content Include="Content\textpostSheet.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

@@ -20,7 +20,12 @@ namespace Projecktor.WebUI.Controllers
 
             if(Security.IsAuthenticated == false && subdomain == null)
             {
-                if(cookie != null) {
+                if(cookie != null)
+                {
+                    cookie.Expires = DateTime.Now.AddYears(1);
+                    cookie.Domain = ".projecktor.com";
+                    Response.Cookies.Add(cookie);
+
                     Security.Login(cookie.Value);
                     return RedirectToAction("Index", "Dashboard");
                 }

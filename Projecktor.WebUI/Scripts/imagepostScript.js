@@ -12,6 +12,9 @@
 
     $('.close').on('click', function () {
         deselect($('#imagepost'));
+        $(this).closest('form').find("#Text, textarea").val("");
+        $(this).closest('form').find("#Hashtags, textarea").val("");
+        $(this).closest('form').find("#Images, input").get(0).files = 0;
         return false;
     });
 });
