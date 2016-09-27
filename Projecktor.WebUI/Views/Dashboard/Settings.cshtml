@@ -4,6 +4,10 @@
     ViewBag.Title = "Settings | Projecktor";
 }
 
+<div id="navigationBar">
+    @Html.Partial("_NavigationBar")
+</div>
+
 <p>
     @using (var signupForm = Html.BeginForm("Settings", "Dashboard"))
     {

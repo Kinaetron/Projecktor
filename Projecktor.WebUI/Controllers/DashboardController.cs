@@ -254,6 +254,28 @@ namespace Projecktor.WebUI.Controllers
             return Json(new { msg = "Successful" });
         }
 
+        public ActionResult Search(string id)
+        {
+            SearchModel model = new SearchModel()
+            {
+                FoundPosts = Posts.GetTagged(id),
+                FoundUsers = Users.SearchFor(id)
+            };
+
+            return View("SearchPage", model);
+        }
+
+        [HttpGet]
+        public JsonResult AutoComplete(string id)
+        {
+            List<string> results = new List<string>();
+
+            results.AddRange(Users.SearchUsername(id));
+            results.AddRange(Posts.GetTagTerms(id));
+
+            return Json(results.OrderBy(q => q).Distinct().Take(5), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Settings()
         {

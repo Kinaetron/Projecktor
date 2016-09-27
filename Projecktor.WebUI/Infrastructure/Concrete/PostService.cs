@@ -187,6 +187,17 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return taggedPosts.OrderByDescending(p => p.TimePosted);
         }
 
+        public IEnumerable<string> GetTagTerms(string tag)
+        {
+            List<Hashtag> tags = hashtags.FindAll(h => h.Tag.Contains(tag)).ToList();
+            List<string> tagTerms = new List<string>();
+
+            foreach (Hashtag tagger in tags) {
+                tagTerms.Add(tagger.Tag);
+            }
+            return tagTerms;
+        }
+
         public IEnumerable<PostViewModel> GetTaggedUser(string tag, string username)
         {
             User user = users.GetBy(username);

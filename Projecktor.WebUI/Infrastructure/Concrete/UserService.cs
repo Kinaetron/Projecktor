@@ -68,6 +68,18 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return users.FindAll(u => u.Username.Contains(username));
         }
 
+        public IEnumerable<string> SearchUsername(string username)
+        {
+            List<string> names = new List<string>();
+            List<User> userList = users.FindAll(u => u.Username.Contains(username)).ToList();
+
+            foreach (User user in userList) {
+                names.Add(user.Username);
+            }
+
+            return names;
+        }
+
         public User Settings(string username, string password, string email, int userId)
         {
             User user = users.Find(u => u.Id == userId);

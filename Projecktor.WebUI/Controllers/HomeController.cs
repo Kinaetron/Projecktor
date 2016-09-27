@@ -147,17 +147,6 @@ namespace Projecktor.WebUI.Controllers
             return View("Notes", notes);
         }
 
-        public ActionResult Search(string id)
-        {
-            SearchModel model = new SearchModel()
-            {
-                FoundPosts = Posts.GetTagged(id),
-                FoundUsers = Users.SearchFor(id)
-            };
-
-            return View("SearchPage", model);
-        }
-
         public ActionResult Image(string path) {
             return File(path, "image");
         }

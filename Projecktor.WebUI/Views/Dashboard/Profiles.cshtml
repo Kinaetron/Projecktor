@@ -4,6 +4,10 @@
     ViewBag.Title = "Profiles";
 }
 
+<div id="navigationBar">
+    @Html.Partial("_NavigationBar")
+</div>
+
 <div>
     @foreach (User user in Model) {
         <span>@user.Username</span> @Html.Partial("_FollowButtonPartial", user)<br />

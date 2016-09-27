@@ -15,6 +15,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         User GetAllFor(int id);
         User GetAllFor(string username);
         IEnumerable<User> SearchFor(string username);
+        IEnumerable<string> SearchUsername(string username);
         User Settings(string username, string password, string email, int userId);
         User Create(string username, string password, string email, DateTime? created = null);
     }

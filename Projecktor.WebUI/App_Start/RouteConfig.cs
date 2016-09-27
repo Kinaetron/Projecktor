@@ -107,19 +107,24 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "showpost" });
 
             routes.MapRoute(
-                name: "Post",
-                url: "post/{id}",
-                defaults: new { controller = "home", action = "post" });
+                name: "Search",
+                url:  "search/{id}",
+                defaults: new { controller = "dashboard", action = "search" });
+
+            routes.MapRoute(
+               name: "Autocomplete",
+               url: "autocomplete",
+               defaults: new { controller = "dashboard", action = "autocomplete" });
+
+            routes.MapRoute(
+               name: "Post",
+               url: "post/{id}",
+               defaults: new { controller = "home", action = "post" });
 
             routes.MapRoute(
                 name: "Tagged",
                 url: "tagged/{id}",
                 defaults: new { controller = "home", action = "tagged" });
-
-            routes.MapRoute(
-                name: "Search",
-                url:  "search/{id}",
-                defaults: new { controller = "home", action = "search" });
 
             routes.MapRoute(
                name: "GetUserPosts",

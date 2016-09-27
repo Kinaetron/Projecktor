@@ -4,6 +4,10 @@
     ViewBag.Title = "Followers | Projecktor";
 }
 
+<div id="navigationBar">
+    @Html.Partial("_NavigationBar")
+</div>
+
 <h2>Followers</h2>
 
 @if(Model.FollowData.Any() == true)

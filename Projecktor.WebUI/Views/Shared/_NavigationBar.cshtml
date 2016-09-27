@@ -1,4 +1,23 @@
 ﻿<script>
+    $(function () {
+        $("#searchTerm").autocomplete({
+            source: function (request, response) {
+                $.ajax(
+            {
+                url: '@Url.Action("autocomplete", "dashboard")',
+                dataType: "json",
+                data: { id: request.term, },
+                success: function (data) {
+                    response(data);
+                }
+            });
+            },
+            select: function (event, ui) {
+                $("#searchButton").click();
+            }
+        });
+    });
+
     $(document).ready(function () {
         $("#searchTerm").keypress(function (event) {
             if (event.keyCode == 13) {
@@ -12,7 +31,7 @@
     });
     function SearchLink() {
         var searchTerm = $('#searchTerm').val();
-        var initUrl = '@Url.Action("search", "home", new { id = "xxxx" })';
+        var initUrl = '@Url.Action("search", "dashboard", new { id = "xxxx" })';
         var url = initUrl.replace("xxxx", searchTerm);
         location.href = url;
         return false;
@@ -23,17 +42,13 @@
 <input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />
 
 @Html.ActionLink("Home", "Index")
+@Html.ActionLink("Users", "Profiles")
+@Html.ActionLink("Following", "Following")
+@Html.ActionLink("Followers", "Followers")
+@Html.ActionLink("Likes", "Likes")
+@Html.ActionLink("Settings", "Settings")
 
-@if (Security.IsAuthenticated == true)
-{
-    @Html.ActionLink("Users", "Profiles")
-    @Html.ActionLink("Following", "Following")
-    @Html.ActionLink("Followers", "Followers")
-    @Html.ActionLink("Likes", "Likes")
-    @Html.ActionLink("Settings", "Settings")
-
-    using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Log Out" />
+    @using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Log Out" />
     }
-}

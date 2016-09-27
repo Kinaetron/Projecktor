@@ -1,5 +1,9 @@
 ﻿@model SearchModel
 
+<div id="navigationBar">
+    @Html.Partial("_NavigationBar")
+</div>
+
 <div>
     @foreach (var user in Model.FoundUsers) {
         <span>@user.Username</span> @Html.Partial("_FollowButtonPartial", user)<br />
