@@ -1,42 +1,4 @@
-﻿<script>
-    $(function () {
-        $("#searchTerm").autocomplete({
-            source: function (request, response) {
-                $.ajax(
-            {
-                url: '@Url.Action("autocomplete", "dashboard")',
-                dataType: "json",
-                data: { id: request.term, },
-                success: function (data) {
-                    response(data);
-                }
-            });
-            },
-            select: function (event, ui) {
-                $("#searchButton").click();
-            }
-        });
-    });
-
-    $(document).ready(function () {
-        $("#searchTerm").keypress(function (event) {
-            if (event.keyCode == 13) {
-                $("#searchButton").click();
-            }
-        })
-
-        var pathname = window.location.pathname;
-        var arr = pathname.split('/');
-        $('#searchTerm').val(arr[2].replace(/\%20/g, ' '));
-    });
-    function SearchLink() {
-        var searchTerm = $('#searchTerm').val();
-        var initUrl = '@Url.Action("search", "dashboard", new { id = "xxxx" })';
-        var url = initUrl.replace("xxxx", searchTerm);
-        location.href = url;
-        return false;
-    }
-</script>
+﻿<script src="~/Scripts/searchScript.js"></script>
 
 <input type="text" id="searchTerm" />
 <input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />

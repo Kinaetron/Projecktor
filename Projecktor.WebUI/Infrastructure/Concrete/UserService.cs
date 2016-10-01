@@ -71,7 +71,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public IEnumerable<string> SearchUsername(string username)
         {
             List<string> names = new List<string>();
-            List<User> userList = users.FindAll(u => u.Username.Contains(username)).ToList();
+            List<User> userList = users.FindAll(u => u.Username.StartsWith(username)).ToList();
 
             foreach (User user in userList) {
                 names.Add(user.Username);

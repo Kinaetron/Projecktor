@@ -189,7 +189,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public IEnumerable<string> GetTagTerms(string tag)
         {
-            List<Hashtag> tags = hashtags.FindAll(h => h.Tag.Contains(tag)).ToList();
+            List<Hashtag> tags = hashtags.FindAll(h => h.Tag.StartsWith(tag)).ToList();
             List<string> tagTerms = new List<string>();
 
             foreach (Hashtag tagger in tags) {
