@@ -9,7 +9,9 @@
         <label>@Html.RouteLink(Model.ReblogedFrom.Username, new { controller = "home", subdomain = Model.ReblogedFrom.Username, action = "index" }) </label><br />
 
         for (int i = 0; i < Model.Images.Count; i++) {
+            <a onclick="Gallery('@Url.Action("image", "home", new { path = Model.Images[i] } )', '@Url.Action("image", "home", new { path = "E:/Programming Projects/Projecktor/Projecktor.WebUI/Images/full_page_vignette.png" } )')">
             <img src="@Url.Action("image", "home", new { path = Model.Images[i] } )" , alt="" width="540" id="@i" />
+            </a>
         }
 
         <p>@Model.Text</p>
@@ -19,8 +21,11 @@
     {
         <label>@Html.RouteLink(Model.Author.Username, new { controller = "home", subdomain = Model.Author.Username, action = "index" }) </label><br />
 
-        for (int i = 0; i < Model.Images.Count; i++) {
-            <img src="@Url.Action("image", "home", new { path = Model.Images[i] } )" , alt="" width="540" id="@i" />
+        for (int i = 0; i < Model.Images.Count; i++)
+        {
+            <a onclick="Gallery('@Url.Action("image", "home", new { path = Model.Images[i] } )', '@Url.Action("image", "home", new { path = "E:/Programming Projects/Projecktor/Projecktor.WebUI/Images/full_page_vignette.png" } )')">
+                <img src="@Url.Action("image", "home", new { path = Model.Images[i] } )" , alt="" width="540" id="@i" />
+            </a>
         }
             <p>@Model.Text</p>
     }
