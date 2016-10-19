@@ -8,10 +8,25 @@
 
         <label>@Html.RouteLink(Model.ReblogedFrom.Username, new { controller = "home", subdomain = Model.ReblogedFrom.Username, action = "index" }) </label><br />
 
-        for (int i = 0; i < Model.Images.Count; i++) {
-            <a onclick="Gallery('@Url.Action("image", "home", new { path = Model.Images[i] } )', '@Url.Action("image", "home", new { path = "E:/Programming Projects/Projecktor/Projecktor.WebUI/Images/full_page_vignette.png" } )')">
-            <img src="@Url.Action("image", "home", new { path = Model.Images[i] } )" , alt="" width="540" id="@i" />
-            </a>
+        for (int i = 0; i < Model.Images.Count; i++)
+        {
+
+            if (Model.Images.Count > 1)
+            {
+                string[] image = Model.Images[i].Split('.');
+
+                <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
+                    <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                </a>
+            }
+            else
+            {
+                string[] image = Model.Images[i].Split('.');
+
+                <a onclick="GalleryOne('@Url.Action("image", "home", new { path = image[0] + "_720." + image[1] } )', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
+                    <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                </a>
+            }
         }
 
         <p>@Model.Text</p>
@@ -23,9 +38,22 @@
 
         for (int i = 0; i < Model.Images.Count; i++)
         {
-            <a onclick="Gallery('@Url.Action("image", "home", new { path = Model.Images[i] } )', '@Url.Action("image", "home", new { path = "E:/Programming Projects/Projecktor/Projecktor.WebUI/Images/full_page_vignette.png" } )')">
-                <img src="@Url.Action("image", "home", new { path = Model.Images[i] } )" , alt="" width="540" id="@i" />
-            </a>
+            if (Model.Images.Count > 1)
+            {
+                string[] image = Model.Images[i].Split('.');
+
+                <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "/Images/full_page_vignette.png" } )')">
+                    <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                </a>
+            }
+            else
+            {
+                string[] image = Model.Images[i].Split('.');
+
+                <a onclick="GalleryOne('@Url.Action("image", "home", new { path = image[0] + "_720." + image[1] } )', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
+                    <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                </a>
+            }
         }
             <p>@Model.Text</p>
     }

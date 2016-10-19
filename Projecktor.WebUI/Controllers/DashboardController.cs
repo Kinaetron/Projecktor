@@ -3,6 +3,9 @@ using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Drawing.Drawing2D;
 
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
@@ -188,11 +191,29 @@ namespace Projecktor.WebUI.Controllers
 
             for (int i = 0; i < model.Images.Count(); i++)
             {
-                string imageName = Path.GetFileName(images[i].FileName);
-                string physicalPath = Server.MapPath("~/images/" + imageName);
+
+                string imageName = "projecktor_" + GetRandomString();
+
+                string imageNameOriginal = imageName + Path.GetExtension(images[i].FileName);
+                string imageName720p = imageName + "_720" + Path.GetExtension(images[i].FileName);
+                string imageName540 = imageName + "_540" + Path.GetExtension(images[i].FileName);
+
+                string folderName = GetRandomString();
+                string filePathOriginal = "~/" + folderName + "/" + imageNameOriginal;
+                string filePath720p = "~/" + folderName + "/" + imageName720p;
+                string filePath540 = "~/" + folderName + "/" + imageName540;
+
+                Directory.CreateDirectory(Server.MapPath(folderName));
+                string physicalPath = Server.MapPath(filePathOriginal);
+
+                Bitmap Image720p = ResizeImage720p(Image.FromStream(images[i].InputStream, true, true));
+                Image720p.Save(Server.MapPath(filePath720p));
+
+                Bitmap Image540 = ResizeImage540(Image.FromStream(images[i].InputStream, true, true));
+                Image540.Save(Server.MapPath(filePath540));
 
                 images[i].SaveAs(physicalPath);
-                imagePath[i] = physicalPath;
+                imagePath[i] = filePathOriginal;
             }
 
             Post made = Posts.CreateImagePost(Security.UserId, model.Text, imagePath);
@@ -210,23 +231,53 @@ namespace Projecktor.WebUI.Controllers
         {
             Post post = Posts.Getby(postId);
 
-            if(post.Image1 != null) {
-                System.IO.File.Delete(post.Image1);
+            if(post.Image1 != null)
+            {
+                System.IO.File.Delete(Server.MapPath(post.Image1));
+
+                string[] image = post.Image1.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
-            if (post.Image2 != null) {
-                System.IO.File.Delete(post.Image2);
+            if (post.Image2 != null)
+            {
+                System.IO.File.Delete(Server.MapPath(post.Image2));
+
+                string[] image = post.Image2.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
-            if (post.Image3 != null) {
-                System.IO.File.Delete(post.Image3);
+            if (post.Image3 != null)
+            {
+                System.IO.File.Delete(Server.MapPath(post.Image3));
+
+                string[] image = post.Image3.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
-            if (post.Image4 != null) {
-                System.IO.File.Delete(post.Image4);
+            if (post.Image4 != null)
+            {
+                System.IO.File.Delete(Server.MapPath(post.Image4));
+
+                string[] image = post.Image4.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
-            if (post.Image5 != null) {
-                System.IO.File.Delete(post.Image5);
+            if (post.Image5 != null)
+            {
+                System.IO.File.Delete(Server.MapPath(post.Image5));
+
+                string[] image = post.Image5.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
-            if (post.Image6 != null) {
+            if (post.Image6 != null)
+            {
                 System.IO.File.Delete(post.Image6);
+
+                string[] image = post.Image6.Split('.');
+                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
+                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
             }
 
             Posts.Delete(postId);
@@ -316,6 +367,86 @@ namespace Projecktor.WebUI.Controllers
 
             Security.Logout();
             return RedirectToAction("Index", "Home");
+        }
+
+        public static string GetRandomString()
+        {
+            string path = Path.GetRandomFileName();
+            path = path.Replace(".", "");
+            return path;
+        }
+
+        public static Bitmap ResizeImage540(Image image)
+        {
+            if (image.Width <= 540 && image.Height <= 810) {
+                return (Bitmap)image;
+            }
+
+            double aspectRatio = (double)image.Width / (double)image.Height;
+            double boxRatio = (double)540 / (double)810;
+            double scaleFactor = 0;
+
+            if(boxRatio > aspectRatio) {
+                scaleFactor = (double)810 / (double)image.Height;
+            }
+            else {
+                scaleFactor = (double)540 / (double)image.Width;
+            }
+
+            double newWidth = (double)image.Width * scaleFactor;
+            double newHeight = (double)image.Height * scaleFactor;
+
+
+            return ResizeImage(image, (int)newWidth, (int)newHeight);
+        }
+
+        public static Bitmap ResizeImage720p(Image image)
+        {
+            if(image.Width <= 1280 && image.Height <= 720) {
+                return (Bitmap)image;
+            }
+
+            double aspectRatio = (double)image.Width / (double)image.Height;
+            double boxRatio = (double)1280 / (double)720;
+            double scaleFactor = 0;
+
+            if (boxRatio > aspectRatio) {
+                scaleFactor = (double)720 / (double)image.Height;
+            }
+            else {
+                scaleFactor = (double)1280 / (double)image.Width;
+            }
+
+            double newWidth = image.Width * scaleFactor;
+            double newHeight = image.Height * scaleFactor;
+
+
+            return ResizeImage(image, (int)newWidth, (int)newHeight);
+        }
+
+        public static Bitmap ResizeImage(Image image, int width, int height)
+        {
+            Rectangle destRect = new Rectangle(0, 0, width, height);
+            var destImage = new Bitmap(width, height);
+
+            destImage.SetResolution(image.HorizontalResolution, image.VerticalResolution);
+
+            using (Graphics graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (ImageAttributes wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 }

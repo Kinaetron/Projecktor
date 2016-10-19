@@ -138,8 +138,13 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "ShowUserPost",
-                url: "showuserpost",
+                url:  "showuserpost",
                 defaults: new { controller = "home", action = "showuserpost" });
+
+            routes.MapRoute(
+              name: "Gallery",
+              url:  "gallery/{id}",
+              defaults: new { controller = "home", action = "gallery" });
 
             routes.MapRoute(
                 name: "Image",

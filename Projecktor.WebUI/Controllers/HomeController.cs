@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
@@ -95,6 +96,33 @@ namespace Projecktor.WebUI.Controllers
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult Gallery(string id)
+        {
+            Post post = Posts.Getby(int.Parse(id));
+            List<string> images = new List<string>();
+
+            if(post.Image1 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image1)));
+            }
+            if (post.Image2 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image2)));
+            }
+            if (post.Image3 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image3)));
+            }
+            if (post.Image4 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image4)));
+            }
+            if (post.Image5 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image5)));
+            }
+            if (post.Image6 != null) {
+                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image6)));
+            }
+
+            return Json(images, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult ShowUserPost(List<int> data)
         {
