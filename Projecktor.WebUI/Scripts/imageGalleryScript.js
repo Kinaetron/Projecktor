@@ -60,43 +60,28 @@ $(document).ready(function() {
 
 function ImageSize() {
 
-    //if (img.naturalWidth >= $(window).width()) {
-    //    $('#centreImage').css("max-width", $(window).width() - img.naturalWidth / 4);
-    //}
-    //else {
-    //    $('#centreImage').css("max-width",img.naturalWidth);
-    //}
-
-    //if (img.naturalHeight >= $(window).height()) {
-    //    $('#centreImage').css("max-height", $(window).height() - img.naturalHeight / 4);
-    //}
-    //else {
-    //    $('#centreImage').css("max-height", img.naturalHeight);
-    //}
-
-    //$('#centreImage').css("width", "100%");
-    //$('#centreImage').css("height", "100%");
-
-    $('#centreImage').css("display", "block");
-
-    $('#centreImage').css("width", "auto");
-    $('#centreImage').css("height", "auto");
-
-
     var img = document.getElementById("centreImage");
 
-    //if (img.naturalWidth >= $(window).width() || img.naturalHeight >= $(window).height()) {
-    //    $('#centreImage').css("max-width", "85%");
-    //    $('#centreImage').css("max-height", "80%");
-    //}
-    //else
-    //{
-        $('#centreImage').css("max-width", "100%");
-        $('#centreImage').css("max-height", "90%");
-    //}
+    var aspectRatio = img.width / img.height;
+    var boxRatio = $(window).width() / $(window).height();
+    var scaleFactor;
 
-    var imgWidth = $("#centreImage").width();
-    var imgHeight = $("#centreImage").height();
+    img.onload = function () {
+        if (boxRatio > aspectRatio) {
+            scaleFactor = $(window).height() / img.height;
+        }
+        else {
+            scaleFactor = $(window).width() / img.width;
+        }
 
-    $("#displayImage").css({ "position": "absolute", "top": "50%", "left": "50%", "margin-top": -imgHeight / 2, "margin-left": -imgWidth / 2 });
+        $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
+
+
+        if (img.naturalWidth > $(window).width() || img.naturalHeight > $(window).height()) {
+            $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": img.height * scaleFactor, "width": img.width * scaleFactor, "left": (-img.width / 2) * scaleFactor, "top": (-img.height / 2) * scaleFactor });
+        }
+        else {
+            $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": img.height, "width": img.width, "left": -img.width / 2, "top": -img.height / 2 });
+        }
+    }
 }
