@@ -44,7 +44,7 @@ function GalleryMany(postNumber, vignetteString) {
 
 $(document).ready(function() {
     $(window).bind("resize", function() {
-        ImageSize();
+        ImageFunc();
     });
 
     $('body').on('click', '#projecktor_lightbox', function () {
@@ -59,8 +59,17 @@ $(document).ready(function() {
 })
 
 
-function ImageSize() {
+function ImageCall()
+{
+    var img = document.getElementById("centreImage");
 
+    img.onload = function () {
+        ImageFunc();
+    }
+}
+
+function ImageFunc()
+{
     var img = document.getElementById("centreImage");
 
     var aspectRatio = img.width / img.height;
@@ -83,33 +92,4 @@ function ImageSize() {
     var newWidth = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
 
     $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": -newWidth / 2, "top": -newHeight / 2 });
-}
-
-function ImageCall()
-{
-    var img = document.getElementById("centreImage");
-
-    img.onload = function ()
-    {
-        var aspectRatio = img.width / img.height;
-        var boxRatio = $(window).width() / $(window).height();
-        var scaleFactor;
-
-        $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
-
-        if (boxRatio > aspectRatio) {
-            scaleFactor = $(window).height() / img.height;
-        }
-        else {
-            scaleFactor = $(window).width() / img.width;
-        }
-
-        var reduceHeightBy = (img.height * scaleFactor / 100) * 15;
-        var reduceWidthBy = (img.width * scaleFactor / 100) * 15;
-
-        var newHeight = Math.min(img.height * scaleFactor - reduceHeightBy, img.naturalHeight);
-        var newWidth = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
-
-        $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": -newWidth / 2, "top": -newHeight / 2 });
-    }
 }
