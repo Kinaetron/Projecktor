@@ -76,8 +76,11 @@ function ImageSize() {
         scaleFactor = $(window).width() / img.width;
     }
 
-    var newHeight = Math.min(img.height * scaleFactor, img.naturalHeight);
-    var newWidth = Math.min(img.width * scaleFactor, img.naturalWidth);
+    var reduceHeightBy = (img.height * scaleFactor / 100) * 15;
+    var reduceWidthBy = (img.width * scaleFactor / 100) * 15;
+
+    var newHeight = Math.min(img.height * scaleFactor - reduceHeightBy, img.naturalHeight);
+    var newWidth = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
 
     $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": -newWidth / 2, "top": -newHeight / 2 });
 }
@@ -101,8 +104,11 @@ function ImageCall()
             scaleFactor = $(window).width() / img.width;
         }
 
-        var newHeight = Math.min(img.height * scaleFactor, img.naturalHeight);
-        var newWidth = Math.min(img.width * scaleFactor, img.naturalWidth);
+        var reduceHeightBy = (img.height * scaleFactor / 100) * 15;
+        var reduceWidthBy = (img.width * scaleFactor / 100) * 15;
+
+        var newHeight = Math.min(img.height * scaleFactor - reduceHeightBy, img.naturalHeight);
+        var newWidth = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
 
         $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": -newWidth / 2, "top": -newHeight / 2 });
     }
