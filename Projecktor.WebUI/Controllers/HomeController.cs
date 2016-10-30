@@ -102,23 +102,37 @@ namespace Projecktor.WebUI.Controllers
             Post post = Posts.Getby(int.Parse(id));
             List<string> images = new List<string>();
 
-            if(post.Image1 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image1)));
+            string[] image;
+
+            if (post.Image1 != null)
+            {
+                image = post.Image1.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
-            if (post.Image2 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image2)));
+            if (post.Image2 != null)
+            {
+                image = post.Image2.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
-            if (post.Image3 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image3)));
+            if (post.Image3 != null)
+            {
+                image = post.Image3.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
-            if (post.Image4 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image4)));
+            if (post.Image4 != null)
+            {
+                image = post.Image4.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
-            if (post.Image5 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image5)));
+            if (post.Image5 != null)
+            {
+                image = post.Image5.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
-            if (post.Image6 != null) {
-                images.Add(Url.Content("~/Images/" + Path.GetFileName(post.Image6)));
+            if (post.Image6 != null)
+            {
+                image = post.Image6.Split('.');
+                images.Add(Url.Content(image[0] + "_720." + image[1]));
             }
 
             return Json(images, JsonRequestBehavior.AllowGet);
