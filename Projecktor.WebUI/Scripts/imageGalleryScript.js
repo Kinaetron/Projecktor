@@ -77,16 +77,35 @@ function ImageFunc()
     var imgLeft = document.getElementById("leftImage");
     var imgRight = document.getElementById("rightImage");
 
-    var aspectRatio = img.width / img.height;
-    var aspectRatioLeft = imgLeft.width / imgLeft.height;
-    var aspectRatioRight = imgRight.width / imgRight.height;
-
     var boxRatio = $(window).width() / $(window).height();
-    var scaleFactor;
-    var scaleFactorLeft;
-    var scaleFactorRight;
 
     $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
+
+    if (imgLeft != null)
+    {
+        var aspectRatioLeft = imgLeft.width / imgLeft.height;
+        var scaleFactorLeft;
+
+        if (boxRatio > aspectRatioLeft) {
+            scaleFactorLeft = $(window).height() / imgLeft.height;
+        }
+        else {
+            scaleFactorLeft = $(window).width() / imgLeft.width;
+        }
+
+        var reduceHeightByLeft = (imgLeft.height * scaleFactorLeft / 100) * 15;
+        var reduceWidthByLeft = (imgLeft.width * scaleFactorLeft / 100) * 15;
+
+        var newHeightLeft = Math.min(imgLeft.height * scaleFactorLeft - reduceHeightByLeft, imgLeft.naturalHeight);
+        var newWidthLeft = Math.min(imgLeft.width * scaleFactorLeft - reduceWidthByLeft, imgLeft.naturalWidth);
+
+        var leftLeft = 0.42 * $(window).width();
+
+        $("#leftImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightLeft, "width": newWidthLeft, "left": leftLeft, "top": -newHeightLeft / 2 });
+    }
+
+    var aspectRatio = img.width / img.height;
+    var scaleFactor;
 
     if (boxRatio > aspectRatio) {
         scaleFactor = $(window).height() / img.height;
@@ -95,39 +114,39 @@ function ImageFunc()
         scaleFactor = $(window).width() / img.width;
     }
 
-    if (boxRatio > aspectRatioLeft) {
-        scaleFactorLeft = $(window).height() / imgLeft.height;
-    }
-    else {
-        scaleFactorLeft = $(window).width() / imgLeft.width;
-    }
-
-    if (boxRatio > aspectRatioRight) {
-        scaleFactorRight = $(window).height() / imgRight.height;
-    }
-    else {
-        scaleFactorRight = $(window).width() / imgRight.width;
-    }
-
     var reduceHeightBy = (img.height * scaleFactor / 100) * 15;
     var reduceWidthBy = (img.width * scaleFactor / 100) * 15;
-
-    var reduceHeightByLeft = (imgLeft.height * scaleFactorLeft / 100) * 15;
-    var reduceWidthByLeft = (imgLeft.width * scaleFactorLeft / 100) * 15;
-
-    var reduceHeightByRight = (imgRight.height * scaleFactorRight / 100) * 15;
-    var reduceWidthByRight = (imgRight.width * scaleFactorRight / 100) * 15;
 
     var newHeightCentre = Math.min(img.height * scaleFactor - reduceHeightBy, img.naturalHeight);
     var newWidthCentre = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
 
-    var newHeightLeft = Math.min(imgLeft.height * scaleFactorLeft - reduceHeightByLeft, imgLeft.naturalHeight);
-    var newWidthLeft = Math.min(imgLeft.width * scaleFactorLeft - reduceWidthByLeft, imgLeft.naturalWidth);
+    var leftCentre = -newWidthCentre / 2;
 
-    var newHeightRight = Math.min(imgRight.height * scaleFactorRight - reduceHeightByRight, img.naturalHeight);
-    var newWidthRight = Math.min(imgRight.width * scaleFactorRight - reduceWidthByRight, img.naturalWidth);
 
-    $("#leftImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightLeft, "width": newWidthLeft, "left": $(window).width() / 2.3, "top": -newHeightLeft / 2 });
-    $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightCentre, "width": newWidthCentre, "left": -newWidthCentre / 2, "top": -newHeightCentre / 2 });
-    $("#rightImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightRight, "width": newWidthRight, "left": -$(window).width() * 0.8, "top": -newHeightRight / 2 });
+    $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightCentre, "width": newWidthCentre, "left": leftCentre, "top": -newHeightCentre / 2 });
+
+    if (imgRight != null)
+    {
+        var aspectRatioRight = imgRight.width / imgRight.height;
+        var scaleFactorRight;
+
+        if (boxRatio > aspectRatioRight) {
+            scaleFactorRight = $(window).height() / imgRight.height;
+        }
+        else {
+            scaleFactorRight = $(window).width() / imgRight.width;
+        }
+
+        var reduceHeightByRight = (imgRight.height * scaleFactorRight / 100) * 15;
+        var reduceWidthByRight = (imgRight.width * scaleFactorRight / 100) * 15;
+
+        var newHeightRight = Math.min(imgRight.height * scaleFactorRight - reduceHeightByRight, img.naturalHeight);
+        var newWidthRight = Math.min(imgRight.width * scaleFactorRight - reduceWidthByRight, img.naturalWidth);
+
+        var leftRight = 0 - newWidthRight - 0.42 * $(window).width();
+
+        $("#rightImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightRight, "width": newWidthRight, "left": leftRight, "top": -newHeightRight / 2 });
+    }
+
+
 }
