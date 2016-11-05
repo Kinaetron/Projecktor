@@ -1,5 +1,6 @@
 ﻿var index = 0;
 var galleryImages;
+var imageString;
 var vignetteURL;
 
 var galleryOne = false;
@@ -10,8 +11,10 @@ function GalleryOne(imagestring, vignetteString)
     galleryOne = true;
     galleryMany = false;
 
+    imageString = imagestring;
+
     $("<img>", { src: vignetteString, id: "vignette" }).prependTo("#projecktor_lightbox");
-    $("<img>", { src: imagestring, id: "centreImage" }).prependTo("#displayImage");
+    $("<img>", {id: "centreImage" }).prependTo("#displayImage");
     $("#vignette").css({ "position": "absolute", "width": "100%", "height": "100%", "left": "0px", "top": "0px" });
     $("#projecktor_lightbox").css({
         "position": "fixed", "top": "0px", "bottom": "0px", "left": "0px", "right": "0px", "z-index": "2147483647",
@@ -34,9 +37,9 @@ function GalleryShowMany()
     $("<a>", { id: "projecktor_lightbox_left_link", href: "#" }).prependTo("#displayImage");
 
 
-    $("<img>", { src: galleryImages[parseInt(index) + 1], id: "rightImage" }).prependTo("#projecktor_lightbox_right_link");
-    $("<img>", { src: galleryImages[index], id: "centreImage" }).prependTo("#projecktor_lightbox_centre_link");
-    $("<img>", { src: galleryImages[parseInt(index) - 1], id: "leftImage" }).prependTo("#projecktor_lightbox_left_link");
+    $("<img>", { id: "rightImage" }).prependTo("#projecktor_lightbox_right_link");
+    $("<img>", { id: "centreImage" }).prependTo("#projecktor_lightbox_centre_link");
+    $("<img>", { id: "leftImage" }).prependTo("#projecktor_lightbox_left_link");
 
     $("#vignette").css({ "position": "absolute", "width": "100%", "height": "100%", "left": "0px", "top": "0px" });
     $("#projecktor_lightbox").css({
@@ -69,10 +72,8 @@ function GalleryMany(postNumber, vignetteString) {
 
 $(document).ready(function () {
 
-    $(window).bind("resize", function() {
-        ImageFunc();
-        ImageFuncLeft();
-        ImageFuncRight();
+    $(window).bind("resize", function () {
+        ImageCall();
     });
 
     $('body').on('click', '#projecktor_lightbox_centre_link', function () {
@@ -121,7 +122,7 @@ $(document).ready(function () {
     });
 
     $(document).keydown(function (e) {
-        if (e.keyCode == 39) { // right
+        if (e.keyCode == 39 && galleryMany == true) { // right
             if (parseInt(index) + 1 >= galleryImages.length) {
                 index = galleryImages.length - 1;
                 return;
@@ -136,7 +137,7 @@ $(document).ready(function () {
             GalleryShowMany();
         }
 
-        if (e.keyCode == 37) { // left
+        if (e.keyCode == 37 && galleryMany == true) { // left
             if (parseInt(index) - 1 < 0) {
                 index = 0;
                 return;
@@ -164,6 +165,12 @@ $(document).ready(function () {
             $("#leftImage").remove();
             $("#rightImage").remove();
             $('#vignette').remove();
+            $("#projecktor_lightbox_centre_link").remove();
+            $("#projecktor_lightbox_left_link").remove();
+            $("#projecktor_lightbox_right_link").remove();
+
+            galleryOne = false;
+            galleryMany = false;
         }
     });
 
@@ -178,35 +185,60 @@ $(document).ready(function () {
             $("#leftImage").remove();
             $("#rightImage").remove();
             $('#vignette').remove();
+            $("#projecktor_lightbox_centre_link").remove();
+            $("#projecktor_lightbox_left_link").remove();
+            $("#projecktor_lightbox_right_link").remove();
+
+            galleryOne = false;
+            galleryMany = false;
         }
     });
 })
 
 
-
-
 function ImageCall()
 {
-    var imgLeft = document.getElementById("leftImage");
-    var imgCentre = document.getElementById("centreImage");
-    var imgRight = document.getElementById("rightImage");
+    var imgs = [];
+    var cnt = 0;
 
-    imgCentre.onload = function () {
-        ImageFunc();
+    if (galleryMany == true)
+    {
+        for (var i = 0; i < galleryImages.length; i++) {
+            var img = new Image();
+            img.onload = function () {
+                ++cnt;
+                if (cnt >= galleryImages.length) {
+                    var imgCentre = imgs[index];
+                    var imgLeft = imgs[parseInt(index) - 1];
+                    var imgRight = imgs[parseInt(index) + 1]
+
+                    if (imgCentre != null) {
+                        ImageFunc(imgCentre);
+                    }
+                    if (imgLeft != null) {
+                        ImageFuncLeft(imgLeft);
+                    }
+                    if (imgRight != null) {
+                        ImageFuncRight(imgRight);
+                    }
+                }
+            };
+            img.src = galleryImages[i];
+            imgs.push(img);
+        }
     }
 
-    imgLeft.onload = function () {
-        ImageFuncLeft();
-    }
-
-    imgRight.onload = function () {
-        ImageFuncRight();
+    if (galleryOne == true) {
+        var img = new Image();
+        img.src = imageString;
+        img.onload = function () {
+            ImageFunc(img);
+        }
     }
 }
 
-function ImageFuncLeft()
+function ImageFuncLeft(imgLeft)
 {
-    var imgLeft = document.getElementById("leftImage");
     var boxRatio = $(window).width() / $(window).height();
 
     $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
@@ -230,13 +262,12 @@ function ImageFuncLeft()
     var leftLeft = 0 - newWidthLeft - 0.42 * $(window).width();
 
     $("#leftImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightLeft, "width": newWidthLeft, "left": leftLeft, "top": -newHeightLeft / 2 });
+    $("#leftImage").attr('src', galleryImages[index - 1]);
 }
 
 
-function ImageFunc()
+function ImageFunc(img)
 {
-
-    var img = document.getElementById("centreImage");
     var boxRatio = $(window).width() / $(window).height();
 
     $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
@@ -260,11 +291,11 @@ function ImageFunc()
     var leftCentre = -newWidthCentre / 2;
 
     $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightCentre, "width": newWidthCentre, "left": leftCentre, "top": -newHeightCentre / 2 });
+    $("#centreImage").attr('src', img.src);
 }
 
-function ImageFuncRight()
+function ImageFuncRight(imgRight)
 {
-    var imgRight = document.getElementById("rightImage");
     var boxRatio = $(window).width() / $(window).height();
 
     $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
@@ -288,4 +319,5 @@ function ImageFuncRight()
     var leftRight = 0.42 * $(window).width();
 
     $("#rightImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightRight, "width": newWidthRight, "left": leftRight, "top": -newHeightRight / 2 });
+    $("#rightImage").attr('src', imgRight.src);
 }
