@@ -6,6 +6,14 @@ var vignetteURL;
 var galleryOne = false;
 var galleryMany = false;
 
+var boxRatio = 0;
+var aspectRatio = 0;
+var scaleFactor = 0;
+var reduceHeightBy = 0;
+var reduceWidthBy = 0;
+var newHeight = 0;
+var newWidth = 0;
+
 function GalleryOne(imagestring, vignetteString)
 {
     galleryOne = true;
@@ -84,11 +92,7 @@ $(document).ready(function () {
         else {
             index++;
         }
-        $("#vignette").remove();
-        $("#projecktor_lightbox_centre_link").remove();
-        $("#projecktor_lightbox_left_link").remove();
-        $("#projecktor_lightbox_right_link").remove();
-        GalleryShowMany();
+        ImageSwitch();
     });
 
     $('body').on('click', '#projecktor_lightbox_right_link', function () {
@@ -99,11 +103,7 @@ $(document).ready(function () {
         else {
             index++;
         }
-        $("#vignette").remove();
-        $("#projecktor_lightbox_centre_link").remove();
-        $("#projecktor_lightbox_left_link").remove();
-        $("#projecktor_lightbox_right_link").remove();
-        GalleryShowMany();
+        ImageSwitch();
     });
 
     $('body').on('click', '#projecktor_lightbox_left_link', function () {
@@ -114,11 +114,7 @@ $(document).ready(function () {
         else {
             index--;
         }
-         $("#vignette").remove();
-        $("#projecktor_lightbox_centre_link").remove();
-        $("#projecktor_lightbox_left_link").remove();
-        $("#projecktor_lightbox_right_link").remove();
-        GalleryShowMany();
+        ImageSwitch();
     });
 
     $(document).keydown(function (e) {
@@ -130,11 +126,7 @@ $(document).ready(function () {
             else {
                 index++;
             }
-            $("#vignette").remove();
-            $("#projecktor_lightbox_centre_link").remove();
-            $("#projecktor_lightbox_left_link").remove();
-            $("#projecktor_lightbox_right_link").remove();
-            GalleryShowMany();
+            ImageSwitch();
         }
 
         if (e.keyCode == 37 && galleryMany == true) { // left
@@ -145,11 +137,7 @@ $(document).ready(function () {
             else {
                 index--;
             }
-            $("#vignette").remove();
-            $("#projecktor_lightbox_centre_link").remove();
-            $("#projecktor_lightbox_left_link").remove();
-            $("#projecktor_lightbox_right_link").remove();
-            GalleryShowMany();
+            ImageSwitch();
         }
     });
 
@@ -157,17 +145,7 @@ $(document).ready(function () {
 
         if (galleryMany == true)
         {
-            $("#vignette").remove();
-            $("#projecktor_lightbox").removeAttr("style");
-            $("#displayImage").removeAttr("style");
-            $("body").removeAttr("style");
-            $("#centreImage").remove();
-            $("#leftImage").remove();
-            $("#rightImage").remove();
-            $('#vignette').remove();
-            $("#projecktor_lightbox_centre_link").remove();
-            $("#projecktor_lightbox_left_link").remove();
-            $("#projecktor_lightbox_right_link").remove();
+            AssetRemoval();
 
             galleryOne = false;
             galleryMany = false;
@@ -177,17 +155,7 @@ $(document).ready(function () {
     $('body').on('click', '#projecktor_lightbox', function () {
 
         if (galleryOne == true) {
-            $("#vignette").remove();
-            $("#projecktor_lightbox").removeAttr("style");
-            $("#displayImage").removeAttr("style");
-            $("body").removeAttr("style");
-            $("#centreImage").remove();
-            $("#leftImage").remove();
-            $("#rightImage").remove();
-            $('#vignette').remove();
-            $("#projecktor_lightbox_centre_link").remove();
-            $("#projecktor_lightbox_left_link").remove();
-            $("#projecktor_lightbox_right_link").remove();
+            AssetRemoval();
 
             galleryOne = false;
             galleryMany = false;
@@ -195,6 +163,29 @@ $(document).ready(function () {
     });
 })
 
+
+function AssetRemoval()
+{
+    $("#vignette").remove();
+    $("#projecktor_lightbox").removeAttr("style");
+    $("#displayImage").removeAttr("style");
+    $("body").removeAttr("style");
+    $("#centreImage").remove();
+    $("#leftImage").remove();
+    $("#rightImage").remove();
+    $('#vignette').remove();
+    $("#projecktor_lightbox_centre_link").remove();
+    $("#projecktor_lightbox_left_link").remove();
+    $("#projecktor_lightbox_right_link").remove();
+}
+
+function ImageSwitch() {
+    $("#vignette").remove();
+    $("#projecktor_lightbox_centre_link").remove();
+    $("#projecktor_lightbox_left_link").remove();
+    $("#projecktor_lightbox_right_link").remove();
+    GalleryShowMany();
+}
 
 function ImageCall()
 {
@@ -211,6 +202,8 @@ function ImageCall()
                     var imgCentre = imgs[index];
                     var imgLeft = imgs[parseInt(index) - 1];
                     var imgRight = imgs[parseInt(index) + 1]
+
+                    $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
 
                     if (imgCentre != null) {
                         ImageFunc(imgCentre);
@@ -232,92 +225,59 @@ function ImageCall()
         var img = new Image();
         img.src = imageString;
         img.onload = function () {
+            $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
+
             ImageFunc(img);
         }
     }
 }
 
-function ImageFuncLeft(imgLeft)
-{
-    var boxRatio = $(window).width() / $(window).height();
-
-    $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
-
-    var aspectRatioLeft = imgLeft.width / imgLeft.height;
-    var scaleFactorLeft;
-
-    if (boxRatio > aspectRatioLeft) {
-        scaleFactorLeft = $(window).height() / imgLeft.height;
-    }
-    else {
-        scaleFactorLeft = $(window).width() / imgLeft.width;
-    }
-
-    var reduceHeightByLeft = (imgLeft.height * scaleFactorLeft / 100) * 15;
-    var reduceWidthByLeft = (imgLeft.width * scaleFactorLeft / 100) * 15;
-
-    var newHeightLeft = Math.min(imgLeft.height * scaleFactorLeft - reduceHeightByLeft, imgLeft.naturalHeight);
-    var newWidthLeft = Math.min(imgLeft.width * scaleFactorLeft - reduceWidthByLeft, imgLeft.naturalWidth);
-
-    var leftLeft = 0 - newWidthLeft - 0.42 * $(window).width();
-
-    $("#leftImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightLeft, "width": newWidthLeft, "left": leftLeft, "top": -newHeightLeft / 2 });
-    $("#leftImage").attr('src', galleryImages[index - 1]);
+function ImageFuncLeft(imgLeft) {
+    ImageFunction(imgLeft, "#leftImage");
 }
 
 
-function ImageFunc(img)
+function ImageFunc(img) {
+    ImageFunction(img, "#centreImage");
+}
+
+function ImageFuncRight(imgRight) {
+    ImageFunction(imgRight, "#rightImage");
+}
+
+function ImageFunction(image, elementName)
 {
-    var boxRatio = $(window).width() / $(window).height();
+    boxRatio = $(window).width() / $(window).height();
 
-    $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
-
-    var aspectRatio = img.width / img.height;
-    var scaleFactor;
+    aspectRatio = image.width / image.height;
+    scaleFactor;
 
     if (boxRatio > aspectRatio) {
-        scaleFactor = $(window).height() / img.height;
+        scaleFactor = $(window).height() / image.height;
     }
     else {
-        scaleFactor = $(window).width() / img.width;
+        scaleFactor = $(window).width() / image.width;
     }
 
-    var reduceHeightBy = (img.height * scaleFactor / 100) * 15;
-    var reduceWidthBy = (img.width * scaleFactor / 100) * 15;
+    
+    reduceHeightBy = (image.height * scaleFactor / 100) * 15;
+    reduceWidthBy = (image.width * scaleFactor / 100) * 15;
 
-    var newHeightCentre = Math.min(img.height * scaleFactor - reduceHeightBy, img.naturalHeight);
-    var newWidthCentre = Math.min(img.width * scaleFactor - reduceWidthBy, img.naturalWidth);
+    newHeight = Math.min(image.height * scaleFactor - reduceHeightBy, image.naturalHeight);
+    newWidth = Math.min(image.width * scaleFactor - reduceWidthBy, image.naturalWidth);
 
-    var leftCentre = -newWidthCentre / 2;
+    var left = 0;
 
-    $("#centreImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightCentre, "width": newWidthCentre, "left": leftCentre, "top": -newHeightCentre / 2 });
-    $("#centreImage").attr('src', img.src);
-}
-
-function ImageFuncRight(imgRight)
-{
-    var boxRatio = $(window).width() / $(window).height();
-
-    $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
-
-    var aspectRatioRight = imgRight.width / imgRight.height;
-    var scaleFactorRight;
-
-    if (boxRatio > aspectRatioRight) {
-        scaleFactorRight = $(window).height() / imgRight.height;
+    if (elementName == "#centreImage") {
+        left = -newWidth / 2;
     }
-    else {
-        scaleFactorRight = $(window).width() / imgRight.width;
+    else if (elementName == "#leftImage") {
+        left = 0 - newWidth - 0.42 * $(window).width();
+    }
+    else if (elementName == "#rightImage") {
+        left = 0.42 * $(window).width();
     }
 
-    var reduceHeightByRight = (imgRight.height * scaleFactorRight / 100) * 15;
-    var reduceWidthByRight = (imgRight.width * scaleFactorRight / 100) * 15;
-
-    var newHeightRight = Math.min(imgRight.height * scaleFactorRight - reduceHeightByRight, imgRight.naturalHeight);
-    var newWidthRight = Math.min(imgRight.width * scaleFactorRight - reduceWidthByRight, imgRight.naturalWidth);
-
-    var leftRight = 0.42 * $(window).width();
-
-    $("#rightImage").css({ "position": "absolute", "display": "inline-block", "height": newHeightRight, "width": newWidthRight, "left": leftRight, "top": -newHeightRight / 2 });
-    $("#rightImage").attr('src', imgRight.src);
+    $(elementName).css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
+    $(elementName).attr('src', image.src);
 }
