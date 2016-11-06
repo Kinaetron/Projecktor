@@ -36,8 +36,16 @@ namespace Projecktor.WebUI
                 action = segs[0];
             }
 
-
-            string id = (segments.Length > 1 && segments[0] != "") ? segments[1] : "0";
+            string id = "0";
+            if(segments[0] != "") {
+                if(segments.Length > 1) {
+                    id = segments[1];
+                }
+                else if(segments[0].Contains("=") == true) {
+                    string[] segs = segments[0].TrimStart('=').Split('=');
+                    id = segs[1];
+                }
+            }
 
             RouteData routeData = new RouteData(this, new MvcRouteHandler());
             routeData.Values.Add("controller", controller);

@@ -146,7 +146,6 @@ $(document).ready(function () {
         if (galleryMany == true)
         {
             AssetRemoval();
-
             galleryOne = false;
             galleryMany = false;
         }
@@ -156,7 +155,6 @@ $(document).ready(function () {
 
         if (galleryOne == true) {
             AssetRemoval();
-
             galleryOne = false;
             galleryMany = false;
         }
@@ -226,7 +224,6 @@ function ImageCall()
         img.src = imageString;
         img.onload = function () {
             $("#displayImage").css({ "position": "absolute", "left": "50%", "top": "50%" });
-
             ImageFunc(img);
         }
     }
@@ -259,7 +256,6 @@ function ImageFunction(image, elementName)
         scaleFactor = $(window).width() / image.width;
     }
 
-    
     reduceHeightBy = (image.height * scaleFactor / 100) * 15;
     reduceWidthBy = (image.width * scaleFactor / 100) * 15;
 
