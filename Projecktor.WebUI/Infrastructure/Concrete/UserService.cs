@@ -164,7 +164,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             List<ActivityViewModel> activityList = new List<ActivityViewModel>();
 
             List<Like> LikesAct = likes.FindAll(l => l.SourceId == userId).ToList();
-            List<Post> postsAct = posts.FindAll(p => p.AuthorId == userId && p.ReblogId > 0).ToList();
+            List<Post> postsAct = posts.FindAll(p => p.ReblogId == userId).ToList();
             List<Follow> followAct = follows.FindAll(f => f.FollowingId == userId).ToList();
 
             foreach (var like in LikesAct)
@@ -173,7 +173,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 {
                     Date = like.DateCreated,
                     PostId = like.PostId,
-                    Action = "liked this post",
+                    Action = ActionEnum.Like,
                     From = GetBy(like.UserId),
                 };
                 activityList.Add(act);
@@ -185,7 +185,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 {
                     Date = reblog.DateCreated,
                     PostId = reblog.Id,
-                    Action = "reblogged this post",
+                    SourceId = reblog.ReblogId,
+                    Action = ActionEnum.Reblog,
                     From = GetBy(reblog.AuthorId),
                 };
                 activityList.Add(act);
@@ -196,13 +197,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 ActivityViewModel act = new ActivityViewModel()
                 {
                     Date = follow.DateDone,
-                    Action = "followed you",
+                    Action = ActionEnum.Followed,
                     From = GetBy(follow.FollowerId),
                 };
                 activityList.Add(act);
             }
 
-            throw new NotImplementedException();
+            return activityList.OrderByDescending(d => d.Date);
         }
     }
 }

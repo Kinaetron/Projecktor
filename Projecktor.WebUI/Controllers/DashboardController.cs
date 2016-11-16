@@ -357,12 +357,10 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        //[ValidateAntiForgeryToken]
         public ActionResult Activity()
         {
             List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
-
-            throw new NotImplementedException();
+            return View("Activity", Activity);
         }
 
         [HttpPost]

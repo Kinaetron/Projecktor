@@ -1,0 +1,20 @@
+﻿@model IEnumerable<ActivityViewModel>
+
+@{
+    ViewBag.Title = " Projectktor | Activity";
+}
+
+@foreach (var activity in Model)
+{
+    if(activity.Action == ActionEnum.Like) {
+      <p>@activity.From.Username liked your post on the @activity.Date the post number is @activity.PostId</p>
+    }
+
+    if(activity.Action == ActionEnum.Reblog) {
+        <p>@activity.From.Username reblogged your post on the @activity.Date the post number is @activity.PostId the orgin number is @activity.SourceId</p>
+    }
+
+    if(activity.Action == ActionEnum.Followed) {
+        <p>@activity.From.Username followed you on the @activity.Date</p>
+    }
+}

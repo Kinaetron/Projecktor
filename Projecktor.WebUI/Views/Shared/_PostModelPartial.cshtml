@@ -70,13 +70,13 @@
                 <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId, @Model.Source.Id)" value="@routeName" />
             }
             else {
-                <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId, @Model.PostId)" value="@routeName" />
+                <input type="button" id="like_@Model.PostId" onclick="LikePost(@Model.PostId, @Model.Author.Id)" value="@routeName" />
             }
 
         }
 
         if (Model.ReblogedFrom == null) {
-            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" />
+            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Author.Id)" />
         }
         else {
             <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" />

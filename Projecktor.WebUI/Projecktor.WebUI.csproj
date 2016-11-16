@@ -272,6 +272,7 @@
     <Content Include="Views\Shared\_PostAttachment.cshtml" />
     <Content Include="Views\Shared\_ImagePost.cshtml" />
     <Content Include="Views\Shared\_TextPost.cshtml" />
+    <Content Include="Views\Dashboard\Activity.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
