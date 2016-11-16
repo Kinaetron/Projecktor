@@ -18,6 +18,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly IUserRepository users;
         private readonly ILikeRepository likes;
         private readonly IHashtagRepository hashtags;
+        private readonly IFollowRepository follow;
 
         public PostService(IContext context)
         {
@@ -27,6 +28,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             users = context.Users;
             likes = context.Likes;
             hashtags = context.Hashtags;
+            follow = context.Follow;
         }
 
         public Post Getby(int id) {
@@ -160,8 +162,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public IEnumerable<PostViewModel> GetTimeLineFor(int userId)
         {
             List<PostViewModel> timeline = new List<PostViewModel>();
-            List<Post> timelinePosts = posts.FindAll(t => t.Author.Followers.Any(f => f.Id == userId) ||
-                                                 t.AuthorId == userId).ToList();
+            List<Follow> followings = follow.FindAll(f => f.FollowerId == userId).ToList();
+            List<Post> timelinePosts = posts.FindAll(t => t.AuthorId == userId).ToList();
+
+            foreach (var follower in followings) {
+                timelinePosts.AddRange(posts.FindAll(p => p.AuthorId == follower.FollowingId));
+            }
 
             foreach (var p in timelinePosts)
             {

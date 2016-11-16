@@ -12,21 +12,11 @@ namespace Projecktor.Domain.Concrete
         public DbSet<Post> Posts { get; set; }
         public DbSet<Text> Texts { get; set; }
         public DbSet<Hashtag> HashTags { get; set; }
+        public DbSet<Follow> Follow { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Followers)
-                .WithMany(u => u.Following)
-                .Map(map =>
-                {
-                    map.MapLeftKey("FollowingId");
-                    map.MapRightKey("FollowerId");
-                    map.ToTable("Follow");
-                });
-
-            base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<User>().HasMany(u => u.Follow);
             modelBuilder.Entity<User>().HasMany(u => u.Hashtags);
             modelBuilder.Entity<User>().HasMany(u => u.Likes);
             modelBuilder.Entity<User>().HasMany(u => u.Posts);

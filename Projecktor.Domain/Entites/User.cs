@@ -42,6 +42,13 @@ namespace Projecktor.Domain.Entites
             set { hashtags = value; }
         }
 
+        private ICollection<Follow> follow;
+        public virtual ICollection<Follow> Follow
+        {
+            get { return follow ?? (follow = new Collection<Follow>()); }
+            set { follow = value; }
+        }
+
         private ICollection<User> following;
         public virtual ICollection<User> Following
         {

@@ -3,7 +3,7 @@
 
 @if (Security.IsAuthenticated == true && Model.Id != Security.UserId)
 {
-    var isFollowing = CurrentUser.Following.Any(u => u.Id == Model.Id);
+    var isFollowing = Users.isFollowing(CurrentUser.Id, Model.Id);
 
     var routeName = isFollowing ? "Unfollow" : "Follow";
 

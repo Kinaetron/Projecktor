@@ -9,6 +9,7 @@ namespace Projecktor.Domain.Abstract
         ILikeRepository Likes { get; }
         ITextRepository Texts { get; }
         IHashtagRepository Hashtags { get; }
+        IFollowRepository Follow { get; }
 
         int SaveChanges();
     }

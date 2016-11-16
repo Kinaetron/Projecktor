@@ -137,7 +137,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> followers = Users.GetAllFor(Security.UserId).Followers;
+            IEnumerable<User> followers = Users.GetFollowers(CurrentUser.Id);
 
             return View("Followers", new FollowViewModel() {
                 FollowData = followers
@@ -150,7 +150,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> followers = Users.GetAllFor(Security.UserId).Following;
+            IEnumerable<User> followers = Users.GetFollowing(CurrentUser.Id);
 
             return View("Following", new FollowViewModel() {
                 FollowData = followers
@@ -354,6 +354,15 @@ namespace Projecktor.WebUI.Controllers
 
             Users.Settings(settings.Username, settings.NewPassword, settings.Email, Security.UserId);
             return View("Settings", settings);
+        }
+
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Activity()
+        {
+            List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
+
+            throw new NotImplementedException();
         }
 
         [HttpPost]
