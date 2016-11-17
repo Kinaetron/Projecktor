@@ -7,16 +7,8 @@ namespace Projecktor.Domain.Abstract
     {
         IQueryable<User> AllUsers();
 
-        void CreateFollower(string username, User follower);
-        void DeleteFollower(string username, User follower);
-
-        User GetBy(int id, bool includeTextPosts = false,
-                   bool includeFollowers = false, bool includeFollowing = false);
-
-        User GetBy(string username, bool includeTextPosts = false,
-                   bool includeFollowers = false, bool includeFollowing = false);
-
-        User GetByEmail(string email, bool includeTextPosts = false,
-                  bool includeFollowers = false, bool includeFollowing = false);
+        User GetBy(int id, bool includeTextPosts = false);
+        User GetBy(string username, bool includeTextPosts = false);
+        User GetByEmail(string email, bool includeTextPosts = false);
     }
 }

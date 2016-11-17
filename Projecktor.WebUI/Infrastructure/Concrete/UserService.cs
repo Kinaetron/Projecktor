@@ -64,24 +64,15 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return users.GetByEmail(email);
         }
 
-        public User GetAllFor(int id)
-        {
-            return users.GetBy(id,
-                               includeTextPosts: true,
-                               includeFollowers: true,
-                               includeFollowing: true);
+        public User GetAllFor(int id) {
+            return users.GetBy(id, includeTextPosts: true);
         }
 
-        public User GetAllFor(string username)
-        {
-            return users.GetBy(username,
-                               includeTextPosts: true,
-                               includeFollowers: true,
-                               includeFollowing: true);
+        public User GetAllFor(string username) {
+            return users.GetBy(username, includeTextPosts: true);
         }
 
-        public IEnumerable<User> SearchFor(string username)
-        {
+        public IEnumerable<User> SearchFor(string username) {
             return users.FindAll(u => u.Username.Contains(username));
         }
 

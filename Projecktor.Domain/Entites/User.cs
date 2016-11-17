@@ -48,19 +48,5 @@ namespace Projecktor.Domain.Entites
             get { return follow ?? (follow = new Collection<Follow>()); }
             set { follow = value; }
         }
-
-        private ICollection<User> following;
-        public virtual ICollection<User> Following
-        {
-            get { return following ?? (following = new Collection<User>()); }
-            set { following = value; }
-        }
-
-        private ICollection<User> followers;
-        public virtual ICollection<User> Followers
-        {
-            get { return followers ?? (followers = new Collection<User>()); }
-            set { followers = value; }
-        }
     }
 }

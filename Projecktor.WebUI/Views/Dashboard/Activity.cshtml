@@ -4,6 +4,10 @@
     ViewBag.Title = " Projectktor | Activity";
 }
 
+<div id="navigationBar">
+    @Html.Partial("_NavigationBar")
+</div>
+
 @foreach (var activity in Model)
 {
     if(activity.Action == ActionEnum.Like) {
@@ -12,9 +16,12 @@
 
     if(activity.Action == ActionEnum.Reblog) {
         <p>@activity.From.Username reblogged your post on the @activity.Date the post number is @activity.PostId the orgin number is @activity.SourceId</p>
+        var urlLink = "http://" + activity.From.Username + ".projecktor.com/post/" + activity.PostId;
+        <a href="@urlLink">Test Link</a>
     }
 
-    if(activity.Action == ActionEnum.Followed) {
+    if (activity.Action == ActionEnum.Followed)
+    {
         <p>@activity.From.Username followed you on the @activity.Date</p>
     }
 }

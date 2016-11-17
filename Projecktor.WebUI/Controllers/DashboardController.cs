@@ -190,7 +190,9 @@ namespace Projecktor.WebUI.Controllers
             string[] imagePath = new string[6];
             HttpPostedFileBase[] images = model.Images.ToArray();
 
-            for (int i = 0; i < model.Images.Count(); i++)
+            int count = (model.Images.Count() > 6) ? 6 : model.Images.Count();
+
+            for (int i = 0; i < count; i++)
             {
 
                 string imageName = "projecktor_" + GetRandomString();
