@@ -4,9 +4,13 @@ using System.Web;
 using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using System.Net.Mail;
+using System.Net;
+using System.Web.Helpers;
 
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
+using System.Text;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -221,6 +225,24 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        public ActionResult ForgotPassword() {
+            return View("ForgotPassword", new ForgotPasswordViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(ForgotPasswordViewModel model) {
+        
+            if (Security.DoesUserExist(model.Email) == false) {
+                ModelState.AddModelError("Email", "This email address doesn't exist on our system");
+                return View("ForgotPassword", new ForgotPasswordViewModel());
+            }
+
+            //SendEmail(Users.GetByEmail(model.Email));
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
         public ActionResult Login() {
             return View("Login", new LoginViewModel());
         }
@@ -251,6 +273,33 @@ namespace Projecktor.WebUI.Controllers
             Response.AppendCookie(cookie);
 
             return RedirectToAction("Index", "Dashboard");
+        }
+
+        public void SendEmail(User user)
+        {
+            using (SmtpClient stmpClient = new SmtpClient())
+            {
+                stmpClient.EnableSsl = true;
+                stmpClient.Host = "smtp.example.com";
+                stmpClient.Port = 587;
+                stmpClient.UseDefaultCredentials = false;
+                stmpClient.Credentials = new NetworkCredential("MySmtpUsername", "mySmtpPassword");
+
+                StringBuilder body = new StringBuilder()
+              .AppendLine("Forgot your password ? Reset it below")
+              .AppendLine(" ");
+
+                string userId = Crypto.SHA256(user.Id.ToString());
+                body.AppendLine("projecktor.com/passwordreset/" + userId);
+
+                MailMessage mailMessage = new MailMessage(
+                            "example@mail.com",
+                            user.Email,
+                            "Projecktor Password",
+                            body.ToString());
+
+                stmpClient.Send(mailMessage);
+            }            
         }
     }
 }

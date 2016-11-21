@@ -63,8 +63,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return users.GetBy(UserId);
         }
 
-        public bool DoesUserExist(string username) {
-            return users.GetBy(username) != null;
+        public bool DoesUserExist(string username)
+        {
+            bool result = users.GetBy(username) != null;
+
+            if(result == false) {
+                result = users.GetByEmail(username) != null;
+            }
+            return result;
         }
 
         public void Login(string username)
