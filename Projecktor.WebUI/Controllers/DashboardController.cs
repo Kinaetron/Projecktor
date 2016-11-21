@@ -369,11 +369,15 @@ namespace Projecktor.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Logout()
         {
-            string name = Request.Cookies["loggedIn"].Name;
-            HttpCookie cookie = new HttpCookie(name);
-            cookie.Expires = DateTime.Now.AddDays(-1);
-            cookie.Domain = ".projecktor.com";
-            Response.Cookies.Add(cookie);
+            string name = Request.Cookies["loggedIn"].Name; 
+            
+            if(name != null)
+            {
+                HttpCookie cookie = new HttpCookie(name);
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                cookie.Domain = ".projecktor.com";
+                Response.Cookies.Add(cookie);
+            }
 
             Security.Logout();
             return RedirectToAction("Index", "Home");
