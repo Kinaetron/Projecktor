@@ -152,6 +152,16 @@ namespace Projecktor.WebUI
                defaults: new { controller = "home", action = "forgotpassword" });
 
             routes.MapRoute(
+             name: "Register",
+             url: "register",
+             defaults: new { controller = "home", action = "register" });
+
+            routes.MapRoute(
+            name: "Login",
+            url: "login",
+            defaults: new { controller = "home", action = "login" });
+
+            routes.MapRoute(
               name: "Gallery",
               url:  "gallery/{id}",
               defaults: new { controller = "home", action = "gallery" });
