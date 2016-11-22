@@ -63,10 +63,11 @@ function GalleryShowMany()
 function GalleryMany(postNumber, vignetteString) {
 
     var postSplit = postNumber.split("-");
+    var urlString = '/gallery';
     $.ajax
    ({
        type: 'GET',
-       url: 'gallery',
+       url: urlString,
        data: { 'id': postSplit[0] },
        dataType: 'json',
        success: function (dataId) {

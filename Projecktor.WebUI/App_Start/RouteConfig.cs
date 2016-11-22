@@ -18,7 +18,7 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "ImagePost",
-                url: "imagepost",
+                url:  "imagepost",
                 defaults: new { controller = "dashboard", action = "imagepost" });
 
             routes.MapRoute(
@@ -63,12 +63,12 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "Reblog",
-                url: "reblog",
+                url:  "reblog",
                 defaults: new { controller = "dashboard", action = "reblog" });
 
             routes.MapRoute(
                 name: "DeleteReblog",
-                url: "deletereblog",
+                url:  "deletereblog",
                 defaults: new { controller = "dashboard", action = "deletereblog" });
 
             routes.MapRoute(
@@ -83,32 +83,32 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "Likes",
-                url: "likes",
+                url:  "likes",
                 defaults: new { controller = "dashboard", action = "likes" });
 
             routes.MapRoute(
                 name: "Settings",
-                url: "settings",
+                url:  "settings",
                 defaults: new { controller = "dashboard", action = "settings" });
 
             routes.MapRoute(
                 name: "Activity",
-                url: "activity",
+                url:  "activity",
                 defaults: new { controller = "dashboard", action = "activity" });
 
             routes.MapRoute(
                 name: "GetPosts",
-                url: "getposts",
+                url:  "getposts",
                 defaults: new { controller = "dashboard", action = "getposts" });
 
             routes.MapRoute(
                 name: "GetLikes",
-                url: "getlikes",
+                url:  "getlikes",
                 defaults: new { controller = "dashboard", action = "getlikes" });
 
             routes.MapRoute(
                 name: "ShowPost",
-                url: "showpost",
+                url:  "showpost",
                 defaults: new { controller = "dashboard", action = "showpost" });
 
             routes.MapRoute(
@@ -118,27 +118,27 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                name: "Autocomplete",
-               url: "autocomplete",
+               url:  "autocomplete",
                defaults: new { controller = "dashboard", action = "autocomplete" });
 
             routes.MapRoute(
                name: "Post",
-               url: "post/{id}",
+               url:  "post/{id}",
                defaults: new { controller = "home", action = "post" });
 
             routes.MapRoute(
                 name: "Tagged",
-                url: "tagged/{id}",
+                url:  "tagged/{id}",
                 defaults: new { controller = "home", action = "tagged" });
 
             routes.MapRoute(
                name: "GetUserPosts",
-               url: "getuserposts",
+               url:  "getuserposts",
                defaults: new { controller = "home", action = "getuserposts" });
 
             routes.MapRoute(
                 name: "GetUserLikes",
-                url: "getuserlikes",
+                url:  "getuserlikes",
                 defaults: new { controller = "home", action = "getuserlikes" });
 
             routes.MapRoute(
@@ -148,17 +148,17 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                name: "ForgotPassword",
-               url: "forgotpassword",
+               url:  "forgotpassword",
                defaults: new { controller = "home", action = "forgotpassword" });
 
             routes.MapRoute(
              name: "Register",
-             url: "register",
+             url:  "register",
              defaults: new { controller = "home", action = "register" });
 
             routes.MapRoute(
             name: "Login",
-            url: "login",
+            url:  "login",
             defaults: new { controller = "home", action = "login" });
 
             routes.MapRoute(
@@ -168,7 +168,7 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "Image",
-                url: "image",
+                url:  "image",
                 defaults: new { controller = "home", action = "image" });
 
             routes.MapRoute(

@@ -4,7 +4,7 @@
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
         data: '{postId:' + JSON.stringify(postId) + '}',
-        url: 'deletepost',
+        url: '/deletepost',
         success: function () {
             $("#posts_" + postId).remove();
         },
@@ -21,7 +21,7 @@ function LikePost(postId, sourceId) {
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: '{postId:' + JSON.stringify(postId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
-            url: 'like',
+            url: '/like',
             success: function () {
                 $('#like_' + postId).val("Unlike");
             },
@@ -36,7 +36,7 @@ function LikePost(postId, sourceId) {
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             data: '{postId:' + JSON.stringify(postId) + '}',
-            url: 'unlike',
+            url: '/unlike',
             success: function () {
                 $('#like_' + postId).val("Like");
             },
@@ -53,7 +53,7 @@ function Reblog(textId, reblogId, sourceId) {
        type: 'POST',
        contentType: 'application/json; charset=utf-8',
        data: '{textId:' + JSON.stringify(textId) + ', reblogId:' + JSON.stringify(reblogId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
-       url: 'reblog',
+       url: '/reblog',
        error: function (result) {
            alert("Something went terribly wrong reblog" + result);
        }
@@ -66,7 +66,7 @@ function DeleteReblog(postId) {
        type: 'POST',
        contentType: 'application/json; charset=utf-8',
        data: '{postId:' + JSON.stringify(postId) + '}',
-       url: 'deletereblog',
+       url: '/deletereblog',
        success: function () {
            $("#posts_" + postId).remove();
        },
