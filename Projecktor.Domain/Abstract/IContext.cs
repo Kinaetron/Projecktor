@@ -10,6 +10,7 @@ namespace Projecktor.Domain.Abstract
         ITextRepository Texts { get; }
         IHashtagRepository Hashtags { get; }
         IFollowRepository Follow { get; }
+        IPasswordResetRepository PasswordReset { get; }
 
         int SaveChanges();
     }

@@ -48,5 +48,12 @@ namespace Projecktor.Domain.Entites
             get { return follow ?? (follow = new Collection<Follow>()); }
             set { follow = value; }
         }
+
+        private ICollection<PasswordReset> passwordReset;
+        public virtual ICollection<PasswordReset> PasswordReset
+        {
+            get { return passwordReset ?? (passwordReset = new Collection<PasswordReset>()); }
+            set { passwordReset = value; }
+        }
     }
 }

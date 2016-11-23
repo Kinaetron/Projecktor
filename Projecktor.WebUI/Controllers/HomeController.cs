@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Text;
 using System.Linq;
 using System.Web.Mvc;
 using System.Threading.Tasks;
@@ -237,7 +238,25 @@ namespace Projecktor.WebUI.Controllers
                 return View("ForgotPassword", new ForgotPasswordViewModel());
             }
 
-            SendEmail(Users.GetByEmail(model.Email)).Wait();
+            User user = Users.GetByEmail(model.Email);
+            SendEmail(user, PasswordResets.Create(user.Id)).Wait();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult PasswordReset() {
+            return View("PasswordReset", new PasswordRestViewModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PasswordReset(PasswordRestViewModel model)
+        {
+            if(model.Password.Equals(model.ConfirmPassword, StringComparison.CurrentCulture) == false) {
+                ModelState.AddModelError("Password", "These passwords don't match each other");
+                return View("PasswordReset", new PasswordRestViewModel());
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
@@ -274,15 +293,21 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public static async Task SendEmail(User user)
+        public static async Task SendEmail(User user, int passwordId)
         {
             string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey", EnvironmentVariableTarget.User);
             dynamic sg = new SendGridAPIClient(apiKey);
 
+            StringBuilder body = new StringBuilder();
+            body.Append("Forgot your password? Reset it below:");
+            body.Append(Environment.NewLine);
+            body.Append(Environment.NewLine);
+            body.Append("projecktor.com:64976/resetpassword/" + user.Id + "/" + passwordId);
+
             Email from = new Email("no-reply@projecktor.com", "Projecktor");
             string subject = "Projecktor Password";
             Email to = new Email(user.Email);
-            Content content = new Content("text/plain", "Forgot your password? Reset it below:");
+            Content content = new Content("text/plain", body.ToString());
             Mail mail = new Mail(from, subject, to, content);
 
             dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());

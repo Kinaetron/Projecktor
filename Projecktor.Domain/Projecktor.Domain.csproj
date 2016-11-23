@@ -81,6 +81,7 @@
     <Compile Include="Abstract\IFollowRepository.cs" />
     <Compile Include="Abstract\IHashtagRepository.cs" />
     <Compile Include="Abstract\ILikeRepository.cs" />
+    <Compile Include="Abstract\IPasswordResetRepository.cs" />
     <Compile Include="Abstract\IPostsRepository.cs" />
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Abstract\ITextRepository.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Concrete\EfRepository.cs" />
     <Compile Include="Concrete\HashtagRepository.cs" />
     <Compile Include="Concrete\LikeRepository.cs" />
+    <Compile Include="Concrete\PasswordResetRepository.cs" />
     <Compile Include="Concrete\PostRepository.cs" />
     <Compile Include="Concrete\ProjecktorDatabase.cs" />
     <Compile Include="Concrete\TextRepository.cs" />
@@ -97,16 +99,17 @@
     <Compile Include="Entites\Follow.cs" />
     <Compile Include="Entites\Hashtag.cs" />
     <Compile Include="Entites\Like.cs" />
+    <Compile Include="Entites\PasswordReset.cs" />
     <Compile Include="Entites\Post.cs" />
     <Compile Include="Entites\Text.cs" />
     <Compile Include="Entites\User.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

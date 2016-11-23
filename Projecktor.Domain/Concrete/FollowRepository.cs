@@ -1,7 +1,5 @@
-﻿using System;
-using Projecktor.Domain.Abstract;
+﻿using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
-using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace Projecktor.Domain.Concrete

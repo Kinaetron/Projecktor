@@ -172,6 +172,11 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "home", action = "image" });
 
             routes.MapRoute(
+                name: "PasswordReset",
+                url: "passwordreset/{passwordId}/{userId}",
+                defaults: new { controller = "home", action = "passwordreset" });
+
+            routes.MapRoute(
                 name: "Default",
                 url:  "{action}",
                 defaults: new { controller = "home", action = "index" });

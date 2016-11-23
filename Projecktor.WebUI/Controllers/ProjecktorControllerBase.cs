@@ -13,6 +13,7 @@ namespace Projecktor.WebUI.Controllers
         public IPostService Posts { get; private set; }
         public ILikeService UserLikes { get; private set; }
         public IHashtagService Hashtags { get; private set; }
+        public IPasswordResetService PasswordResets { get; private set; }
         public User CurrentUser { get; set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; private set; }
@@ -24,6 +25,7 @@ namespace Projecktor.WebUI.Controllers
             Posts = new PostService(DataContext);
             Hashtags = new HashtagService(DataContext);
             UserLikes = new LikeService(DataContext);
+            PasswordResets = new PasswordResetService(DataContext);
             Security = new SecurityService(Users);
             CurrentUser = Security.GetCurrentUser();
         }

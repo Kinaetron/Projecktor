@@ -13,6 +13,7 @@ namespace Projecktor.Domain.Concrete
         public DbSet<Text> Texts { get; set; }
         public DbSet<Hashtag> HashTags { get; set; }
         public DbSet<Follow> Follow { get; set; }
+        public DbSet<PasswordReset> PasswordReset { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -21,6 +22,7 @@ namespace Projecktor.Domain.Concrete
             modelBuilder.Entity<User>().HasMany(u => u.Likes);
             modelBuilder.Entity<User>().HasMany(u => u.Posts);
             modelBuilder.Entity<User>().HasMany(u => u.Texts);
+            modelBuilder.Entity<User>().HasMany(u => u.PasswordReset);
         }
     }
 }

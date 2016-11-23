@@ -12,7 +12,7 @@ namespace Projecktor.Domain.Concrete
         public Context(DbContext context = null, IUserRepository users = null, 
                        IPostRepository posts = null, ILikeRepository likes = null, 
                        ITextRepository texts = null, IHashtagRepository hashtags = null, 
-                       IFollowRepository follow = null)
+                       IFollowRepository follow = null, IPasswordResetRepository passwordReset = null)
         {
             db = context ?? new ProjecktorDatabase();
             Users = users ?? new UserRepository(db, true);
@@ -21,6 +21,7 @@ namespace Projecktor.Domain.Concrete
             Likes = likes ?? new LikeRepository(db, true);
             Hashtags = hashtags ?? new HashtagRepository(db, true);
             Follow = follow ?? new FollowRepository(db, true);
+            PasswordReset = passwordReset ?? new PasswordResetRepository(db, true);
         }
 
         public IUserRepository Users
@@ -54,6 +55,12 @@ namespace Projecktor.Domain.Concrete
         }
 
         public IFollowRepository Follow
+        {
+            get;
+            private set;
+        }
+
+        public IPasswordResetRepository PasswordReset
         {
             get;
             private set;
