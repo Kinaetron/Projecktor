@@ -1,16 +1,15 @@
 ﻿using System;
-using System.IO;
 using System.Web;
 using System.Linq;
 using System.Web.Mvc;
+using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Net.Mail;
-using System.Net;
-using System.Web.Helpers;
 
 using Projecktor.WebUI.Models;
 using Projecktor.Domain.Entites;
-using System.Text;
+
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -238,7 +237,7 @@ namespace Projecktor.WebUI.Controllers
                 return View("ForgotPassword", new ForgotPasswordViewModel());
             }
 
-            //SendEmail(Users.GetByEmail(model.Email));
+            SendEmail(Users.GetByEmail(model.Email)).Wait();
             return RedirectToAction("Index", "Home");
         }
 
@@ -275,31 +274,18 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public void SendEmail(User user)
+        public static async Task SendEmail(User user)
         {
-            using (SmtpClient stmpClient = new SmtpClient())
-            {
-                stmpClient.EnableSsl = true;
-                stmpClient.Host = "smtp.example.com";
-                stmpClient.Port = 587;
-                stmpClient.UseDefaultCredentials = false;
-                stmpClient.Credentials = new NetworkCredential("MySmtpUsername", "mySmtpPassword");
+            string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey", EnvironmentVariableTarget.User);
+            dynamic sg = new SendGridAPIClient(apiKey);
 
-                StringBuilder body = new StringBuilder()
-              .AppendLine("Forgot your password ? Reset it below")
-              .AppendLine(" ");
+            Email from = new Email("no-reply@projecktor.com", "Projecktor");
+            string subject = "Projecktor Password";
+            Email to = new Email(user.Email);
+            Content content = new Content("text/plain", "Forgot your password? Reset it below:");
+            Mail mail = new Mail(from, subject, to, content);
 
-                string userId = Crypto.SHA256(user.Id.ToString());
-                body.AppendLine("projecktor.com/passwordreset/" + userId);
-
-                MailMessage mailMessage = new MailMessage(
-                            "example@mail.com",
-                            user.Email,
-                            "Projecktor Password",
-                            body.ToString());
-
-                stmpClient.Send(mailMessage);
-            }            
+            dynamic response = await sg.client.mail.send.post(requestBody: mail.Get());
         }
     }
 }
