@@ -1,6 +1,10 @@
-﻿using Projecktor.Domain.Abstract;
+﻿using System.Linq;
+using System.Collections.Generic;
+
+using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
 {
@@ -17,6 +21,12 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
         public int Create(int userId)
         {
+            List<PasswordReset> previousResets = passwordReset.FindAll(p => p.UserId == userId).ToList();
+
+            foreach (var prevSet in previousResets) {
+                passwordReset.Delete(prevSet);
+            }
+
             PasswordReset reset = new PasswordReset() {
                 UserId = userId
             };
