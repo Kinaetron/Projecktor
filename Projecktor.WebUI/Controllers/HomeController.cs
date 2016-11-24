@@ -244,7 +244,21 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult PasswordReset() {
+        public ActionResult PasswordReset(int userId = 0, int passwordId = 0)
+        {
+            if (passwordId == 0 && userId == 0 || Security.DoesUserExist(userId) == false) {
+                return RedirectToAction("ForgotPassword", "Home");
+            }
+
+            if(Security.DoesUserExist(userId) == true && PasswordResets.Exist(passwordId) == false)
+            {
+                PasswordRestViewModel model = new PasswordRestViewModel() {
+                    ExpiredLink = true
+                };
+                return View("PasswordReset", model);
+            }
+
+            PasswordResets.Delete(passwordId);
             return View("PasswordReset", new PasswordRestViewModel());
         }
 
@@ -257,7 +271,10 @@ namespace Projecktor.WebUI.Controllers
                 return View("PasswordReset", new PasswordRestViewModel());
             }
 
-            return RedirectToAction("Index", "Home");
+            Users.PasswordReset(model.Password, model.userId);
+            Security.Login(Users.GetBy(model.userId));
+
+            return RedirectToAction("Index", "Dashboard");
         }
 
         [HttpGet]
@@ -302,7 +319,7 @@ namespace Projecktor.WebUI.Controllers
             body.Append("Forgot your password? Reset it below:");
             body.Append(Environment.NewLine);
             body.Append(Environment.NewLine);
-            body.Append("projecktor.com:64976/resetpassword/" + user.Id + "/" + passwordId);
+            body.Append("projecktor.com:64976/passwordreset/" + passwordId + "/" + user.Id);
 
             Email from = new Email("no-reply@projecktor.com", "Projecktor");
             string subject = "Projecktor Password";

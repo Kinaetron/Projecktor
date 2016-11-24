@@ -53,6 +53,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             context.SaveChanges();
         }
 
+        public void PasswordReset(string password, int userId)
+        {
+            User user = users.Find(u => u.Id == userId);
+            user.Password = Crypto.HashPassword(password);
+            context.SaveChanges();
+        }
+
         public User GetBy(int id) {
             return users.GetBy(id);
         }

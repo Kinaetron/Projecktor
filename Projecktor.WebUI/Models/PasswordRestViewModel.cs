@@ -4,6 +4,8 @@ namespace Projecktor.WebUI.Models
 {
     public class PasswordRestViewModel
     {
+        public bool ExpiredLink { get; set; }
+
         public int userId { get; set; }
         public int passwordId { get; set; }
 

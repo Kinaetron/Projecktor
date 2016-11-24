@@ -8,6 +8,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         bool Authenticate(string username, string password);
         User CreateUser(RegisterViewModel signupModel, bool login = true);
         bool DoesUserExist(string username);
+        bool DoesUserExist(int userId);
         User GetCurrentUser();
         bool IsAuthenticated { get; }
         void Login(User user);

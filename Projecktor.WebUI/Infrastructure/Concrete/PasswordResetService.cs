@@ -43,5 +43,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             passwordReset.Delete(reset);
             context.SaveChanges();
         }
+
+        public bool Exist(int id) {
+            return passwordReset.Find(r => r.Id == id) != null;
+        }
     }
 }

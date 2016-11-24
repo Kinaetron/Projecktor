@@ -10,6 +10,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         IEnumerable<User> AllUsers();
         void Follow(string username, User Follower);
         void Unfollow(string username, User Unfollower);
+        void PasswordReset(string password, int userId);
         User GetBy(int id);
         User GetBy(string username);
         User GetByEmail(string email);
