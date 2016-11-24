@@ -319,7 +319,7 @@ namespace Projecktor.WebUI.Controllers
             body.Append("Forgot your password? Reset it below:");
             body.Append(Environment.NewLine);
             body.Append(Environment.NewLine);
-            body.Append("projecktor.com:64976/passwordreset/" + passwordId + "/" + user.Id);
+            body.Append("projecktor.com/passwordreset/" + passwordId + "/" + user.Id);
 
             Email from = new Email("no-reply@projecktor.com", "Projecktor");
             string subject = "Projecktor Password";
