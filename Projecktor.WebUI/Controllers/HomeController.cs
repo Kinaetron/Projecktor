@@ -312,7 +312,7 @@ namespace Projecktor.WebUI.Controllers
 
         public static async Task SendEmail(User user, int passwordId)
         {
-            string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey", EnvironmentVariableTarget.User);
+            string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey");
             dynamic sg = new SendGridAPIClient(apiKey);
 
             StringBuilder body = new StringBuilder();
