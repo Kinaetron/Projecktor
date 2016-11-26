@@ -14,6 +14,31 @@ namespace Projecktor.WebUI
                 "~/Scripts/jquery.validate.min.js",
                 "~/Scripts/jquery.validate.unobtrusive.min.js",
                 "~/Scripts/jquery-ui-1.12.1.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/galleryscripts").Include(
+                "~/Scripts/scrollup.js",
+                "~/Scripts/imageGalleryScript.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/galleryscripts").Include(
+               "~/Scripts/scrollup.js",
+               "~/Scripts/imageGalleryScript.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/userpagescripts").Include(
+               "~/Scripts/infiniteScrollingScript.js",
+               "~/Scripts/infinteScrollingUserpage.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/likespagescripts").Include(
+               "~/Scripts/infiniteScrollingScript.js",
+               "~/Scripts/infiniteScrollingUserLikes.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/dashboardscripts").Include(
+                "~/Scripts/actionScripts.js",
+                "~/Scripts/infiniteScrollingScript.js",
+                "~/Scripts/infiniteScrollingDashboard.js",
+                "~/Scripts/imagepostScript.js",
+                "~/Scripts/textpostScript.js",
+                "~/Scripts/postValidation.js"
+                ));
         }
     }
 }
