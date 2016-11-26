@@ -31,6 +31,11 @@ namespace Projecktor.WebUI
                "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infiniteScrollingUserLikes.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/likesdashboardscripts").Include(
+               "~/Scripts/actionScripts.js",
+               "~/Scripts/infiniteScrollingScript.js",
+               "~/Scripts/infintiteScrollingDashboardLikes.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/dashboardscripts").Include(
                 "~/Scripts/actionScripts.js",
                 "~/Scripts/infiniteScrollingScript.js",
