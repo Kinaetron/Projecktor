@@ -14,11 +14,11 @@ using SendGrid.Helpers.Mail;
 
 namespace Projecktor.WebUI.Controllers
 {
-
     public class HomeController : ProjecktorControllerBase
     {
         public HomeController() : base() { }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Index(string subdomain)
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -198,6 +198,7 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Register() {
             return View("Register", new RegisterViewModel());
         }
@@ -225,12 +226,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult ForgotPassword() {
             return View("ForgotPassword", new ForgotPasswordViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult ForgotPassword(ForgotPasswordViewModel model) {
         
             if (Security.DoesUserExist(model.Email) == false) {
@@ -242,7 +245,7 @@ namespace Projecktor.WebUI.Controllers
             SendEmail(user, PasswordResets.Create(user.Id)).Wait();
             return RedirectToAction("Index", "Home");
         }
-
+         
         [HttpGet]
         public ActionResult PasswordReset(int userId = 0, int passwordId = 0)
         {
@@ -264,6 +267,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult PasswordReset(PasswordRestViewModel model)
         {
             if(model.Password.Equals(model.ConfirmPassword, StringComparison.CurrentCulture) == false) {
@@ -310,6 +314,7 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public static async Task SendEmail(User user, int passwordId)
         {
             string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey");

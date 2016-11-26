@@ -16,6 +16,7 @@ namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Index()
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -32,6 +33,8 @@ namespace Projecktor.WebUI.Controllers
             return View("Dashboard", timeline);
         }
 
+
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Likes()
         {
             if(Security.IsAuthenticated == false) {
@@ -44,6 +47,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Follow(string username)
         {
             if (Security.IsAuthenticated == false) {
@@ -55,6 +59,7 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public JsonResult Reblog(int textId, int reblogId, int sourceId)
         {
             Post madeReblog = Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
@@ -87,6 +92,7 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();
@@ -130,7 +136,7 @@ namespace Projecktor.WebUI.Controllers
             return PartialView("_MultiPosts", models);
         }
 
-
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Followers()
         {
             if (Security.IsAuthenticated == false) {
@@ -158,12 +164,14 @@ namespace Projecktor.WebUI.Controllers
         }
   
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult TextPost() {
             return View("TextPost", new CreateTextPostViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult TextPost(CreateTextPostViewModel model)
         {
             if(ModelState.IsValid == true)
@@ -179,12 +187,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult ImagePost() {
             return View("ImagePost", new CreateImagePostViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult ImagePost(CreateImagePostViewModel model)
         {
             string[] imagePath = new string[6];
@@ -230,6 +240,7 @@ namespace Projecktor.WebUI.Controllers
 
 
         [HttpPost]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public JsonResult DeletePost(int postId)
         {
             Post post = Posts.Getby(postId);
@@ -331,6 +342,7 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Settings()
         {
             User user = Users.GetBy(Security.UserId);
@@ -345,6 +357,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Settings(SettingsViewModel settings)
         {
 
@@ -359,6 +372,7 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Activity()
         {
             List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
@@ -367,6 +381,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public ActionResult Logout()
         {
             if(Request.Cookies["loggedIn"] != null)
@@ -383,6 +398,7 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public static string GetRandomString()
         {
             string path = Path.GetRandomFileName();
@@ -390,6 +406,7 @@ namespace Projecktor.WebUI.Controllers
             return path;
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public static Bitmap ResizeImage540(Image image)
         {
             if (image.Width <= 540 && image.Height <= 810) {
@@ -414,6 +431,7 @@ namespace Projecktor.WebUI.Controllers
             return ResizeImage(image, (int)newWidth, (int)newHeight);
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public static Bitmap ResizeImage720p(Image image)
         {
             if(image.Width <= 1280 && image.Height <= 720) {
@@ -438,6 +456,7 @@ namespace Projecktor.WebUI.Controllers
             return ResizeImage(image, (int)newWidth, (int)newHeight);
         }
 
+        [OutputCache(Duration = 8600, VaryByParam = "none")]
         public static Bitmap ResizeImage(Image image, int width, int height)
         {
             Rectangle destRect = new Rectangle(0, 0, width, height);
