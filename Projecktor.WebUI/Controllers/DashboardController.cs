@@ -44,7 +44,6 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 10, VaryByParam = "username")]
         public ActionResult Follow(string username)
         {
             if (Security.IsAuthenticated == false) {
@@ -91,7 +90,6 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();
@@ -135,7 +133,6 @@ namespace Projecktor.WebUI.Controllers
             return PartialView("_MultiPosts", models);
         }
 
-        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult Followers()
         {
             if (Security.IsAuthenticated == false) {
@@ -149,7 +146,6 @@ namespace Projecktor.WebUI.Controllers
             });
         }
 
-        [OutputCache(Duration = 10, VaryByParam = "none")]
         public ActionResult Following()
         {
             if (Security.IsAuthenticated == false) {
