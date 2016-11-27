@@ -17,6 +17,8 @@ namespace Projecktor.WebUI.Controllers
         public User CurrentUser { get; set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; private set; }
+        public string ProjecktorCDN { get; private set; }
+
 
         public ProjecktorControllerBase()
         {
@@ -28,6 +30,7 @@ namespace Projecktor.WebUI.Controllers
             PasswordResets = new PasswordResetService(DataContext);
             Security = new SecurityService(Users);
             CurrentUser = Security.GetCurrentUser();
+            ProjecktorCDN = "http://projecktor.azureedge.net";
         }
 
         protected override void Dispose(bool disposing)

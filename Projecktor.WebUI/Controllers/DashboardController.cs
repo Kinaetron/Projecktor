@@ -200,7 +200,6 @@ namespace Projecktor.WebUI.Controllers
 
             for (int i = 0; i < count; i++)
             {
-
                 string imageName = "projecktor_" + GetRandomString();
 
                 string imageNameOriginal = imageName + Path.GetExtension(images[i].FileName);

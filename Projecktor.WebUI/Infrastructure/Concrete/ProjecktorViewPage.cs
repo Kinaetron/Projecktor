@@ -2,6 +2,7 @@
 using Projecktor.Domain.Concrete;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
+using System.Diagnostics;
 using System.Web.Mvc;
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
@@ -12,6 +13,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public User CurrentUser { get; private set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; private set; }
+        public string ProjecktorCDN { get; private set; }
+        public bool IsCDNAvailable { get; private set; }
 
         public ProjecktorViewPage()
         {
@@ -19,6 +22,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             Users = new UserService(DataContext);
             Security = new SecurityService(Users);
             CurrentUser = Security.GetCurrentUser();
+            ProjecktorCDN = "http://projecktor.azureedge.net";
+            IsCDNAvailable = Debugger.IsAttached ? false : true;
         }
     }
 
@@ -28,6 +33,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public User CurrentUser { get; private set; }
         public IUserService Users { get; private set; }
         public ISecurityService Security { get; private set; }
+        public string ProjecktorCDN { get; private set; }
+        public bool IsCDNAvailable { get; private set; }
 
         public ProjecktorViewPage()
         {
@@ -35,6 +42,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             Users = new UserService(DataContext);
             Security = new SecurityService(Users);
             CurrentUser = Security.GetCurrentUser();
+            ProjecktorCDN = "http://projecktor.azureedge.net";
+            IsCDNAvailable = Debugger.IsAttached ? false : true;
         }
     }
 }

@@ -11,6 +11,7 @@ using Projecktor.Domain.Entites;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace Projecktor.WebUI.Controllers
 {
@@ -108,35 +109,72 @@ namespace Projecktor.WebUI.Controllers
 
             string[] image;
 
-            if (post.Image1 != null)
+            if(Debugger.IsAttached == true)
             {
-                image = post.Image1.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
+                if (post.Image1 != null)
+                {
+                    image = post.Image1.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image2 != null)
+                {
+                    image = post.Image2.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image3 != null)
+                {
+                    image = post.Image3.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image4 != null)
+                {
+                    image = post.Image4.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image5 != null)
+                {
+                    image = post.Image5.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image6 != null)
+                {
+                    image = post.Image6.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+
             }
-            if (post.Image2 != null)
+            else
             {
-                image = post.Image2.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image3 != null)
-            {
-                image = post.Image3.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image4 != null)
-            {
-                image = post.Image4.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image5 != null)
-            {
-                image = post.Image5.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image6 != null)
-            {
-                image = post.Image6.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
+                if (post.Image1 != null)
+                {
+                    image = post.Image1.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image2 != null)
+                {
+                    image = post.Image2.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image3 != null)
+                {
+                    image = post.Image3.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image4 != null)
+                {
+                    image = post.Image4.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image5 != null)
+                {
+                    image = post.Image5.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image6 != null)
+                {
+                    image = post.Image6.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
             }
 
             return Json(images, JsonRequestBehavior.AllowGet);
