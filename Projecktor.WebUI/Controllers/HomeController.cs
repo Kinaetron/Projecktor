@@ -195,8 +195,12 @@ namespace Projecktor.WebUI.Controllers
             return View("Notes", notes);
         }
 
-        public ActionResult Image(string path) {
+        public ActionResult Image(string path)
+        {
             HttpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+            HttpContext.Response.Cache.SetMaxAge(TimeSpan.FromDays(365));
+            HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(365));
+
             return File(path, "image");
         }
 
