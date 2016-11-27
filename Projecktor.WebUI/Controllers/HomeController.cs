@@ -18,7 +18,7 @@ namespace Projecktor.WebUI.Controllers
     {
         public HomeController() : base() { }
 
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "subdomain")]
         public ActionResult Index(string subdomain)
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -167,6 +167,7 @@ namespace Projecktor.WebUI.Controllers
             return View("UserPage", taggedPosts);
         }
 
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Post(string subdomain, string id)
         {
             if (Security.IsAuthenticated == false && subdomain == null) {
@@ -187,24 +188,31 @@ namespace Projecktor.WebUI.Controllers
             return View("Post", post);
         }
 
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Notes(string id)
         {
             IEnumerable<Note> notes = Posts.Notes(int.Parse(id));
             return View("Notes", notes);
         }
 
-        public ActionResult Image(string path) {
+        public ActionResult Image(string path)
+        {
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+            HttpContext.Response.Cache.SetMaxAge(TimeSpan.FromDays(7));
+            HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(7));
+
             return File(path, "image");
         }
 
         [HttpGet]
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Register() {
             return View("Register", new RegisterViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult Register(RegisterViewModel model)
         {
             if (Security.IsAuthenticated == true) {
@@ -226,14 +234,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ForgotPassword() {
             return View("ForgotPassword", new ForgotPasswordViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult ForgotPassword(ForgotPasswordViewModel model) {
         
             if (Security.DoesUserExist(model.Email) == false) {
@@ -247,6 +255,7 @@ namespace Projecktor.WebUI.Controllers
         }
          
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult PasswordReset(int userId = 0, int passwordId = 0)
         {
             if (passwordId == 0 && userId == 0 || Security.DoesUserExist(userId) == false) {
@@ -267,7 +276,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult PasswordReset(PasswordRestViewModel model)
         {
             if(model.Password.Equals(model.ConfirmPassword, StringComparison.CurrentCulture) == false) {
@@ -282,12 +291,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Login() {
             return View("Login", new LoginViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult Login(LoginViewModel model)
         {
             if (Security.IsAuthenticated == true) {
@@ -314,7 +325,7 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        [OutputCache(Duration = 8600, VaryByParam = "none")]
+        [OutputCache(Duration = 30, VaryByParam = "passwordId")]
         public static async Task SendEmail(User user, int passwordId)
         {
             string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey");
