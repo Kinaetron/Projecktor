@@ -8,10 +8,13 @@
     @Html.Partial("_NavigationBar")
 </div>
 
+@section head
+{
 <link href="~/Content/textpostSheet.css" rel="stylesheet" />
 <link href="~/Content/imagpostSheet.css" rel="stylesheet" />
 
 @Scripts.Render("~/bundles/dashboardscripts")
+}
 
 <div>
     <a href="/imagepost" id="imagepost">Image Post</a>

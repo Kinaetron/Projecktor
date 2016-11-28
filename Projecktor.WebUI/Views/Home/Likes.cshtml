@@ -4,7 +4,10 @@
     ViewBag.Title = "Projecktor | Likes";
 }
 
-@Scripts.Render("~/bundles/likespagescripts")
+@section head
+{
+  @Scripts.Render("~/bundles/likespagescripts")
+}
 
 @foreach (PostViewModel textPost in Model)
 {

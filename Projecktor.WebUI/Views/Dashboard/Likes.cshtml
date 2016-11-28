@@ -8,7 +8,10 @@
     @Html.Partial("_NavigationBar")
 </div>
 
-@Scripts.Render("~/bundles/likesdashboardscripts")
+@section head
+{
+    @Scripts.Render("~/bundles/likesdashboardscripts")
+}
 
 @if (Model.Any() == true)
 {

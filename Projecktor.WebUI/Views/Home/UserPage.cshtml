@@ -4,7 +4,10 @@
     ViewBag.Title =  "Projecktor External";
 }
 
-@Scripts.Render("~/bundles/userpagescripts")
+@section head
+{
+    @Scripts.Render("~/bundles/userpagescripts")
+}
 
 @foreach (PostViewModel textPost in Model) {
     @Html.Partial("_PostModelPartial", textPost);
