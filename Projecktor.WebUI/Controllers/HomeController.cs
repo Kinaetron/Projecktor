@@ -11,14 +11,15 @@ using Projecktor.Domain.Entites;
 
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Diagnostics;
 
 namespace Projecktor.WebUI.Controllers
 {
-
     public class HomeController : ProjecktorControllerBase
     {
         public HomeController() : base() { }
 
+        [OutputCache(Duration = 30, VaryByParam = "subdomain")]
         public ActionResult Index(string subdomain)
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -108,35 +109,72 @@ namespace Projecktor.WebUI.Controllers
 
             string[] image;
 
-            if (post.Image1 != null)
+            if(Debugger.IsAttached == true)
             {
-                image = post.Image1.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
+                if (post.Image1 != null)
+                {
+                    image = post.Image1.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image2 != null)
+                {
+                    image = post.Image2.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image3 != null)
+                {
+                    image = post.Image3.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image4 != null)
+                {
+                    image = post.Image4.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image5 != null)
+                {
+                    image = post.Image5.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+                if (post.Image6 != null)
+                {
+                    image = post.Image6.Split('.');
+                    images.Add(Url.Content(image[0] + "_720." + image[1]));
+                }
+
             }
-            if (post.Image2 != null)
+            else
             {
-                image = post.Image2.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image3 != null)
-            {
-                image = post.Image3.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image4 != null)
-            {
-                image = post.Image4.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image5 != null)
-            {
-                image = post.Image5.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
-            }
-            if (post.Image6 != null)
-            {
-                image = post.Image6.Split('.');
-                images.Add(Url.Content(image[0] + "_720." + image[1]));
+                if (post.Image1 != null)
+                {
+                    image = post.Image1.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image2 != null)
+                {
+                    image = post.Image2.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image3 != null)
+                {
+                    image = post.Image3.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image4 != null)
+                {
+                    image = post.Image4.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image5 != null)
+                {
+                    image = post.Image5.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
+                if (post.Image6 != null)
+                {
+                    image = post.Image6.Remove(0, 1).Split('.');
+                    images.Add(Url.Content(ProjecktorCDN + image[0] + "_720." + image[1]));
+                }
             }
 
             return Json(images, JsonRequestBehavior.AllowGet);
@@ -167,6 +205,7 @@ namespace Projecktor.WebUI.Controllers
             return View("UserPage", taggedPosts);
         }
 
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Post(string subdomain, string id)
         {
             if (Security.IsAuthenticated == false && subdomain == null) {
@@ -187,23 +226,31 @@ namespace Projecktor.WebUI.Controllers
             return View("Post", post);
         }
 
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Notes(string id)
         {
             IEnumerable<Note> notes = Posts.Notes(int.Parse(id));
             return View("Notes", notes);
         }
 
-        public ActionResult Image(string path) {
+        public ActionResult Image(string path)
+        {
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.Public);
+            HttpContext.Response.Cache.SetMaxAge(TimeSpan.FromDays(365));
+            HttpContext.Response.Cache.SetExpires(DateTime.UtcNow.AddDays(365));
+
             return File(path, "image");
         }
 
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Register() {
             return View("Register", new RegisterViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult Register(RegisterViewModel model)
         {
             if (Security.IsAuthenticated == true) {
@@ -225,12 +272,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ForgotPassword() {
             return View("ForgotPassword", new ForgotPasswordViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult ForgotPassword(ForgotPasswordViewModel model) {
         
             if (Security.DoesUserExist(model.Email) == false) {
@@ -242,8 +291,9 @@ namespace Projecktor.WebUI.Controllers
             SendEmail(user, PasswordResets.Create(user.Id)).Wait();
             return RedirectToAction("Index", "Home");
         }
-
+         
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult PasswordReset(int userId = 0, int passwordId = 0)
         {
             if (passwordId == 0 && userId == 0 || Security.DoesUserExist(userId) == false) {
@@ -264,6 +314,7 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult PasswordReset(PasswordRestViewModel model)
         {
             if(model.Password.Equals(model.ConfirmPassword, StringComparison.CurrentCulture) == false) {
@@ -278,12 +329,14 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Login() {
             return View("Login", new LoginViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult Login(LoginViewModel model)
         {
             if (Security.IsAuthenticated == true) {
@@ -310,6 +363,7 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
+        [OutputCache(Duration = 30, VaryByParam = "passwordId")]
         public static async Task SendEmail(User user, int passwordId)
         {
             string apiKey = Environment.GetEnvironmentVariable("ProjecktorMailKey");

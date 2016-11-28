@@ -8,9 +8,7 @@
     @Html.Partial("_NavigationBar")
 </div>
 
-<script src="~/Scripts/actionScripts.js"></script>
-<script src="~/Scripts/infiniteScrollingScript.js"></script>
-<script src="~/Scripts/infintiteScrollingDashboardLikes.js"></script>
+@Scripts.Render("~/bundles/likesdashboardscripts")
 
 @if (Model.Any() == true)
 {

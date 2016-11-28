@@ -4,8 +4,7 @@
     ViewBag.Title = "Projecktor | Likes";
 }
 
-<script src="~/Scripts/infiniteScrollingScript.js"></script>
-<script src="~/Scripts/infiniteScrollingUserLikes.js"></script>
+@Scripts.Render("~/bundles/likespagescripts")
 
 @foreach (PostViewModel textPost in Model)
 {

@@ -4,8 +4,7 @@
     ViewBag.Title =  "Projecktor External";
 }
 
-<script src="~/Scripts/infiniteScrollingScript.js"></script>
-<script src="~/Scripts/infinteScrollingUserpage.js"></script>
+@Scripts.Render("~/bundles/userpagescripts")
 
 @foreach (PostViewModel textPost in Model) {
     @Html.Partial("_PostModelPartial", textPost);
