@@ -116,7 +116,7 @@
             <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" />
         }
         else {
-            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.ReblogedFrom.Id, @Model.PostId)" />
+            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" />
         }
 
 
