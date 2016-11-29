@@ -55,7 +55,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 10, VaryByParam = "reblogId")]
         public JsonResult Reblog(int textId, int reblogId, int sourceId)
         {
             Post madeReblog = Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
@@ -69,7 +68,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 10, VaryByParam = "postId")]
         public JsonResult DeleteReblog(int postId)
         {
             Posts.DeleteReblog(postId);
@@ -79,7 +77,6 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 10, VaryByParam = "username")]
         public ActionResult UnFollow(string username)
         {
             if (Security.IsAuthenticated == false) {
@@ -160,14 +157,12 @@ namespace Projecktor.WebUI.Controllers
         }
   
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult TextPost() {
             return View("TextPost", new CreateTextPostViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult TextPost(CreateTextPostViewModel model)
         {
             if(ModelState.IsValid == true)
@@ -183,14 +178,12 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ImagePost() {
             return View("ImagePost", new CreateImagePostViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 30, VaryByParam = "model")]
         public ActionResult ImagePost(CreateImagePostViewModel model)
         {
             string[] imagePath = new string[6];
@@ -235,7 +228,6 @@ namespace Projecktor.WebUI.Controllers
 
 
         [HttpPost]
-        [OutputCache(Duration = 30, VaryByParam = "postId")]
         public JsonResult DeletePost(int postId)
         {
             Post post = Posts.Getby(postId);
@@ -295,7 +287,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 30, VaryByParam = "postId")]
         public JsonResult Like(int postId, int sourceId)
         {
             if(ModelState.IsValid == true) {
@@ -306,7 +297,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        [OutputCache(Duration = 30, VaryByParam = "postId")]
         public JsonResult Unlike(int postId)
         {
             if (ModelState.IsValid == true) {
@@ -316,7 +306,6 @@ namespace Projecktor.WebUI.Controllers
             return Json(new { msg = "Successful" });
         }
 
-        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Search(string id)
         {
             SearchModel model = new SearchModel()
@@ -329,7 +318,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "id")]
         public JsonResult AutoComplete(string id)
         {
             List<string> results = new List<string>();
@@ -341,7 +329,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Settings()
         {
             User user = Users.GetBy(Security.UserId);
@@ -356,7 +343,6 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 30, VaryByParam = "settings")]
         public ActionResult Settings(SettingsViewModel settings)
         {
 
@@ -371,7 +357,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Activity()
         {
             List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
@@ -380,7 +365,6 @@ namespace Projecktor.WebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult Logout()
         {
             if(Request.Cookies["loggedIn"] != null)

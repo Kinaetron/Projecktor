@@ -11,13 +11,13 @@
         for (int i = 0; i < Model.Images.Count; i++)
         {
 
-            if (Model.Images.Count == 1)
+            if (Model.Images.Count > 1)
             {
                 string[] image = Model.Images[i].Remove(0, 1).Split('.');
 
                 if (IsCDNAvailable == true)
                 {
-                    <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
+                    <a onclick="GalleryMany('@Model.PostId-@i', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
                         <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
                     </a>
                 }
@@ -80,7 +80,7 @@
 
                 if (IsCDNAvailable == true)
                 {
-                    <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
+                    <a onclick="GalleryMany('@Model.PostId-@i', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
                         <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
                     </a>
                 }
@@ -113,10 +113,10 @@
         }
 
         if (Model.ReblogedFrom == null) {
-            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Author.Id)" />
+            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" />
         }
         else {
-            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" />
+            <input type="button"  value="Reblog" onclick="Reblog(@Model.TextId, @Model.ReblogedFrom.Id, @Model.PostId)" />
         }
 
 

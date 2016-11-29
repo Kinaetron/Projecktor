@@ -6,37 +6,41 @@ namespace Projecktor.WebUI
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.UseCdn = true;
+            string version = System.Reflection.Assembly.GetAssembly(typeof(Controllers.HomeController)).GetName().Version.ToString();
+            string cdnUrl = "http://projecktor.azureedge.net/{0}?v=" + version;
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/*.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/clientfeaturesscripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/clientfeaturesscripts", string.Format(cdnUrl, "/bundles/clientfeaturesscripts")).Include(
                 "~/Scripts/jquery-3.0.0.min.js",
                 "~/Scripts/jquery.validate.min.js",
                 "~/Scripts/jquery.validate.unobtrusive.min.js",
                 "~/Scripts/jquery-ui-1.12.1.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/galleryscripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/galleryscripts", string.Format(cdnUrl, "/bundles/galleryscripts")).Include(
                 "~/Scripts/scrollup.js",
                 "~/Scripts/imageGalleryScript.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/galleryscripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/galleryscripts", string.Format(cdnUrl, "/bundles/galleryscripts")).Include(
                "~/Scripts/scrollup.js",
                "~/Scripts/imageGalleryScript.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/userpagescripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/userpagescripts", string.Format(cdnUrl, "/bundles/userpagescripts")).Include(
                "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infinteScrollingUserpage.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/likespagescripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/likespagescripts", string.Format(cdnUrl, "/bundles/likespagescripts")).Include(
                "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infiniteScrollingUserLikes.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/likesdashboardscripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/likesdashboardscripts", string.Format(cdnUrl, "/bundles/likesdashboardscripts")).Include(
                "~/Scripts/actionScripts.js",
                "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infintiteScrollingDashboardLikes.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dashboardscripts").Include(
+            bundles.Add(new ScriptBundle("~/bundles/dashboardscripts", string.Format(cdnUrl, "/bundles/dashboardscripts")).Include(
                 "~/Scripts/actionScripts.js",
                 "~/Scripts/infiniteScrollingScript.js",
                 "~/Scripts/infiniteScrollingDashboard.js",
@@ -44,6 +48,8 @@ namespace Projecktor.WebUI
                 "~/Scripts/textpostScript.js",
                 "~/Scripts/postValidation.js"
                 ));
+
+            BundleTable.EnableOptimizations = true;
         }
     }
 }
