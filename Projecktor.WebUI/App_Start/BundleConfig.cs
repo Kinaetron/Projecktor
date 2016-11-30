@@ -49,6 +49,10 @@ namespace Projecktor.WebUI
                 "~/Scripts/postValidation.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/followscripts").Include(
+                 "~/Scripts/actionScripts.js"
+                ));
+
             BundleTable.EnableOptimizations = true;
         }
     }

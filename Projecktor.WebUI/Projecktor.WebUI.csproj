@@ -226,6 +226,7 @@
     <Content Include="Scripts\actionScripts.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\projecktor - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\projecktor - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -251,7 +252,9 @@
     <Content Include="Scripts\scrollup.js" />
     <Content Include="Scripts\searchScript.js" />
     <Content Include="Scripts\textpostScript.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />

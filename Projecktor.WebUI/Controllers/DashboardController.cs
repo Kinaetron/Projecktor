@@ -43,15 +43,17 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Follow(string username)
+        public JsonResult Follow(string username)
         {
-            if (Security.IsAuthenticated == false) {
-                return RedirectToAction("Index", "Home");
-            }
 
             Users.Follow(username, Security.GetCurrentUser());
-            return RedirectToAction("Index", "Dashboard");
+            return Json(new { msg = "Successful" });
+        }
+
+        [HttpPost]
+        public JsonResult UnFollow(string username) {
+            Users.Unfollow(username, Security.GetCurrentUser());
+            return Json(new { msg = "Successful" });
         }
 
         [HttpPost]
@@ -73,18 +75,6 @@ namespace Projecktor.WebUI.Controllers
             Posts.DeleteReblog(postId);
             Hashtags.Delete(postId);
             return Json(new { msg = "Successful" });
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult UnFollow(string username)
-        {
-            if (Security.IsAuthenticated == false) {
-                return RedirectToAction("Index", "Home");
-            }
-
-            Users.Unfollow(username, Security.GetCurrentUser());
-            return RedirectToAction("Index", "Dashboard");
         }
 
         public ActionResult Profiles()

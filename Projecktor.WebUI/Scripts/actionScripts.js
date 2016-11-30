@@ -47,6 +47,39 @@ function LikePost(postId, sourceId) {
     }
 }
 
+function FollowUser(username, userId) {
+    if ($('#follow_' + userId).val() == "Follow") {
+        $.ajax
+        ({
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: '{username:' + JSON.stringify(username) + '}',
+            url: '/follow',
+            success: function () {
+                $('#follow_' + userId).val("Unfollow");
+            },
+            error: function () {
+                alert("Something went terribly wrong with like");
+            }
+        })
+    }
+    else if ($('#follow_' + userId).val() == "Unfollow") {
+        $.ajax
+        ({
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            data: '{username:' + JSON.stringify(username) + '}',
+            url: '/unfollow',
+            success: function () {
+                $('#follow_' + userId).val("Follow");
+            },
+            error: function () {
+                alert("Something went terribly wrong with unlike");
+            }
+        })
+    }
+}
+
 function Reblog(textId, reblogId, sourceId) {
     $.ajax
    ({
