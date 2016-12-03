@@ -53,8 +53,8 @@
 
         <p>@Model.Text</p>
 
-        string urlLinkSource = "http://" + Model.Author.Username + ".projecktor.com";
-        <label>source: <a href="@urlLinkSource">@Model.Author.Username</a></label><br /><br />
+        string urlLinkSource = "http://" + Model.Source.Author.Username + ".projecktor.com/post/" + Model.Source.Id;
+        <label>source: <a href="@urlLinkSource">@Model.Source.Author.Username</a></label><br /><br />
     }
     else
     {
