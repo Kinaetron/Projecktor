@@ -32,3 +32,19 @@ label {
   margin: 8px 0;
   padding-bottom: 8px;
 }
+
+.likeButton {
+    background:url(/Images/Like.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
+.reblogButton {
+    background:url(/Images/Reblog.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}

@@ -5,7 +5,7 @@
     vertical-align: baseline;
     text-align: center;
     color: #FFFFFF;
-    background-color: #A77DC2;
+    background-color: #96A3CD;
     position: relative;
     top: 50px;
 }
@@ -22,7 +22,7 @@
 #navigationBar {
     position: fixed;
     top: 0px;
-    background-color: #A77DC2;
+    background-color: #96A3CD;
     width: 100%;
     box-shadow: 0 0 0 1px #888888;
 }
@@ -34,6 +34,7 @@
 #toTop {
     padding: 5px 3px;
     background: #000;
+    cursor: pointer;
     color: #fff;
     position: fixed;
     bottom: 0;

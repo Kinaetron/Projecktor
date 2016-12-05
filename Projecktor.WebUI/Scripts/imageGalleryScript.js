@@ -40,9 +40,9 @@ function GalleryShowMany()
 
     $("<img>", { src: vignetteURL, id: "vignette" }).prependTo("#projecktor_lightbox");
 
-    $("<a>", { id: "projecktor_lightbox_right_link", href: "#" }).prependTo("#displayImage");
-    $("<a>", { id: "projecktor_lightbox_centre_link", href: "#" }).prependTo("#displayImage");
-    $("<a>", { id: "projecktor_lightbox_left_link", href: "#" }).prependTo("#displayImage");
+    $("<a>", { id: "projecktor_lightbox_right_link", href: void(0) }).prependTo("#displayImage");
+    $("<a>", { id: "projecktor_lightbox_centre_link", href: void(0) }).prependTo("#displayImage");
+    $("<a>", { id: "projecktor_lightbox_left_link", href: void(0) }).prependTo("#displayImage");
 
 
     $("<img>", { id: "rightImage" }).prependTo("#projecktor_lightbox_right_link");
@@ -55,7 +55,7 @@ function GalleryShowMany()
         "overflow": "hidden", "background-color": "rgba(17, 17, 17, 0.921569)"
     });
 
-    $("body").css({ "overflow": "hidden" })
+    $("body").css({ "overflow": "hidden", "height" : "100%" })
     ImageCall();
 }
 
@@ -179,11 +179,7 @@ function AssetRemoval()
 }
 
 function ImageSwitch() {
-    $("#vignette").remove();
-    $("#projecktor_lightbox_centre_link").remove();
-    $("#projecktor_lightbox_left_link").remove();
-    $("#projecktor_lightbox_right_link").remove();
-    GalleryShowMany();
+    ImageCall();
 }
 
 function ImageCall()
@@ -207,11 +203,19 @@ function ImageCall()
                     if (imgCentre != null) {
                         ImageFunc(imgCentre);
                     }
+
                     if (imgLeft != null) {
                         ImageFuncLeft(imgLeft);
                     }
+                    else {
+                        $("#leftImage").css({ "display": "none" });
+                    }
+
                     if (imgRight != null) {
                         ImageFuncRight(imgRight);
+                    }
+                    else {
+                        $("#rightImage").css({ "display": "none" });
                     }
                 }
             };
@@ -275,6 +279,6 @@ function ImageFunction(image, elementName)
         left = 0.42 * $(window).width();
     }
 
-    $(elementName).css({ "position": "absolute", "display": "inline-block", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
+    $(elementName).css({ "position": "absolute", "display": "inline-block", "cursor" : "pointer", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
     $(elementName).attr('src', image.src);
 }

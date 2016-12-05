@@ -15,7 +15,7 @@
 }
 
 function LikePost(postId, sourceId) {
-    if ($('#like_' + postId).val() == "Like") {
+    if ($('.likeButton').is('#like_' + postId)) {
         $.ajax
         ({
             type: 'POST',
@@ -23,14 +23,14 @@ function LikePost(postId, sourceId) {
             data: '{postId:' + JSON.stringify(postId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
             url: '/like',
             success: function () {
-                $('#like_' + postId).val("Unlike");
+                $('#like_' + postId).attr('id', 'unLike_' + postId);
             },
             error: function () {
                 alert("Something went terribly wrong with like");
             }
         })
     }
-    else if ($('#like_' + postId).val() == "Unlike") {
+    else if ($('.likeButton').is('#unLike_' + postId)) {
         $.ajax
         ({
             type: 'POST',
@@ -38,7 +38,8 @@ function LikePost(postId, sourceId) {
             data: '{postId:' + JSON.stringify(postId) + '}',
             url: '/unlike',
             success: function () {
-                $('#like_' + postId).val("Like");
+                //$('#like_' + postId).val("Like");
+                $('#unLike_' + postId).attr('id', 'like_' + postId);
             },
             error: function () {
                 alert("Something went terribly wrong with unlike");
