@@ -3,15 +3,14 @@
 <input type="text" id="searchTerm" />
 <input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />
 
-@Html.ActionLink("Home", "Index")
-@Html.ActionLink("Users", "Profiles")
-@Html.ActionLink("Following", "Following")
-@Html.ActionLink("Followers", "Followers")
-@Html.ActionLink("Likes", "Likes")
-@Html.ActionLink("Settings", "Settings")
+<a href='@Url.Action("Index", "Dashboard")' title="Home"><img src='@Url.Content("~/Images/Home.png")' /></a>
+<a href='@Url.Action("Following", "Dashboard")' title="Following"><img src='@Url.Content("~/Images/Following.png")' /></a>
+<a href='@Url.Action("Followers", "Dashboard")' title="Followers"><img src='@Url.Content("~/Images/Followers.png")' /></a>
+<a href='@Url.Action("Likes", "Dashboard")' title="Likes"><img src='@Url.Content("~/Images/Like.png")' /></a>
+<a href='@Url.Action("Settings", "Dashboard")' title="Settings"><img src='@Url.Content("~/Images/Settings.png")' /></a>
 @Html.ActionLink("Activity", "Activity")
 
     @using (var logoutForm = Html.BeginForm("Logout", "Dashboard")) {
             @Html.AntiForgeryToken()
-            <input type="submit" value="Log Out" />
+            <input type="submit" class="logoutButton" value="" title="Logout"/>
     }

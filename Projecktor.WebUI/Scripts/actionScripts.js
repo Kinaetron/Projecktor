@@ -38,7 +38,6 @@ function LikePost(postId, sourceId) {
             data: '{postId:' + JSON.stringify(postId) + '}',
             url: '/unlike',
             success: function () {
-                //$('#like_' + postId).val("Like");
                 $('#unLike_' + postId).attr('id', 'like_' + postId);
             },
             error: function () {

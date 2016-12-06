@@ -21,13 +21,13 @@
                 if (IsCDNAvailable == true)
                 {
                     <a onclick="GalleryMany('@Model.PostId-@i', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
-                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
+                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , class="image540" width="540" id="@i" />
                     </a>
                 }
                 else
                 {
                     <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
-                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , class="image540"  width="540" id="@i" />
                     </a>
                 }
             }
@@ -38,13 +38,13 @@
                 if (IsCDNAvailable == true)
                 {
                          <a onclick="GalleryOne('@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_720.", image[1])', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
-                            <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
+                            <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , class="image540" width="540" id="@i" />
                          </a>
                 }
                 else
                 {
                     <a onclick="GalleryOne('@Url.Action("image", "home", new { path = image[0] + "_720." + image[1] } )', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
-                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , class="image540" width="540" id="@i" />
                     </a>
                 }
 
@@ -70,13 +70,13 @@
                 if (IsCDNAvailable == true)
                 {
                     <a onclick="GalleryOne('@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_720.", image[1])', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
-                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
+                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , class="image540" width="540" id="@i" />
                     </a>
                 }
                 else
                 {
                     <a onclick="GalleryOne('@Url.Action("image", "home", new { path = image[0] + "_720." + image[1] } )', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
-                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , class="image540" width="540" id="@i" />
                     </a>
                 }
             }
@@ -87,13 +87,13 @@
                 if (IsCDNAvailable == true)
                 {
                     <a onclick="GalleryMany('@Model.PostId-@i', '@String.Format("{0}{1}", ProjecktorCDN, "/Images/full_page_vignette.png")')">
-                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , alt="" width="540" id="@i" />
+                        <img src="@String.Format("{0}{1}{2}", ProjecktorCDN, image[0] + "_540.", image[1])" , class="image540" width="540" id="@i" />
                     </a>
                 }
                 else
                 {
                     <a onclick="GalleryMany('@Model.PostId-@i', '@Url.Action("image", "home", new { path = "~/Images/full_page_vignette.png" } )')">
-                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , alt="" width="540" id="@i" />
+                        <img src="@Url.Action("image", "home", new { path = image[0] + "_540." + image[1] } )" , class="image540" width="540" id="@i" />
                     </a>
                 }
             }
@@ -110,19 +110,19 @@
             string likeVar = routeName + "_" + Model.PostId;
 
             if (Model.Source != null) {
-                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" />
+                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" title="Like"/>
             }
             else {
-                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" />
+                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" title="Like" />
             }
 
         }
 
         if (Model.ReblogedFrom == null) {
-            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" />
+            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
         }
         else {
-            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" />
+            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
         }
 
 

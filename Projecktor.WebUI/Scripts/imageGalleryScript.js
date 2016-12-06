@@ -279,6 +279,12 @@ function ImageFunction(image, elementName)
         left = 0.42 * $(window).width();
     }
 
-    $(elementName).css({ "position": "absolute", "display": "inline-block", "cursor" : "pointer", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
+    if (galleryMany == true) {
+        $(elementName).css({ "position": "absolute", "display": "inline-block", "border-radius": "3px", "cursor": "pointer", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
+    }
+    else {
+        $(elementName).css({ "position": "absolute", "display": "inline-block", "border-radius": "3px", "height": newHeight, "width": newWidth, "left": left, "top": -newHeight / 2 });
+    }
+
     $(elementName).attr('src', image.src);
 }

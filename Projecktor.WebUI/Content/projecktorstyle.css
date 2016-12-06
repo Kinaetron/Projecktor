@@ -11,8 +11,9 @@
 }
 
 .posts {
+    border-radius: 3px;
     width:540px;
-    padding: 10px;
+    padding: 0px;
     margin: 20px auto 20px auto;
     text-align: left;
     color: #808080;
@@ -40,4 +41,33 @@
     bottom: 0;
     right: 5px;
     display: none;
+}
+
+
+.likeButton {
+    background:url(/Images/Like.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
+.reblogButton {
+    background:url(/Images/Reblog.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
+.logoutButton {
+    background:url(/Images/Logout.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
+.image540 {
+    cursor:pointer;
 }
