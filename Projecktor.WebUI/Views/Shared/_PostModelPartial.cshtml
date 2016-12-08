@@ -4,12 +4,12 @@
 
     @if (Model.ReblogedFrom != null)
     {
-        string urlLink = "http://" + Model.Author.Username + ".projecktor.com";
-        <a href="@urlLink">@Model.Author.Username</a><label>reblogged</label>
+        <div class="post-header">
+            <a href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="~/Images/Reblog.png" 
+                                                                                                                                  title="@Model.Author.Username reblogged @Model.ReblogedFrom.Username" />
 
-        string urlLinkReblog = "http://" + Model.ReblogedFrom.Username + ".projecktor.com";
-        <a href="@urlLinkReblog">@Model.ReblogedFrom.Username</a>
-
+            <a href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
+        </div>
 
         for (int i = 0; i < Model.Images.Count; i++)
         {
@@ -51,15 +51,19 @@
             }
         }
 
-        <p>@Model.Text</p>
+        <div class="post-body">
+          <p>@Model.Text</p>
+        </div>
 
-        string urlLinkSource = "http://" + Model.Source.Author.Username + ".projecktor.com/post/" + Model.Source.Id;
-        <label>source: <a href="@urlLinkSource">@Model.Source.Author.Username</a></label><br /><br />
+        <div class="post-source">
+            <label>source: <a href="@String.Format("{0}{1}{2}{3}","http://",  Model.Source.Author.Username, ".projecktor.com/post/", Model.Source.Id)">@Model.Source.Author.Username</a></label>
+        </div>
     }
     else
     {
-        string urlLink = "http://" + Model.Author.Username + ".projecktor.com";
-        <a href="@urlLink">@Model.Author.Username</a><br />
+        <div class="post-header">
+            <a href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a>
+        </div>
 
         for (int i = 0; i < Model.Images.Count; i++)
         {
@@ -98,59 +102,63 @@
                 }
             }
         }
-            <p>@Model.Text</p>
-    }
-
-    @if (Security.IsAuthenticated == true)
-    {
-        if (Model.Author.Id != Security.UserId)
-        {
-            var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
-            var routeName = Liked ? "unLike" : "like";
-            string likeVar = routeName + "_" + Model.PostId;
-
-            if (Model.Source != null) {
-                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" title="Like"/>
-            }
-            else {
-                <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" title="Like" />
-            }
-
-        }
-
-        if (Model.ReblogedFrom == null) {
-            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
-        }
-        else {
-            <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
-        }
-
-
-        if (Model.ReblogedFrom != null && Model.Author.Id == Security.UserId) {
-            <input type="button" value="Delete" onclick="DeleteReblog(@Model.PostId)" />
-        }
-        else if (Model.Author.Id == Security.UserId && Model.ReblogedFrom == null) {
-            <input type="button" value="Delete" onclick="DeletePost(@Model.PostId)" />
-        }
+            <div class="post-body">
+              <p>@Model.Text</p>
+            </div>
     }
 
    @if (Model.Hashtags != null)
    {
-        <br />
-        <br />
-
-        foreach (Hashtag tag in Model.Hashtags) {
-            <label>@Html.RouteLink("#"+tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" })</label>
-       }
-
-        <br />
-        <br />
+       <div class="post-tags">
+           @foreach (Hashtag tag in Model.Hashtags) {
+           <label>@Html.RouteLink("#" + tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" })</label>
+           }
+       </div>
    }
 
-    @if (Model.ReblogedFrom == null) {
-        <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Author.Id, action = "notes" })</label>
-    }
-    else {
-        <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Source.Id, action = "notes" })</label>
-    }
+    <div class="footer">
+        <div class="footer-buttons">
+            @if (Security.IsAuthenticated == true)
+            {
+                if (Model.Author.Id != Security.UserId)
+                {
+                    var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
+                    var routeName = Liked ? "unLike" : "like";
+                    string likeVar = routeName + "_" + Model.PostId;
+
+                    if (Model.Source != null) {
+                        <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" title="Like" />
+                    }
+                    else {
+                        <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" title="Like" />
+                    }
+
+                }
+
+                if (Model.ReblogedFrom == null) {
+                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
+                }
+                else {
+                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
+                }
+
+
+                if (Model.ReblogedFrom != null && Model.Author.Id == Security.UserId) {
+                    <input type="button" value="Delete" onclick="DeleteReblog(@Model.PostId)" />
+                }
+                else if (Model.Author.Id == Security.UserId && Model.ReblogedFrom == null) {
+                    <input type="button" value="Delete" onclick="DeletePost(@Model.PostId)" />
+                }
+            }
+        </div>
+
+        <div class="post-notes">
+            @if (Model.ReblogedFrom == null) {
+                <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Author.Id, action = "notes" })</label>
+            }
+            else {
+                <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Source.Id, action = "notes" })</label>
+            }
+        </div>
+    </div>
 </div>

@@ -1,7 +1,7 @@
 ﻿<script src="~/Scripts/searchScript.js"></script>
 
 <input type="text" id="searchTerm" />
-<input type="button" value="Search" onclick="SearchLink()" id="searchButton" name="searchButton" />
+<input type="image" src="~/Images/Search.png" onclick="SearchLink()" id="searchButton" />
 
 <a href='@Url.Action("Index", "Dashboard")' title="Home"><img src='@Url.Content("~/Images/Home.png")' /></a>
 <a href='@Url.Action("Following", "Dashboard")' title="Following"><img src='@Url.Content("~/Images/Following.png")' /></a>
