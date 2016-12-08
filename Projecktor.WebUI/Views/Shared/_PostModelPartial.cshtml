@@ -120,6 +120,14 @@
         <div class="footer-buttons">
             @if (Security.IsAuthenticated == true)
             {
+
+                if (Model.ReblogedFrom == null) {
+                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
+                }
+                else {
+                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
+                }
+
                 if (Model.Author.Id != Security.UserId)
                 {
                     var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
@@ -134,14 +142,6 @@
                     }
 
                 }
-
-                if (Model.ReblogedFrom == null) {
-                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
-                }
-                else {
-                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
-                }
-
 
                 if (Model.ReblogedFrom != null && Model.Author.Id == Security.UserId) {
                     <input type="button" value="Delete" onclick="DeleteReblog(@Model.PostId)" />
