@@ -52,8 +52,24 @@
     border: none;
 }
 
+.unLikeButton {
+    background:url(/Images/Unlike.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
 .reblogButton {
     background:url(/Images/Reblog.png) no-repeat;
+    cursor:pointer;
+    width: 32px;
+    height: 32px;
+    border: none;
+}
+
+.reblogedButton {
+    background:url(/Images/Rebloged.png) no-repeat;
     cursor:pointer;
     width: 32px;
     height: 32px;

@@ -120,25 +120,26 @@
         <div class="footer-buttons">
             @if (Security.IsAuthenticated == true)
             {
-
                 if (Model.ReblogedFrom == null) {
-                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
+                    string reblogVar = "reblog_" + Model.PostId;
+                    <input type="button" class="reblogButton" id="@reblogVar" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.PostId)" title="Reblog" />
                 }
                 else {
-                    <input type="button" class="reblogButton" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
+                    string reblogVar = "reblog_" + Model.Source.Id;
+                    <input type="button" class="reblogButton" id="@reblogVar" onclick="Reblog(@Model.TextId, @Model.Author.Id, @Model.Source.Id)" title="Reblog" />
                 }
 
                 if (Model.Author.Id != Security.UserId)
                 {
-                    var Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
-                    var routeName = Liked ? "unLike" : "like";
-                    string likeVar = routeName + "_" + Model.PostId;
+                    bool Liked = CurrentUser.Likes.Any(l => l.PostId == Model.PostId);
+                    string likeVar = "like_" + Model.PostId;
+                    string className = Liked ? "unLikeButton" : "likeButton";
 
                     if (Model.Source != null) {
-                        <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" title="Like" />
+                        <input type="button" class="@className" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Source.Id)" title="Like" />
                     }
                     else {
-                        <input type="button" class="likeButton" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" title="Like" />
+                        <input type="button" class="@className" id="@likeVar" onclick="LikePost(@Model.PostId, @Model.Author.Id)" title="Like" />
                     }
 
                 }

@@ -15,7 +15,8 @@
 }
 
 function LikePost(postId, sourceId) {
-    if ($('.likeButton').is('#like_' + postId)) {
+    var className = $('#like_' + postId).attr('class');
+    if (className== 'likeButton') {
         $.ajax
         ({
             type: 'POST',
@@ -23,14 +24,14 @@ function LikePost(postId, sourceId) {
             data: '{postId:' + JSON.stringify(postId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
             url: '/like',
             success: function () {
-                $('#like_' + postId).attr('id', 'unLike_' + postId);
+                $('#like_' + postId).attr('class', 'unLikeButton');
             },
             error: function () {
                 alert("Something went terribly wrong with like");
             }
         })
     }
-    else if ($('.likeButton').is('#unLike_' + postId)) {
+    else if (className == 'unLikeButton') {
         $.ajax
         ({
             type: 'POST',
@@ -38,7 +39,7 @@ function LikePost(postId, sourceId) {
             data: '{postId:' + JSON.stringify(postId) + '}',
             url: '/unlike',
             success: function () {
-                $('#unLike_' + postId).attr('id', 'like_' + postId);
+                $('#like_' + postId).attr('class', 'likeButton');
             },
             error: function () {
                 alert("Something went terribly wrong with unlike");
@@ -87,6 +88,9 @@ function Reblog(textId, reblogId, sourceId) {
        contentType: 'application/json; charset=utf-8',
        data: '{textId:' + JSON.stringify(textId) + ', reblogId:' + JSON.stringify(reblogId) + ', sourceId:' + JSON.stringify(sourceId) + '}',
        url: '/reblog',
+       success: function () {
+           $('#reblog_' + sourceId).attr('class', 'reblogedButton');
+       },
        error: function (result) {
            alert("Something went terribly wrong reblog" + result);
        }
