@@ -77,14 +77,19 @@
 }
 
 .logoutButton {
-    position: absolute;
-    top: 0px;
-    right: 580px;
     background:url(/Images/Logout.png) no-repeat;
     cursor:pointer;
     width: 32px;
     height: 32px;
     border: none;
+}
+
+.logoutForm {
+    padding: 0;
+    margin: 0;
+    width: 32px;
+    height: 32px;
+    float: right;
 }
 
 .image540 {
@@ -131,4 +136,19 @@
 
 .reblog-img {
     vertical-align: -10px;
+}
+
+.search-field {
+    float: left;
+    margin-right: 16px;
+    padding-left: 30px;
+}
+
+.navigation-field {
+    float: right;
+    display: inline-block;
+    margin-right: 6px;
+    padding-right: 30px;
+    height : 45px;
+    line-height : 45px;
 }
