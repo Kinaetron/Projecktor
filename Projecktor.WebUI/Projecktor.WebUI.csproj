@@ -336,6 +336,7 @@
     <Content Include="Views\Dashboard\Activity.cshtml" />
     <Content Include="Views\Home\ForgotPassword.cshtml" />
     <Content Include="Views\Home\PasswordReset.cshtml" />
+    <Content Include="Views\Shared\_Searchbar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
