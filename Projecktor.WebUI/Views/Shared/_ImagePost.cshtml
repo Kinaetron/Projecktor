@@ -16,8 +16,8 @@
         @Html.TextAreaFor(m => m.Hashtags, new {@class = "input hashtag-input", @placeholder = "#tags", @cols = "0", @rows = "0" })
 
         <div class="form-footer">
-            <a class="close" href="/">Cancel</a>
-            <input type="submit" id="imagebutton" value="Post" />
+            <a class="close" href="/" onclick="GlassOff()">Cancel</a>
+            <input type="submit" id="imagebutton" value="Post" onclick="GlassOff()" />
         </div>
     }
 </div>

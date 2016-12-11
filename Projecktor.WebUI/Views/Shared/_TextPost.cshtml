@@ -6,15 +6,15 @@
     </div>
 
 
-    @using (var form = Html.BeginForm("TextPost", "Dashboard"))
+    @using (var form = Html.BeginForm("TextPost", "Dashboard", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.TextAreaFor(m => m.TextPost, new { @class = "input text-input", @placeholder = "Your text here", @cols = "0", @rows = "0" })
         @Html.TextAreaFor(m => m.Hashtags, new { @class = "input hashtag-input", @placeholder = "#tags", @cols = "0", @rows = "0" })
 
         <div class="form-footer">
-          <a class="stop" href="/">Cancel</a>
-          <input type="submit" id="textbutton" value="Post" />
+          <a class="stop" href="/" onclick="GlassOff()">Cancel</a>
+          <input type="submit" id="textbutton" value="Post" onclick="GlassOff()" />
         </div>
     }
 </div>

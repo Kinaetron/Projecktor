@@ -15,16 +15,20 @@
 <link href="~/Content/imagpostSheet.css" rel="stylesheet" />
 
 @Scripts.Render("~/bundles/dashboardscripts")
+
+<script src="~/Scripts/formGlass.js"></script>
+
 }
 
 <div>
-    <a href="/imagepost" id="imagepost">Image Post</a>
-    <a href="/textpost" id="textpost">Text Post</a>
+    <a href="/imagepost" id="imagepost" onclick="GlassOn()">Image Post</a>
+    <a href="/textpost" id="textpost" onclick="GlassOn()">Text Post</a>
 </div>
 
 @Html.Partial("_TextPost", new CreateTextPostViewModel())
 @Html.Partial("_ImagePost", new CreateImagePostViewModel())
 
+<div class="post-forms-glass" style="opacity:0; display:none"></div>
 
     @if (Model.Any() == true)
     {
