@@ -1,13 +1,20 @@
 ﻿@model CreateTextPostViewModel
 
 <div class="textpostopen open">
+    <div>
+        <p class="text-post-header">Text Post</p>
+    </div>
+
+
     @using (var form = Html.BeginForm("TextPost", "Dashboard"))
     {
         @Html.AntiForgeryToken()
-        @Html.TextAreaFor(m => m.TextPost)
-        @Html.TextAreaFor(m => m.Hashtags)
+        @Html.TextAreaFor(m => m.TextPost, new { @class = "input text-input", @placeholder = "Your text here", @cols = "0", @rows = "0" })
+        @Html.TextAreaFor(m => m.Hashtags, new { @class = "input hashtag-input", @placeholder = "#tags", @cols = "0", @rows = "0" })
 
-        <a class="stop" href="/">Cancel</a>
-        <input type="submit" id="textbutton" value="Post" />
+        <div class="form-footer">
+          <a class="stop" href="/">Cancel</a>
+          <input type="submit" id="textbutton" value="Post" />
+        </div>
     }
 </div>

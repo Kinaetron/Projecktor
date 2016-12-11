@@ -2,15 +2,22 @@
 
 
 <div class="imagepostpop pop">
+
+    <div>
+        <p class="image-post-header">Image Post</p>
+    </div>
+
     @using (var form = Html.BeginForm("ImagePost", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.LabelFor(m => m.Images)
         @Html.TextBoxFor(m => m.Images, new { type = "file", multiple = "multiple" })
-        @Html.TextAreaFor(m => m.Text)
-        @Html.TextAreaFor(m => m.Hashtags)
+        @Html.TextAreaFor(m => m.Text, new { @class = "input text-input", @placeholder = "Your text here", @cols = "0", @rows = "0" })
+        @Html.TextAreaFor(m => m.Hashtags, new {@class = "input hashtag-input", @placeholder = "#tags", @cols = "0", @rows = "0" })
 
-        <a class="close" href="/">Cancel</a>
-        <input type="submit" id="imagebutton" value="Post" />
+        <div class="form-footer">
+            <a class="close" href="/">Cancel</a>
+            <input type="submit" id="imagebutton" value="Post" />
+        </div>
     }
 </div>

@@ -10,8 +10,9 @@ namespace Projecktor.WebUI
             string version = System.Reflection.Assembly.GetAssembly(typeof(Controllers.HomeController)).GetName().Version.ToString();
             string cdnUrl = "http://projecktor.azureedge.net/{0}?v=" + version;
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/*.css"));
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                "~/Content/*.css",
+                "~/Content/themes/base/*.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/clientfeaturesscripts", string.Format(cdnUrl, "/bundles/clientfeaturesscripts"))
                 { CdnFallbackExpression ="window.jquery" }

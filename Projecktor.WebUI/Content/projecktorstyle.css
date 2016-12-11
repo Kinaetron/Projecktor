@@ -102,7 +102,7 @@
 
 .footer-buttons {
     float : right;
-     padding-right: 10px;
+    padding-right: 10px;
 }
 
 .post-header {
@@ -119,6 +119,8 @@
 }
 
 .post-notes {
+   height: 45px;
+   line-height: 45px;
    padding-right: 20px;
    padding-left: 20px;
 }
@@ -130,7 +132,7 @@
 
 .post-source {
     margin: 15px 5px 0 0;
-    padding: 0 0 0 20px;
+    padding: 0 0 10px 20px;
     line-height: 30px;
 }
 
@@ -141,14 +143,80 @@
 .search-field {
     float: left;
     margin-right: 16px;
-    padding-left: 30px;
+    padding-left: 40px;
+    display: inline-block;
 }
 
 .navigation-field {
     float: right;
     display: inline-block;
+    margin-top: 5px;
     margin-right: 6px;
-    padding-right: 30px;
+    padding-right: 40px;
     height : 45px;
     line-height : 45px;
+}
+
+.input {
+    border: 0;
+    border-radius: 3px;
+}
+
+.search-input {
+    font-size: 15px;
+    height: 24px;
+    width: 540px;
+    vertical-align: 3px;
+}
+
+#searchButton {
+    position: relative;
+    top: 8px;
+}
+
+.source-link, .post-notes-link, .post-tag-link, .poster-reblog, 
+.poster-source {
+    text-decoration: none;
+    color: gray;
+}
+
+.poster-reblog, .post-body-text {
+    color: black;
+}
+
+.source-link:hover {
+    text-decoration: underline;
+}
+
+.ui-menu, ui-menu-item a{
+   font-size: 15px;
+   border-radius: 3px;
+}
+
+.text-input {
+    resize: none;
+    width: 500px;
+    padding: 0 20px;
+    height: 80px;
+}
+
+.hashtag-input {
+    resize: none;
+    height: 41px;
+    width: 505px;
+    margin-top: 5px;
+    padding: 5px 20px 10px 15px;
+    overflow: hidden;
+}
+
+.form-footer, #Images, .image-post-header, .text-post-header {
+    padding: 15px 20px;
+}
+
+#imagebutton, #textbutton {
+    float: right;
+}
+
+.image-post-header, .text-post-header{
+    color: black;
 }

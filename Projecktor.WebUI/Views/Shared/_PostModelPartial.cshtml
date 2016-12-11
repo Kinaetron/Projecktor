@@ -5,10 +5,10 @@
     @if (Model.ReblogedFrom != null)
     {
         <div class="post-header">
-            <a href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="~/Images/Reblog.png" 
+            <a class="poster-reblog" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="~/Images/Reblog.png" 
                                                                                                                                   title="@Model.Author.Username reblogged @Model.ReblogedFrom.Username" />
 
-            <a href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
+            <a class="poster-source" href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
         </div>
 
         for (int i = 0; i < Model.Images.Count; i++)
@@ -52,17 +52,17 @@
         }
 
         <div class="post-body">
-          <p>@Model.Text</p>
+          <p class="post-body-text">@Model.Text</p>
         </div>
 
         <div class="post-source">
-            <label>source: <a href="@String.Format("{0}{1}{2}{3}","http://",  Model.Source.Author.Username, ".projecktor.com/post/", Model.Source.Id)">@Model.Source.Author.Username</a></label>
+            <label>Source: <a class="source-link" href="@String.Format("{0}{1}{2}{3}","http://",  Model.Source.Author.Username, ".projecktor.com/post/", Model.Source.Id)">@Model.Source.Author.Username</a></label>
         </div>
     }
     else
     {
         <div class="post-header">
-            <a href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a>
+            <a class="poster-reblog" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a>
         </div>
 
         for (int i = 0; i < Model.Images.Count; i++)
@@ -111,7 +111,7 @@
    {
        <div class="post-tags">
            @foreach (Hashtag tag in Model.Hashtags) {
-           <label>@Html.RouteLink("#" + tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" })</label>
+           <label>@Html.RouteLink("#" + tag.Tag, new { controller = "home", id = tag.Tag, action = "tagged" }, new { @class = "post-tag-link" })</label>
            }
        </div>
    }
@@ -154,11 +154,28 @@
         </div>
 
         <div class="post-notes">
-            @if (Model.ReblogedFrom == null) {
-                <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Author.Id, action = "notes" })</label>
+
+            @if (Model.PostCount == 0) {
+                <label></label>
             }
-            else {
-                <label>@Html.RouteLink("Notes: " + Model.PostCount.ToString(), new { controller = "home", id = Model.Source.Id, action = "notes" })</label>
+            else if (Model.PostCount == 1)
+            {
+                if (Model.ReblogedFrom == null) {
+                    <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                }
+                else {
+                    <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Source.Id, action = "notes"}, new { @class = "post-notes-link" })</label>
+                }
+
+            }
+            else
+            {
+                if (Model.ReblogedFrom == null) {
+                    <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                }
+                else {
+                    <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Source.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                }
             }
         </div>
     </div>

@@ -14,10 +14,10 @@
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary() <br />
-            <label>Username: </label> @Html.TextBoxFor(m => m.Username, new { placeholder = "Username" }) <br />
-            <label>Email: </label>    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email" }) <br/>
-            <label>New Password: </label> @Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password" }) <br />
-            <label>Current Password: </label> @Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Password" }) <br />
+            <label>Username: </label> @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input" }) <br />
+            <label>Email: </label>    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "input" }) <br/>
+            <label>New Password: </label> @Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password", @class = "input" }) <br />
+            <label>Current Password: </label> @Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Password", @class = "input" }) <br />
             <input type="submit" value="Save" />
     }
 </p>
