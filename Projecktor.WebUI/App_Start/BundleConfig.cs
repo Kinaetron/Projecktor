@@ -31,6 +31,7 @@ namespace Projecktor.WebUI
             bundles.Add(new ScriptBundle("~/bundles/userpagescripts", string.Format(cdnUrl, "/bundles/userpagescripts"))
             { CdnFallbackExpression = "$.infinite" }
                 .Include(
+               "~/Scripts/actionScripts.js",
                "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infinteScrollingUserpage.js"));
 

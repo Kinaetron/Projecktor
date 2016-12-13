@@ -56,7 +56,7 @@ namespace Projecktor.WebUI.Controllers
             }
 
             var userPosts = Posts.GetPostsFor(user.Id).Take(10).ToList();
-            return View("UserPage", userPosts);
+            return View("UserBlogPage", userPosts);
         }
 
         [HttpGet]

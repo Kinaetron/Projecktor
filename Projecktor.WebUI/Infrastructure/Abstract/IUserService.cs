@@ -21,7 +21,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         bool isFollowing(int userId, int followerId);
         IEnumerable<User> SearchFor(string username);
         IEnumerable<string> SearchUsername(string username);
-        User Settings(string username, string password, string email, int userId);
+        User Settings(string username, string blogTitle ,string password, string email, int userId);
         User Create(string username, string password, string email, DateTime? created = null);
         IEnumerable<ActivityViewModel> Activity(int userId);
     }

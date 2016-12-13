@@ -324,6 +324,7 @@ namespace Projecktor.WebUI.Controllers
             User user = Users.GetBy(Security.UserId);
             SettingsViewModel settings = new SettingsViewModel()
             {
+                BlogTitle = user.BlogTitle,
                 Username = user.Username,
                 Email = user.Email
             };
@@ -342,7 +343,7 @@ namespace Projecktor.WebUI.Controllers
                 return View("Settings", settings);
             }
 
-            Users.Settings(settings.Username, settings.NewPassword, settings.Email, Security.UserId);
+            Users.Settings(settings.Username, settings.BlogTitle, settings.NewPassword, settings.Email, Security.UserId);
             return View("Settings", settings);
         }
 

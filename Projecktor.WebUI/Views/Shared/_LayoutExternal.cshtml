@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/bundles/css")
+    @Scripts.Render("~/bundles/clientfeaturesscripts")
+    @Scripts.Render("~/bundles/galleryscripts")
+    @RenderSection("head", false)
+</head>
+<body class="external-body">
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

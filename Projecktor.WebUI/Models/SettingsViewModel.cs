@@ -7,6 +7,9 @@ namespace Projecktor.WebUI.Models
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Please enter your Blog Title")]
+        public string BlogTitle { get; set; }
+
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
         public string NewPassword { get; set; }
 

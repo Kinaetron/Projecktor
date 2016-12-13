@@ -1,0 +1,51 @@
+﻿.external-body {
+    background-color: #FFE556;
+}
+
+.blog-title {
+    font-family: 'Gibson', sans-serif, "Helvetica Neue", HelveticaNeue, Arial, sans-serif;
+    text-decoration: none;
+    color: #444444;
+    font-weight: bold;
+    font-size: 56px;
+    line-height: 1.2;
+    margin: 20px 0 0;
+    padding-bottom: 60px;
+    word-wrap: break-word;
+}
+
+.blog-header {
+    padding-bottom: 40px;
+}
+
+.external-posts {
+    border-radius: 3px;
+    max-width: 702px;
+    min-width: 270px;
+    padding: 0px;
+    margin: 20px auto 30px auto;
+    text-align: left;
+    color: #808080;
+    background-color: #FFFFFF;
+}
+
+.post-body {
+    padding: 20px;
+}
+
+.image720 {
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.post-external-info {
+   margin-top: 0;
+}
+
+.poster-source-external, .source-link-external {
+  padding: 0 20px;
+  display: inline-block;
+  height: 40px;
+  color: #a7a7a7;
+  text-decoration: none;
+}
