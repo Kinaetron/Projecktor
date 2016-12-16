@@ -56,27 +56,6 @@ namespace Projecktor.WebUI.Controllers
             return Json(new { msg = "Successful" });
         }
 
-        [HttpPost]
-        public JsonResult Reblog(int textId, int reblogId, int sourceId)
-        {
-            Post madeReblog = Posts.Reblog(CurrentUser.Id, textId, reblogId, sourceId);
-            Hashtag[] tags = Hashtags.GetHashTagsFor(sourceId).ToArray();
-
-            if (tags != null) {
-                Hashtags.Create(madeReblog.Id, Security.UserId ,tags);
-            }
-
-            return Json(new { msg = "Successful" });
-        }
-
-        [HttpPost]
-        public JsonResult DeleteReblog(int postId)
-        {
-            Posts.DeleteReblog(postId);
-            Hashtags.Delete(postId);
-            return Json(new { msg = "Successful" });
-        }
-
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();
@@ -214,86 +193,6 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return RedirectToAction("Index", "Dashboard");
-        }
-
-
-        [HttpPost]
-        public JsonResult DeletePost(int postId)
-        {
-            Post post = Posts.Getby(postId);
-
-            if(post.Image1 != null)
-            {
-                System.IO.File.Delete(Server.MapPath(post.Image1));
-
-                string[] image = post.Image1.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-            if (post.Image2 != null)
-            {
-                System.IO.File.Delete(Server.MapPath(post.Image2));
-
-                string[] image = post.Image2.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-            if (post.Image3 != null)
-            {
-                System.IO.File.Delete(Server.MapPath(post.Image3));
-
-                string[] image = post.Image3.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-            if (post.Image4 != null)
-            {
-                System.IO.File.Delete(Server.MapPath(post.Image4));
-
-                string[] image = post.Image4.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-            if (post.Image5 != null)
-            {
-                System.IO.File.Delete(Server.MapPath(post.Image5));
-
-                string[] image = post.Image5.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-            if (post.Image6 != null)
-            {
-                System.IO.File.Delete(post.Image6);
-
-                string[] image = post.Image6.Split('.');
-                System.IO.File.Delete(Server.MapPath(image[0] + "_540." + image[1]));
-                System.IO.File.Delete(Server.MapPath(image[0] + "_720." + image[1]));
-            }
-
-            Posts.Delete(postId);
-            Hashtags.Delete(postId);
-            return Json(new { msg = "Successful" });
-        }
-
-        [HttpPost]
-        public JsonResult Like(int postId, int sourceId)
-        {
-            if(ModelState.IsValid == true) {
-                UserLikes.Like(Security.UserId, postId, sourceId);
-            }
-
-            return Json(new { msg = "Successful" });
-        }
-
-        [HttpPost]
-        public JsonResult Unlike(int postId)
-        {
-            if (ModelState.IsValid == true) {
-                UserLikes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == postId));
-            }
-
-            return Json(new { msg = "Successful" });
         }
 
         public ActionResult Search(string id)

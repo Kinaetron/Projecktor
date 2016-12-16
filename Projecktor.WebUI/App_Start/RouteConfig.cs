@@ -22,21 +22,6 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "imagepost" });
 
             routes.MapRoute(
-                name: "Like",
-                url:  "like",
-                defaults: new { controller = "dashboard", action = "like" });
-
-            routes.MapRoute(
-                name: "Unlike",
-                url:  "unlike",
-                defaults: new { controller = "dashboard", action = "unlike" });
-
-            routes.MapRoute(
-                name: "DeletePost",
-                url:  "deletepost",
-                defaults: new { controller = "dashboard", action = "deletepost" });
-
-            routes.MapRoute(
                 name: "Followers",
                 url:  "followers",
                 defaults: new { controller = "dashboard", action = "followers" });
@@ -60,16 +45,6 @@ namespace Projecktor.WebUI
                 name: "Unfollow",
                 url:  "unfollow",
                 defaults: new { controller = "dashboard", action = "unfollow" });
-
-            routes.MapRoute(
-                name: "Reblog",
-                url:  "reblog",
-                defaults: new { controller = "dashboard", action = "reblog" });
-
-            routes.MapRoute(
-                name: "DeleteReblog",
-                url:  "deletereblog",
-                defaults: new { controller = "dashboard", action = "deletereblog" });
 
             routes.MapRoute(
                 name: "Logout",
@@ -120,6 +95,32 @@ namespace Projecktor.WebUI
                name: "Autocomplete",
                url:  "autocomplete",
                defaults: new { controller = "dashboard", action = "autocomplete" });
+
+            routes.MapRoute(
+               name: "Reblog",
+               url: "reblog",
+               defaults: new { controller = "home", action = "reblog" });
+
+            routes.MapRoute(
+                name: "DeleteReblog",
+                url: "deletereblog",
+                defaults: new { controller = "home", action = "deletereblog" });
+
+
+            routes.MapRoute(
+                name: "DeletePost",
+                url: "deletepost",
+                defaults: new { controller = "home", action = "deletepost" });
+
+            routes.MapRoute(
+             name: "Like",
+             url: "like",
+             defaults: new { controller = "home", action = "like" });
+
+            routes.MapRoute(
+                name: "Unlike",
+                url: "unlike",
+                defaults: new { controller = "home", action = "unlike" });
 
             routes.MapRoute(
                name: "Post",
