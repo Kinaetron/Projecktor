@@ -287,6 +287,7 @@
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\CreateImagePostViewModel.cs" />
+    <Compile Include="Models\ExternalViewModel.cs" />
     <Compile Include="Models\FollowViewModel.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -342,6 +343,7 @@
     <Content Include="Views\Home\UserBlogPage.cshtml" />
     <Content Include="Views\Shared\_LayoutExternal.cshtml" />
     <Content Include="Views\Shared\_PostModelExternal.cshtml" />
+    <Content Include="Views\Home\SearchPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

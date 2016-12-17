@@ -195,17 +195,6 @@ namespace Projecktor.WebUI.Controllers
             return RedirectToAction("Index", "Dashboard");
         }
 
-        public ActionResult Search(string id)
-        {
-            SearchModel model = new SearchModel()
-            {
-                FoundPosts = Posts.GetTagged(id),
-                FoundUsers = Users.SearchFor(id)
-            };
-
-            return View("SearchPage", model);
-        }
-
         [HttpGet]
         public JsonResult AutoComplete(string id)
         {

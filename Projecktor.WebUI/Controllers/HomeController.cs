@@ -23,9 +23,9 @@ namespace Projecktor.WebUI.Controllers
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
 
-            if(Security.IsAuthenticated == false && subdomain == null)
+            if (Security.IsAuthenticated == false && subdomain == null)
             {
-                if(cookie != null)
+                if (cookie != null)
                 {
                     cookie.Expires = DateTime.Now.AddYears(1);
                     cookie.Domain = ".projecktor.com";
@@ -39,11 +39,11 @@ namespace Projecktor.WebUI.Controllers
             }
 
 
-            if(Security.IsAuthenticated == true && subdomain == null) {
+            if (Security.IsAuthenticated == true && subdomain == null) {
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            if(Security.IsAuthenticated == false && subdomain != null) {
+            if (Security.IsAuthenticated == false && subdomain != null) {
                 if (cookie != null) {
                     Security.Login(cookie.Value);
                 }
@@ -55,8 +55,14 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            var userPosts = Posts.GetPostsFor(user.Id).Take(10).ToList();
-            return View("UserBlogPage", userPosts);
+
+            ExternalViewModel posts = new ExternalViewModel()
+            {
+                BlogTitle = user.BlogTitle,
+                Posts = Posts.GetPostsFor(user.Id).Take(10).ToList(),
+            };
+
+            return View("UserBlogPage", posts);
         }
 
         [HttpGet]
@@ -82,7 +88,32 @@ namespace Projecktor.WebUI.Controllers
 
             User user = Users.GetAllFor(subdomain);
             IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(user.Id).Take(10).ToArray();
-            return View("Likes", likeLine);
+            return View("UserBlogPage", likeLine);
+        }
+
+        public ActionResult Search(string id, string subdomain)
+        {
+            string searchTerm = Uri.UnescapeDataString(id);
+
+            if(subdomain == null)
+            {
+                SearchModel model = new SearchModel()
+                {
+                    FoundPosts = Posts.GetTagged(searchTerm),
+                    FoundUsers = Users.SearchFor(searchTerm)
+                };
+
+                return View("SearchPage", model);
+            }
+            else
+            {
+                SearchModel model = new SearchModel() {
+                    BlogTitle = Users.GetBy(subdomain).BlogTitle,
+                    FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain),
+                };
+
+                return View("SearchPage", model);
+            }
         }
 
         [HttpGet]

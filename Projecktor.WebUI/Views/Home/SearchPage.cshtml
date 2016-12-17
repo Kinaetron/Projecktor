@@ -1,0 +1,15 @@
+﻿@model SearchModel
+
+<div id="navigationBarExternal">
+    @Html.Partial("_Searchbar")
+</div>
+
+<h1 class="blog-header">
+    <a class="blog-title" href="/">@Model.BlogTitle</a>
+</h1>
+
+@foreach (PostViewModel textPost in Model.FoundPosts) {
+    @Html.Partial("_PostModelExternal", textPost);
+}
+
+@Html.Partial("_PostAttachment")

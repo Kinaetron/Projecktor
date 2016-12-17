@@ -1,8 +1,13 @@
-﻿@model IEnumerable<PostViewModel>
+﻿@model ExternalViewModel
 
 @{
     ViewBag.Title = "Projecktor External";
 }
+
+<div id="navigationBarExternal">
+    @Html.Partial("_Searchbar")
+</div>
+
 
 @section head
 {
@@ -10,10 +15,11 @@
     <link href="~/Content/projecktorStyleExternal.css" rel="stylesheet" />
 }
 
-<h1 class="blog-header"><a class="blog-title" href="/">@Model.ToList()[0].Author.BlogTitle</a>
+<h1 class="blog-header">
+    <a class="blog-title" href="/">@Model.BlogTitle</a>
 </h1>
 
-@foreach (PostViewModel textPost in Model) {
+@foreach (PostViewModel textPost in Model.Posts) {
     @Html.Partial("_PostModelExternal", textPost);
 }
 
