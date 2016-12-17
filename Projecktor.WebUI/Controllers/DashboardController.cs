@@ -42,20 +42,6 @@ namespace Projecktor.WebUI.Controllers
             return View("Likes", likeLine);
         }
 
-        [HttpPost]
-        public JsonResult Follow(string username)
-        {
-
-            Users.Follow(username, Security.GetCurrentUser());
-            return Json(new { msg = "Successful" });
-        }
-
-        [HttpPost]
-        public JsonResult UnFollow(string username) {
-            Users.Unfollow(username, Security.GetCurrentUser());
-            return Json(new { msg = "Successful" });
-        }
-
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();

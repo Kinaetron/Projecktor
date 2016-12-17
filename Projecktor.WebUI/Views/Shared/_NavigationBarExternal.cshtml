@@ -1,0 +1,13 @@
+﻿@model User
+
+<div class="navigation-field">
+
+    @if (Security.IsAuthenticated == true) {
+        <a href="@String.Format("{0}","http://projecktor.com/dashboard")"><img src='@Url.Content("~/Images/Home.png")' /></a>
+        @Html.Partial("_FollowButtonPartial", Model);
+    }
+    else
+    {
+        <a href="@String.Format("{0}","http://projecktor.com")">Sign Up</a>
+    }
+</div>

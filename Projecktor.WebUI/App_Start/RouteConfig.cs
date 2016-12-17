@@ -37,16 +37,6 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "profiles" });
 
             routes.MapRoute(
-                name: "Follow",
-                url:  "follow",
-                defaults: new { controller = "dashboard", action = "follow" });
-
-            routes.MapRoute(
-                name: "Unfollow",
-                url:  "unfollow",
-                defaults: new { controller = "dashboard", action = "unfollow" });
-
-            routes.MapRoute(
                 name: "Logout",
                 url:  "logout",
                 defaults: new { controller = "dashboard", action = "logout" });
@@ -121,6 +111,16 @@ namespace Projecktor.WebUI
                 name: "Unlike",
                 url: "unlike",
                 defaults: new { controller = "home", action = "unlike" });
+
+            routes.MapRoute(
+               name: "Follow",
+               url: "follow",
+               defaults: new { controller = "home", action = "follow" });
+
+            routes.MapRoute(
+                name: "Unfollow",
+                url: "unfollow",
+                defaults: new { controller = "home", action = "unfollow" });
 
             routes.MapRoute(
                name: "Post",

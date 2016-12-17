@@ -58,7 +58,7 @@ namespace Projecktor.WebUI.Controllers
 
             ExternalViewModel posts = new ExternalViewModel()
             {
-                BlogTitle = user.BlogTitle,
+                SubdomainUser = user,
                 Posts = Posts.GetPostsFor(user.Id).Take(10).ToList(),
             };
 
@@ -169,6 +169,21 @@ namespace Projecktor.WebUI.Controllers
                 UserLikes.Unlike(CurrentUser.Likes.FirstOrDefault(u => u.PostId == postId));
             }
 
+            return Json(new { msg = "Successful" });
+        }
+
+        [HttpPost]
+        public JsonResult Follow(string username)
+        {
+
+            Users.Follow(username, Security.GetCurrentUser());
+            return Json(new { msg = "Successful" });
+        }
+
+        [HttpPost]
+        public JsonResult UnFollow(string username)
+        {
+            Users.Unfollow(username, Security.GetCurrentUser());
             return Json(new { msg = "Successful" });
         }
 

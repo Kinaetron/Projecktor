@@ -344,6 +344,7 @@
     <Content Include="Views\Shared\_LayoutExternal.cshtml" />
     <Content Include="Views\Shared\_PostModelExternal.cshtml" />
     <Content Include="Views\Home\SearchPage.cshtml" />
+    <Content Include="Views\Shared\_NavigationBarExternal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
