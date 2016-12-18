@@ -1,15 +1,18 @@
 ﻿@model SearchModel
 
-<div id="navigationBarExternal">
+<div id="navigationBar">
     @Html.Partial("_Searchbar")
+    @Html.Partial("_NavigationBar")
 </div>
 
-<h1 class="blog-header">
-    <a class="blog-title" href="/">@Model.BlogTitle</a>
-</h1>
+<div>
+    @foreach (var user in Model.FoundUsers) {
+        <span>@user.Username</span> @Html.Partial("_FollowButtonPartial", user)<br />
+    }
+</div>
 
 @foreach (PostViewModel textPost in Model.FoundPosts) {
-    @Html.Partial("_PostModelExternal", textPost);
+    @Html.Partial("_PostModelPartial", textPost);
 }
 
 @Html.Partial("_PostAttachment")

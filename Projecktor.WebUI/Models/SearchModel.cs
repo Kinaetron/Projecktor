@@ -5,7 +5,7 @@ namespace Projecktor.WebUI.Models
 {
     public class SearchModel
     {
-        public string BlogTitle { get; set; }
+        public User SubdomainUser { get; set; }
         public IEnumerable<User> FoundUsers { get; set; }
         public IEnumerable<PostViewModel> FoundPosts { get; set; }
     }

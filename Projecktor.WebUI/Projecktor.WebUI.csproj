@@ -329,7 +329,7 @@
     <Content Include="Views\Home\Post.cshtml" />
     <Content Include="Views\Home\Notes.cshtml" />
     <Content Include="Views\Shared\_NavigationBar.cshtml" />
-    <Content Include="Views\Dashboard\SearchPage.cshtml" />
+    <Content Include="Views\Home\SearchPage.cshtml" />
     <Content Include="Views\Dashboard\Settings.cshtml" />
     <Content Include="Views\Shared\_MultiPosts.cshtml" />
     <Content Include="Views\Dashboard\Likes.cshtml" />
@@ -343,7 +343,7 @@
     <Content Include="Views\Home\UserBlogPage.cshtml" />
     <Content Include="Views\Shared\_LayoutExternal.cshtml" />
     <Content Include="Views\Shared\_PostModelExternal.cshtml" />
-    <Content Include="Views\Home\SearchPage.cshtml" />
+    <Content Include="Views\Home\SearchPageExternal.cshtml" />
     <Content Include="Views\Shared\_NavigationBarExternal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

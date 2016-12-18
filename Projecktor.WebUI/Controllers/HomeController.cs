@@ -108,11 +108,11 @@ namespace Projecktor.WebUI.Controllers
             else
             {
                 SearchModel model = new SearchModel() {
-                    BlogTitle = Users.GetBy(subdomain).BlogTitle,
+                    SubdomainUser = Users.GetBy(subdomain),
                     FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain),
                 };
 
-                return View("SearchPage", model);
+                return View("SearchPageExternal", model);
             }
         }
 
