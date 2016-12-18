@@ -30,16 +30,19 @@
 
 <div class="post-forms-glass" style="opacity:0; display:none"></div>
 
+<div class="posts-all">
     @if (Model.Any() == true)
     {
-        foreach (PostViewModel post in Model) {
+        foreach (PostViewModel post in Model)
+        {
             @Html.Partial("_PostModelPartial", post);
         }
-       @Html.Partial("_PostAttachment")
+        @Html.Partial("_PostAttachment")
     }
     else
     {
-         <div class="posts">
+        <div class="posts">
             <p>Make a post !</p>
-         </div>
+        </div>
     }
+</div>

@@ -10,7 +10,7 @@
 </div>
 
 <p>
-    @using (var signupForm = Html.BeginForm("Settings", "Dashboard"))
+    @using (var signupForm = Html.BeginForm("Settings", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary() <br />
@@ -19,6 +19,7 @@
             <label>Email: </label>    @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "input" }) <br/>
             <label>New Password: </label> @Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password", @class = "input" }) <br />
             <label>Current Password: </label> @Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Password", @class = "input" }) <br />
+            <label>Avatar: </label> @Html.TextBoxFor(m => m.Avatar, new { type = "file" }) <br />
             <input type="submit" value="Save" />
     }
 </p>

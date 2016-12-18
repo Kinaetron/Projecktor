@@ -14,16 +14,19 @@
     @Scripts.Render("~/bundles/likesdashboardscripts")
 }
 
-@if (Model.Any() == true)
-{
-    foreach (PostViewModel textPost in Model) {
-        @Html.Partial("_PostModelPartial", textPost);
+<div class="posts-all">
+    @if (Model.Any() == true)
+    {
+        foreach (PostViewModel textPost in Model)
+        {
+            @Html.Partial("_PostModelPartial", textPost);
+        }
+        @Html.Partial("_PostAttachment")
     }
-   @Html.Partial("_PostAttachment")
-}
-else
-{
-    <div class="posts">
-        <p>Make a post dumbass !</p>
-    </div>
-}
+    else
+    {
+        <div class="posts">
+            <p>Make a post dumbass !</p>
+        </div>
+    }
+</div>

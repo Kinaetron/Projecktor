@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Web;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Projecktor.WebUI.Models
 {
@@ -18,5 +20,8 @@ namespace Projecktor.WebUI.Models
 
         [EmailAddress(ErrorMessage = "Please enter a valid email address.")]
         public string Email { get; set; }
+
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase Avatar { get; set; }
     }
 }

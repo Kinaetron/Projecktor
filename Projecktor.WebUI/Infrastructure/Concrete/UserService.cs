@@ -123,7 +123,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return follows.FindAll(f => f.FollowerId == userId && f.FollowingId == followerId).Any();
         }
 
-        public User Settings(string username, string blogTitle, string password, string email, int userId)
+        public User Settings(string username, string blogTitle, string password, string email, string avatar, int userId)
         {
             User user = users.Find(u => u.Id == userId);
 
@@ -139,6 +139,9 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             if(email != null) {
                 user.Email = email;
             }
+            if(avatar != "") {
+                user.Avatar = avatar;
+            }
             context.SaveChanges();
 
             return user;
@@ -153,6 +156,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 Password = Crypto.HashPassword(password),
                 Email = email,
                 DateCreated = created.HasValue ? created.Value : DateTime.Now,
+                Avatar = "~/Avatars/default.png",
             };
 
             users.Create(user);

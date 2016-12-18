@@ -10,11 +10,16 @@
     top: 50px;
 }
 
+.posts-all {
+    width: 625px;
+    margin: 20px auto 20px auto;
+}
+
 .posts {
     border-radius: 3px;
+    margin: 20px 0 0 85px;
     width:540px;
     padding: 0px;
-    margin: 20px auto 20px auto;
     text-align: left;
     color: #808080;
     background-color: #FFFFFF;
@@ -232,4 +237,26 @@
     z-index: 996;
     pointer-events: all;
     background-color: rgba(58,69,99,.95);
+}
+
+.post-avatar-img {
+    height: 64px;
+    width: 64px;
+    border-radius: 3px;
+}
+
+.post-avatar-wrapper {
+    position: sticky;
+    top:69px;
+    height: auto;
+    width: auto;
+}
+
+.post-avatar {
+    width: 64px;
+    height: 64px;
+}
+
+.avatar--sticky {
+   height: 100%;
 }

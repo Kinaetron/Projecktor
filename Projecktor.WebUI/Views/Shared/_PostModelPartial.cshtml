@@ -2,6 +2,14 @@
 
 <div class="posts" id="posts_@Model.PostId">
 
+<div class="post-avatar">
+        <div class="post-avatar-wrapper">
+           <a class="post-avatar-link" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">
+              <img class="post-avatar-img" src="@Url.Action("image", "home", new { path = Model.Author.Avatar })" />
+         </a>
+    </div>
+</div>
+
     @if (Model.ReblogedFrom != null)
     {
         <div class="post-header">

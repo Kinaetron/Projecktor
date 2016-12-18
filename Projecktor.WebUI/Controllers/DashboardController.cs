@@ -217,7 +217,29 @@ namespace Projecktor.WebUI.Controllers
                 return View("Settings", settings);
             }
 
-            Users.Settings(settings.Username, settings.BlogTitle, settings.NewPassword, settings.Email, Security.UserId);
+            string avatarImageName = "projecktor_" + GetRandomString();
+            HttpPostedFileBase avatarImage = settings.Avatar;
+
+            string imageNameOriginal = "";
+            string imageName128 = "";
+            string filePathOriginal = "";
+            string filePath128 = "";
+
+            if(avatarImage != null)
+            {
+                imageNameOriginal = avatarImageName + Path.GetExtension(avatarImage.FileName);
+                imageName128 = avatarImageName + "128" + Path.GetExtension(avatarImage.FileName);
+
+                filePathOriginal = "~/Avatars/" + imageNameOriginal;
+                filePath128 = "~/Avatars/" + imageName128;
+
+                avatarImage.SaveAs(Server.MapPath(filePathOriginal));
+
+                Bitmap Image128 = ResizeImage(Image.FromStream(avatarImage.InputStream, true, true), 128, 128);
+                Image128.Save(Server.MapPath(filePath128));
+            }
+
+            Users.Settings(settings.Username, settings.BlogTitle, settings.NewPassword, settings.Email, filePathOriginal, Security.UserId);
             return View("Settings", settings);
         }
 
