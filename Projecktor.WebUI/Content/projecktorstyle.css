@@ -17,9 +17,9 @@
 
 .posts {
     border-radius: 3px;
-    margin: 20px 0 0 85px;
+    margin: 0 0 30px 85px;
     width:540px;
-    padding: 0px;
+    padding: 0;
     text-align: left;
     color: #808080;
     background-color: #FFFFFF;
@@ -239,6 +239,7 @@
     background-color: rgba(58,69,99,.95);
 }
 
+
 .post-avatar-img {
     height: 64px;
     width: 64px;
@@ -246,13 +247,10 @@
 }
 
 .post-avatar-wrapper {
-    position: sticky;
-    top:69px;
-    height: auto;
-    width: auto;
 }
 
 .post-avatar {
+    float: left;
     width: 64px;
     height: 64px;
 }
