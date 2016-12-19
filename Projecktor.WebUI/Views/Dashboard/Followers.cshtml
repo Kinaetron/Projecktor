@@ -11,14 +11,55 @@
     @Html.Partial("_NavigationBar")
 </div>
 
-<h2>Followers</h2>
+<div class="follow-list">
+<div class="white-pane">
 
-@if(Model.FollowData.Any() == true)
-{
-    foreach (User follower in Model.FollowData) {
-        <span>@follower.Username</span> @Html.Partial("_FollowButtonPartial", follower)<br />
-    }
-}
-else {
-    <p>You have no followers</p>
-}
+    <div class="titles-container">
+        <h1 class="titles">@Model.FollowData.Count() people follow you</h1>
+    </div>
+
+    <div class="follows">
+        @if (Model.FollowData.Any() == true)
+        {
+            int i = 0;
+
+            foreach (User follower in Model.FollowData)
+            {
+                i++;
+                string className;
+
+                if(i % 2 == 0) {
+                    className = "alt-follow";
+                }
+                else {
+                    className = "follow";
+                }
+
+                <div class="@className">
+                    <a class="follow-avatar" href="@String.Format("{0}{1}{2}", "http://", follower.Username, ".projecktor.com")">
+                        <img class="follow-avatar-img" src="@Url.Action("image", "home", new { path = follower.Avatar })" />
+                    </a>
+
+                    <div class="follow-info">
+                        <div class="follow-name">
+                            <a class="follow-link" href="@String.Format("{0}{1}{2}", "http://", follower.Username, ".projecktor.com")">@follower.Username</a>
+                        </div>
+
+                        <div class="follow-description">
+                            <span class="blog-follow-title">@follower.BlogTitle</span>
+                        </div>
+                    </div>
+
+                    <div class="follow-button">
+                        @Html.Partial("_FollowButtonPartial", follower)
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>you're not following anyone</p>
+        }
+    </div>
+</div>
+</div>

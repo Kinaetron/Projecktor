@@ -258,3 +258,99 @@
 .avatar--sticky {
    height: 100%;
 }
+
+.follow-list {
+    width: 625px;
+    margin: 20px auto 20px auto;
+}
+
+.white-pane {
+    background: #fff;
+    border-radius: 6px;
+    padding: 28px;
+    position:relative;
+}
+
+.titles-container {
+    height: 60px;
+}
+
+.titles {
+    color: #444;
+    font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+    font-size: 26px;
+    letter-spacing: normal;
+    font-weight: normal;
+    margin: 2px 0 30px 0;
+    float: left;
+    overflow: hidden;
+}
+
+.follows {
+    border-top: 1px solid rgba(0,0,0,0.0509804);
+}
+
+.follow-avatar-img {
+    width: 40px;
+    height: 40px;
+}
+
+.follow {
+    display: block;
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.0509804);
+    padding: 10px;
+    clear: both;
+}
+
+.alt-follow {
+    display: block;
+    position: relative;
+    background: #f8f8f8;
+    height: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.0509804);
+    padding: 10px;
+    clear: both;
+}
+
+.follow-avatar {
+    float: left;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
+.follow-button {
+    float: right;
+    margin: 4px 0;
+}
+
+.follow-description {
+    margin-top: 4px;
+    font-size: 12px;
+}
+
+.follow-info {
+    float: left;
+}
+
+.blog-follow-title {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: #444;
+    font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+    font-size: 12px;
+}
+
+.follow-link {
+   text-decoration: none;
+   color: #444;
+   font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+   font-weight: bold;
+   text-align: left;
+}
+
+.follow-name {
+    text-align: left;
+}

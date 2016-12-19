@@ -11,15 +11,55 @@
     @Html.Partial("_NavigationBar")
 </div>
 
-<h2>Following</h2>
+<div class="follow-list">
+    <div class="white-pane">
 
+        <div class="titles-container">
+            <h1 class="titles">Following @Model.FollowData.Count() people</h1>
+        </div>
 
-@if (Model.FollowData.Any() == true)
-{
-    foreach (User following in Model.FollowData) {
-        <span>@following.Username</span> @Html.Partial("_FollowButtonPartial", following)<br />
-    }
-}
-else {
-    <p>you're not following anyone</p>
-}
+        <div class="follows">
+            @if (Model.FollowData.Any() == true) {
+
+                int i = 0;
+
+                foreach (User following in Model.FollowData)
+                {
+                    i++;
+
+                    string className;
+
+                    if(i % 2 == 0) {
+                        className = "alt-follow";
+                    }
+                    else {
+                        className = "follow";
+                    }
+
+                    <div class="@className">
+                        <a class="follow-avatar" href="@String.Format("{0}{1}{2}", "http://", following.Username, ".projecktor.com")">
+                            <img class="follow-avatar-img" src="@Url.Action("image", "home", new { path = following.Avatar })" />
+                        </a>
+
+                        <div class="follow-info">
+                            <div class="follow-name">
+                                <a class="follow-link" href="@String.Format("{0}{1}{2}", "http://", following.Username, ".projecktor.com")">@following.Username</a>
+                            </div>
+
+                            <div class="follow-description">
+                                <span class="blog-follow-title">@following.BlogTitle</span>
+                            </div>
+                        </div>
+
+                        <div class="follow-button">
+                            @Html.Partial("_FollowButtonPartial", following)
+                        </div>
+                    </div>
+                }
+            }
+            else {
+                <p>you're not following anyone</p>
+            }
+        </div>
+    </div>
+</div>
