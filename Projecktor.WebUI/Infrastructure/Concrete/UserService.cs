@@ -191,7 +191,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 {
                     Date = reblog.DateCreated,
                     PostId = reblog.Id,
-                    SourceId = reblog.ReblogId,
+                    SourceId = reblog.SourceId,
                     Action = ActionEnum.Reblog,
                     From = GetBy(reblog.AuthorId),
                 };
