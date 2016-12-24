@@ -243,6 +243,8 @@ namespace Projecktor.WebUI.Controllers
 
             Posts.Delete(postId);
             Hashtags.Delete(postId);
+            UserLikes.Delete(postId);
+
             return Json(new { msg = "Successful" });
         }
 
@@ -340,14 +342,24 @@ namespace Projecktor.WebUI.Controllers
         {
             IEnumerable<PostViewModel> taggedPosts;
 
-            if(subdomain == null) {
+            if (subdomain == null)
+            {
                 taggedPosts = Posts.GetTagged(id);
-            }
-            else {
-                taggedPosts = Posts.GetTaggedUser(id, subdomain);
-            }
 
-            return View("UserPage", taggedPosts);
+                return View("UserPage", taggedPosts);
+            }
+            else
+            {
+                taggedPosts = Posts.GetTaggedUser(id, subdomain);
+
+                ExternalViewModel posts = new ExternalViewModel()
+                {
+                    SubdomainUser = Users.GetAllFor(subdomain),
+                    Posts = Posts.GetTaggedUser(id, subdomain),
+                };
+
+                return View("UserBlogPage", posts);
+            }
         }
 
         public ActionResult Post(string subdomain, string id)

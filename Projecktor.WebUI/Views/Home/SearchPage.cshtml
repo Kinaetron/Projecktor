@@ -11,8 +11,11 @@
     }
 </div>
 
-@foreach (PostViewModel textPost in Model.FoundPosts) {
-    @Html.Partial("_PostModelPartial", textPost);
-}
+<div class="posts-all">
 
-@Html.Partial("_PostAttachment")
+    @foreach (PostViewModel textPost in Model.FoundPosts) {
+        @Html.Partial("_PostModelPartial", textPost);
+    }
+
+    @Html.Partial("_PostAttachment")
+</div>

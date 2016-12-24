@@ -51,6 +51,17 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             return like;
         }
 
+        public void Delete(int postId)
+        {
+            IEnumerable<Like> likeList = likes.FindAll(p => p.PostId == postId);
+
+            foreach (var item in likeList) {
+                likes.Delete(item);
+            }
+
+            context.SaveChanges();
+        }
+
         public IEnumerable<PostViewModel> GetLikesFor(int userId)
         {
             var userLikes = likes.FindAll(l => l.UserId == userId).ToList();
@@ -63,6 +74,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 Post details = posts.Find(like.PostId);
 
                 model.PostId = like.PostId;
+
                 model.TextId = details.TextId;
                 model.Author = users.Find(u => u.Id == details.AuthorId);
                 model.Text = texts.Find(t => t.Id == details.TextId).Post;

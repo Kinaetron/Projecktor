@@ -39,9 +39,7 @@
 
 #toTop {
     padding: 5px 3px;
-    background: #000;
     cursor: pointer;
-    color: #fff;
     position: fixed;
     bottom: 0;
     right: 5px;
@@ -87,6 +85,14 @@
     width: 32px;
     height: 32px;
     border: none;
+}
+
+.deleteButton {
+     background:url(/Images/Delete.png) no-repeat;
+     cursor:pointer;
+     width: 32px;
+     height: 32px;
+     border: none;
 }
 
 .logoutForm {
@@ -259,7 +265,7 @@
    height: 100%;
 }
 
-.follow-list, .activity-list {
+.follow-list, .activity-list, .settings-list {
     width: 625px;
     margin: 20px auto 20px auto;
 }
@@ -286,16 +292,16 @@
     overflow: hidden;
 }
 
-.follows, .activities {
+.follows, .activities, .settings {
     border-top: 1px solid rgba(0,0,0,0.0509804);
 }
 
-.follow-avatar-img, .activity-avatar-img {
+.follow-avatar-img, .activity-avatar-img, .settings-avatar-img {
     width: 40px;
     height: 40px;
 }
 
-.follow, .activity {
+.follow, .activity, .username, .blog-title-settings, .email, .new-password, .password, .avatar-settings {
     display: block;
     position: relative;
     height: 40px;
@@ -334,7 +340,7 @@
     float: left;
 }
 
-.blog-follow-title, .activity-action, .activity-date {
+.blog-follow-title, .activity-action, .activity-date, .settings-label {
     margin: 0;
     padding: 0;
     border: 0;
@@ -360,6 +366,39 @@
     float: right;
 }
 
-.activity-date {
+.activity-date, .settings-label {
     float: left;
+}
+
+.username-input, .blogTitle-input, .email-input, 
+.new-password-input, .password-input
+{
+    float: right;
+}
+
+.input-avatar {
+   position: relative;
+   float:right;
+   right: -70px;
+   color:transparent;
+}
+
+.username, .blog-title-settings, .email, .new-password, .password {
+    height: 20px;
+}
+
+.settings-avatar-img {
+    position: relative;
+    right: 100px;
+}
+
+.settings-button {
+    float: right;
+    position: relative;
+    right: 120px;
+    top: 10px;
+}
+
+.save-button-settings{
+    height: 20px;
 }

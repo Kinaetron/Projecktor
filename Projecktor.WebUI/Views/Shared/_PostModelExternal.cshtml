@@ -141,11 +141,11 @@
 
                 if (Model.ReblogedFrom != null && Model.Author.Id == Security.UserId)
                 {
-                    <input type="button" value="Delete" onclick="DeleteReblog(@Model.PostId)" />
+                    <input type="button" class="deleteButton" title="Delete" onclick="DeleteReblog(@Model.PostId)" />
                 }
                 else if (Model.Author.Id == Security.UserId && Model.ReblogedFrom == null)
                 {
-                    <input type="button" value="Delete" onclick="DeletePost(@Model.PostId)" />
+                    <input type="button" class="deleteButton" title="Delete" onclick="DeletePost(@Model.PostId)" />
                 }
             }
         </div>

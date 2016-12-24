@@ -10,5 +10,6 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         Like Like(int userId, int postId, int sourceId);
         Like Unlike(Like like);
         IEnumerable<PostViewModel> GetLikesFor(int userId);
-     }
+        void Delete(int postId);
+    }
 }

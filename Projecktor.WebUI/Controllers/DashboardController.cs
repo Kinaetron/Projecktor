@@ -195,6 +195,10 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public ActionResult Settings()
         {
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
             User user = Users.GetBy(Security.UserId);
             SettingsViewModel settings = new SettingsViewModel()
             {
@@ -246,6 +250,10 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public ActionResult Activity()
         {
+            if (Security.IsAuthenticated == false) {
+                return RedirectToAction("Index", "Home");
+            }
+
             List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
             return View("Activity", Activity);
         }

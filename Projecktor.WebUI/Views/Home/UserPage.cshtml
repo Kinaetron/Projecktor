@@ -1,16 +1,23 @@
 ﻿@model IEnumerable<PostViewModel>
 
+<div id="navigationBar">
+    @Html.Partial("_Searchbar")
+    @Html.Partial("_NavigationBar")
+</div>
+
 @{
     ViewBag.Title =  "Projecktor External";
 }
 
-@section head
-{
+@section head {
     @Scripts.Render("~/bundles/userpagescripts")
 }
 
-@foreach (PostViewModel textPost in Model) {
-    @Html.Partial("_PostModelPartial", textPost);
-}
+<div class="posts-all">
 
-@Html.Partial("_PostAttachment")
+    @foreach (PostViewModel textPost in Model) {
+        @Html.Partial("_PostModelPartial", textPost);
+    }
+
+    @Html.Partial("_PostAttachment")
+</div>

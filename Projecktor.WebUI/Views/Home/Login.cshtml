@@ -9,9 +9,16 @@
     {
         @Html.AntiForgeryToken()
 
-            @Html.ValidationSummary() <br />
-            @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input" }) <br />
-            @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input" }) <br />
+            @Html.ValidationSummary()
+            
+            <div class="username-input">
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input" })
+            </div>
+
+            <div class="password-input">
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input" })
+            </div>
+
         <input type="submit" value="Login" />
     }
 </p>
