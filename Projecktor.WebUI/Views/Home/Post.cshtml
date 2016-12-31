@@ -1,6 +1,10 @@
 ﻿@model PostViewModel
 
 @{
+    ViewBag.Title = "Post No:" + Model.PostId;
+}
+
+@{
     ViewBag.Title = Model.Author.Username;
 }
 

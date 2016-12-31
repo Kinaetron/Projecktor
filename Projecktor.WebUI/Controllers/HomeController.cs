@@ -93,6 +93,13 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Search(string id, string subdomain)
         {
+            if (id == null && subdomain == null) {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else if(id == "") {
+                return Redirect("http://" + subdomain + ".projecktor.com");
+            }
+
             string searchTerm = Uri.UnescapeDataString(id);
 
             if(subdomain == null)
@@ -382,7 +389,6 @@ namespace Projecktor.WebUI.Controllers
             return View("Post", post);
         }
 
-        [OutputCache(Duration = 30, VaryByParam = "id")]
         public ActionResult Notes(string id)
         {
             IEnumerable<Note> notes = Posts.Notes(int.Parse(id));
@@ -426,7 +432,6 @@ namespace Projecktor.WebUI.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Duration = 30, VaryByParam = "none")]
         public ActionResult ForgotPassword() {
             return View("ForgotPassword", new ForgotPasswordViewModel());
         }

@@ -1,7 +1,12 @@
 ﻿@model ExternalViewModel
 
 @{
-    ViewBag.Title = "Projecktor External";
+    if(Model.SubdomainUser.BlogTitle != "") {
+        ViewBag.Title = Model.SubdomainUser.BlogTitle;
+    }
+    else {
+        ViewBag.Title = Model.SubdomainUser.Username;
+    }
 }
 
 <div id="navigationBarExternal">

@@ -292,7 +292,7 @@
     overflow: hidden;
 }
 
-.follows, .activities, .settings {
+.follows, .activities {
     border-top: 1px solid rgba(0,0,0,0.0509804);
 }
 
