@@ -71,7 +71,7 @@ function GalleryMany(postNumber, vignetteString) {
        data: { 'id': postSplit[0] },
        dataType: 'json',
        success: function (dataId) {
-           index = postSplit[1];
+           index = parseInt(postSplit[1]);
            galleryImages = dataId;
            vignetteURL = vignetteString;
            GalleryShowMany()
@@ -86,7 +86,6 @@ $(document).ready(function () {
     });
 
     $('body').on('click', '#projecktor_lightbox_centre_link', function () {
-
         if (parseInt(index) + 1 >= galleryImages.length) {
             index = 0;
         }

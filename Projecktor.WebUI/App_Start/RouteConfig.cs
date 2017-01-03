@@ -67,9 +67,19 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "getposts" });
 
             routes.MapRoute(
+               name: "GetPostsCheck",
+               url: "getpostscheck",
+               defaults: new { controller = "dashboard", action = "getpostscheck" });
+
+            routes.MapRoute(
                 name: "GetLikes",
                 url:  "getlikes",
                 defaults: new { controller = "dashboard", action = "getlikes" });
+
+            routes.MapRoute(
+                name: "GetLikesCheck",
+                url: "getlikescheck",
+                defaults: new { controller = "dashboard", action = "getlikescheck" });
 
             routes.MapRoute(
                 name: "ShowPost",
@@ -136,6 +146,11 @@ namespace Projecktor.WebUI
                name: "GetUserPosts",
                url:  "getuserposts",
                defaults: new { controller = "home", action = "getuserposts" });
+
+            routes.MapRoute(
+               name: "GetUserPostsCheck",
+               url: "getuserpostscheck",
+               defaults: new { controller = "home", action = "getuserpostscheck" });
 
             routes.MapRoute(
                 name: "GetUserLikes",

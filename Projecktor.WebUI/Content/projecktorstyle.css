@@ -402,3 +402,8 @@
 .save-button-settings{
     height: 20px;
 }
+
+.registration-form, .login-form {
+     width: 300px;
+    margin: 20px auto 20px auto;
+}

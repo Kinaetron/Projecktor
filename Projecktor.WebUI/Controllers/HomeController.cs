@@ -70,7 +70,12 @@ namespace Projecktor.WebUI.Controllers
         {
             User user = Users.GetAllFor(subdomain);
 
+            if (pageIndex * pageSize > Posts.GetPostsFor(user.Id).Count()) {
+                return Json(null);
+            }
+
             List<int> postIds = new List<int>();
+
             var timeline = Posts.GetPostsFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in timeline) {
@@ -78,6 +83,19 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserPostsCheck(string subdomain, int pageIndex, int pageSize)
+        {
+            User user = Users.GetAllFor(subdomain);
+
+            if (pageIndex * pageSize > Posts.GetPostsFor(user.Id).Count()) {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult Likes(string subdomain)
@@ -128,6 +146,10 @@ namespace Projecktor.WebUI.Controllers
         {
             User user = Users.GetAllFor(subdomain);
 
+            if (pageIndex * pageSize > UserLikes.GetLikesFor(user.Id).Count()) {
+                return Json(null);
+            }
+
             List<int> postIds = new List<int>();
             IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
@@ -136,6 +158,19 @@ namespace Projecktor.WebUI.Controllers
             }
 
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetUserLikesCheck(string subdomain, int pageIndex, int pageSize)
+        {
+            User user = Users.GetAllFor(subdomain);
+
+            if (pageIndex * pageSize > UserLikes.GetLikesFor(user.Id).Count()) {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
