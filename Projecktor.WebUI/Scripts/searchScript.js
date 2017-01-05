@@ -27,7 +27,10 @@ $(document).ready(function () {
 
     var pathname = window.location.pathname;
     var arr = pathname.split('/');
-    $('#searchTerm').val(arr[2].replace(/\%20/g, ' '));
+
+    if ($.isNumeric(arr[2]) == false) {
+        $('#searchTerm').val(arr[2].replace(/\%20/g, ' '));
+    }
 });
 
 function SearchLink() {

@@ -16,6 +16,8 @@ namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
+        int pageSize = 10;
+
         public ActionResult Index()
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -115,29 +117,37 @@ namespace Projecktor.WebUI.Controllers
             return PartialView("_MultiPosts", models);
         }
 
-        public ActionResult Followers()
+        public ActionResult Followers(int pageNo)
         {
             if (Security.IsAuthenticated == false) {
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> followers = Users.GetFollowers(CurrentUser.Id);
+            IEnumerable<User> followers = Users.GetFollowers(CurrentUser.Id).Skip(pageNo - 1 * pageSize).Take(pageSize);
 
             return View("Followers", new FollowViewModel() {
-                FollowData = followers
+                FollowData = followers,
+                FollowingCount = Users.GetFollowers(CurrentUser.Id).Count(),
+                NextPage = pageNo + 1,
+                PrevPage = pageNo - 1,
+                PageSize = pageSize
             });
         }
 
-        public ActionResult Following()
+        public ActionResult Following(int pageNo)
         {
             if (Security.IsAuthenticated == false) {
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> followers = Users.GetFollowing(CurrentUser.Id);
+            IEnumerable<User> following = Users.GetFollowing(CurrentUser.Id).Skip(pageNo - 1 * pageSize).Take(pageSize);
 
             return View("Following", new FollowViewModel() {
-                FollowData = followers
+                FollowData = following,
+                FollowingCount = Users.GetFollowing(CurrentUser.Id).Count(),
+                NextPage = pageNo + 1,
+                PrevPage = pageNo - 1,
+                PageSize = pageSize
             });
         }
   

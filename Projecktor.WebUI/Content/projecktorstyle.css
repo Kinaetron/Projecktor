@@ -407,3 +407,15 @@
      width: 300px;
     margin: 20px auto 20px auto;
 }
+
+.page-buttons {
+    padding-top : 20px;
+}
+
+.previous-button {
+    float: left;
+}
+
+.next-button {
+    float: right;
+}

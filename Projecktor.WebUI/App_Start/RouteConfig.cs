@@ -23,13 +23,13 @@ namespace Projecktor.WebUI
 
             routes.MapRoute(
                 name: "Followers",
-                url:  "followers",
-                defaults: new { controller = "dashboard", action = "followers" });
+                url:  "followers/{pageNo}",
+                defaults: new { controller = "dashboard", action = "followers", pageNo = 1 });
 
             routes.MapRoute(
                 name: "Following",
-                url:  "following",
-                defaults: new { controller = "dashboard", action = "following" });
+                url:  "following/{pageNo}",
+                defaults: new { controller = "dashboard", action = "following", pageNo = 1 });
 
             routes.MapRoute(
                 name: "Profiles",

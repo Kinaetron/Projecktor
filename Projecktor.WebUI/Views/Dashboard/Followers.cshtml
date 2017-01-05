@@ -60,6 +60,15 @@
         {
             <p>you're not following anyone</p>
         }
+        <div class="page-buttons">
+            @if (Model.PrevPage > 0) {
+                @Html.ActionLink("Previous", "Followers", new { pageNo = Model.PrevPage })
+            }
+
+            @if (Model.FollowingCount > Model.PageSize * Model.NextPage - 1) {
+                @Html.ActionLink("Next", "Followers", new { pageNo = Model.NextPage })
+            }
+        </div>
     </div>
 </div>
 </div>
