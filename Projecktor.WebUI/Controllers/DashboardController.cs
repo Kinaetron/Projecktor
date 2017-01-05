@@ -294,8 +294,36 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).ToList();
+            List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).Take(10).ToList();
             return View("Activity", Activity);
+        }
+
+        [HttpGet]
+        public JsonResult GetActivityCheck(int pageIndex, int pageSize)
+        {
+            if (pageIndex * pageSize > Users.Activity(Security.UserId).Count()) {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetActivity(int pageIndex, int pageSize)
+        {
+            if (pageIndex * pageSize > Users.Activity(Security.UserId).Count()) {
+                return Json(null);
+            }
+
+            List<int> activityIds = new List<int>();
+            IEnumerable<ActivityViewModel> activtiyLine = Users.Activity(CurrentUser.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+
+            foreach (ActivityViewModel item in activtiyLine) {
+                activityIds.Add(item.PostId);
+            }
+
+            return Json(activityIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

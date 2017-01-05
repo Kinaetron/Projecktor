@@ -1,0 +1,8 @@
+﻿@model IEnumerable<PostViewModel>
+
+@if (Model.Any() == true)
+{
+    foreach (PostViewModel textPost in Model) {
+        @Html.Partial("_PostModelExternal", textPost);
+    }
+}

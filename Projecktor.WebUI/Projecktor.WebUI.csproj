@@ -219,6 +219,8 @@
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Scripts\formGlass.js" />
     <Content Include="Scripts\imageGalleryScript.js" />
+    <Content Include="Scripts\infiniteScrollingTaggedExternal.js" />
+    <Content Include="Scripts\infinteScrollingTagged.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\postValidation.js" />
@@ -346,6 +348,9 @@
     <Content Include="Views\Shared\_PostModelExternal.cshtml" />
     <Content Include="Views\Home\SearchPageExternal.cshtml" />
     <Content Include="Views\Shared\_NavigationBarExternal.cshtml" />
+    <Content Include="Views\Home\TaggedPageExternal.cshtml" />
+    <Content Include="Views\Home\TaggedPage.cshtml" />
+    <Content Include="Views\Shared\_MultiPostsExternal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

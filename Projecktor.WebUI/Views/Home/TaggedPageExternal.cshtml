@@ -1,0 +1,33 @@
+﻿@model ExternalViewModel
+
+@{
+    if(Model.SubdomainUser.BlogTitle != "") {
+        ViewBag.Title = Model.SubdomainUser.BlogTitle;
+    }
+    else {
+        ViewBag.Title = Model.SubdomainUser.Username;
+    }
+}
+
+<div id="navigationBarExternal">
+    @Html.Partial("_Searchbar")
+    @Html.Partial("_NavigationBarExternal", Model.SubdomainUser)
+</div>
+
+
+@section head
+{
+    @Scripts.Render("~/bundles/taggedscripts")
+    <link href="~/Content/projecktorStyleExternal.css" rel="stylesheet" />
+}
+
+<h1 class="blog-header">
+    <a class="blog-title" href="/">@Model.SubdomainUser.BlogTitle</a>
+</h1>
+
+@foreach (PostViewModel textPost in Model.Posts) {
+    @Html.Partial("_PostModelExternal", textPost);
+}
+
+@Html.Partial("_PostAttachment")
+

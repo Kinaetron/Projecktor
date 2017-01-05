@@ -1,0 +1,23 @@
+﻿@model IEnumerable<PostViewModel>
+
+<div id="navigationBar">
+    @Html.Partial("_Searchbar")
+    @Html.Partial("_NavigationBar")
+</div>
+
+@{
+    ViewBag.Title =  "Tagged";
+}
+
+@section head {
+    @Scripts.Render("~/bundles/taggedscripts")
+}
+
+<div class="posts-all">
+
+    @foreach (PostViewModel post in Model) {
+        @Html.Partial("_PostModelPartial", post);
+    }
+
+    @Html.Partial("_PostAttachment")
+</div>

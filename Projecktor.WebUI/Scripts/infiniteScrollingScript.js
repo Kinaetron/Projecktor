@@ -6,7 +6,7 @@ function CheckPosts(url, showpost)
     $.ajax
    ({
        type: 'GET',
-       url: url + "check",
+       url: "/" + url + "check",
        data: { 'pageIndex': JSON.stringify(pageIndex), 'pageSize': JSON.stringify(pageSize) },
        dataType: 'json',
        async: 'false',
@@ -22,7 +22,7 @@ function GetPosts(url, showpost) {
     $.ajax
     ({
         type: 'GET',
-        url: url,
+        url: "/" + url,
         data: { 'pageIndex': JSON.stringify(pageIndex), 'pageSize': JSON.stringify(pageSize) },
         dataType: 'json',
         async: 'false',

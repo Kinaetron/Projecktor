@@ -62,6 +62,16 @@ namespace Projecktor.WebUI
                 defaults: new { controller = "dashboard", action = "activity" });
 
             routes.MapRoute(
+               name: "GetActivity",
+               url: "getactivity",
+               defaults: new { controller = "dashboard", action = "getactivity" });
+
+            routes.MapRoute(
+               name: "GetActivityCheck",
+               url: "getactivitycheck",
+               defaults: new { controller = "dashboard", action = "getactivitycheck" });
+
+            routes.MapRoute(
                 name: "GetPosts",
                 url:  "getposts",
                 defaults: new { controller = "dashboard", action = "getposts" });
@@ -138,8 +148,19 @@ namespace Projecktor.WebUI
                defaults: new { controller = "home", action = "post" });
 
             routes.MapRoute(
+            name: "GetTagged",
+            url: "gettagged",
+            defaults: new { controller = "home", action = "gettagged" });
+
+            routes.MapRoute(
+              name: "GetTaggedCheck",
+              url: "gettaggedcheck",
+              defaults: new { controller = "home", action = "gettaggedcheck" });
+
+
+            routes.MapRoute(
                 name: "Tagged",
-                url:  "tagged/{id}",
+                url: "tagged/{id}",
                 defaults: new { controller = "home", action = "tagged" });
 
             routes.MapRoute(

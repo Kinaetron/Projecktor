@@ -377,30 +377,89 @@ namespace Projecktor.WebUI.Controllers
                 models.Add(Posts.GetPost(number));
             }
 
-            return PartialView("_MultiPosts", models);
+            return PartialView("_MultiPostsExternal", models);
         }
 
         public ActionResult Tagged(string subdomain, string id)
         {
             IEnumerable<PostViewModel> taggedPosts;
 
+            string tagTerm = Uri.UnescapeDataString(id);
+
             if (subdomain == null)
             {
-                taggedPosts = Posts.GetTagged(id);
-
-                return View("UserPage", taggedPosts);
+                taggedPosts = Posts.GetTagged(tagTerm).Take(10);
+                return View("TaggedPage", taggedPosts);
             }
             else
             {
-                taggedPosts = Posts.GetTaggedUser(id, subdomain);
+                taggedPosts = Posts.GetTaggedUser(tagTerm, subdomain);
 
                 ExternalViewModel posts = new ExternalViewModel()
                 {
                     SubdomainUser = Users.GetAllFor(subdomain),
-                    Posts = Posts.GetTaggedUser(id, subdomain),
+                    Posts = Posts.GetTaggedUser(tagTerm, subdomain).Take(10),
                 };
 
-                return View("UserBlogPage", posts);
+                return View("TaggedPageExternal", posts);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetTaggedCheck(string subdomain, string term, int pageIndex, int pageSize)
+        {
+            string tagTerm = String.Concat(term.Where(ch => Char.IsLetterOrDigit(ch)));
+
+            if (subdomain == null)
+            {
+                if (pageIndex * pageSize > Posts.GetTagged(tagTerm).Count()) {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                if (pageIndex * pageIndex > Posts.GetTaggedUser(tagTerm, subdomain).Count()) {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetTagged(string subdomain, string term, int pageIndex, int pageSize)
+        {
+            IEnumerable<PostViewModel> taggedPosts;
+
+            string tagTerm = String.Concat(term.Where(ch => Char.IsLetterOrDigit(ch)));
+
+            if (subdomain == null)
+            {
+                List<int> postIds = new List<int>();
+
+                taggedPosts = Posts.GetTagged(tagTerm).Skip(pageIndex * pageSize).Take(pageSize);
+
+                foreach (PostViewModel item in taggedPosts) {
+                    postIds.Add(item.PostId);
+                }
+
+                return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                List<int> postIds = new List<int>();
+
+                taggedPosts = Posts.GetTaggedUser(tagTerm, subdomain).Skip(pageIndex * pageSize).Take(pageSize);
+
+                foreach (PostViewModel item in taggedPosts) {
+                    postIds.Add(item.PostId);
+                }
+
+                return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
             }
         }
 
