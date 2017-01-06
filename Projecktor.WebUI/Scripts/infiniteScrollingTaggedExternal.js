@@ -8,7 +8,7 @@
        async: 'false',
        success: function (check) {
            if (check == true) {
-               GetPostsTagged(url, showpost, postId);
+               GetPostsTaggedExternal(url, showpost, postId);
            }
        },
    })
