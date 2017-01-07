@@ -364,7 +364,7 @@
     text-decoration: none;
 }
 
-.follow-link, .activity-link, .activity-origin {
+.follow-link, .activity-link, .activity-origin, .note-link {
    text-decoration: none;
    color: #444;
    font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
@@ -432,4 +432,45 @@
 
 .next-button {
     float: right;
+}
+
+.notes-display {
+    width: 292px;
+}
+
+.note-avatar {
+   text-decoration: none;
+}
+
+.note-avatar-img {
+    width: 24px;
+    height: 24px;
+}
+
+.note-titles {
+   text-align: center;
+   border: 1px solid #e7e7e7;
+}
+
+.note-title {
+   color: #444;
+   font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+   font-weight: bold;
+}
+
+.white-pane-notes {
+    background: #fff;
+    border-radius: 6px;
+    position:relative;
+    bottom: 50px;
+}
+
+.note-info {
+    background-color: #f2f2f2;
+    padding: 5px 10px;
+}
+
+.note-footer {
+   border: 1px solid #e7e7e7;
+   height: 40px;
 }

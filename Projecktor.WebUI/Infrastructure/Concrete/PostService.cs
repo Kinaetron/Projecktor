@@ -232,6 +232,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             model.ReblogedFrom = users.Find(u => u.Id == userPost.ReblogId);
             model.Source = posts.Find(u => u.Id == userPost.SourceId);
 
+            if(userPost.SourceId != 0) {
+                model.Notes = Notes(userPost.SourceId).ToList();
+            }
+            else {
+                model.Notes = Notes(userPost.Id).ToList();
+            }
+
             if (userPost.Image1 != null) {
                 model.Images.Add(userPost.Image1);
             }
@@ -271,10 +278,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             Post sourceTextPost = posts.Find(p => p.Id == postId);
 
-            Note source = new Note {
-                Source = sourceTextPost.Author
-            };
-            notes.Add(source);
+            if(sourceTextPost != null)
+            {
+                Note source = new Note {
+                    Source = sourceTextPost.Author
+                };
+                notes.Add(source);
+            }
 
              var userTextPosts = posts.FindAll(p => p.SourceId == postId).ToList();
 

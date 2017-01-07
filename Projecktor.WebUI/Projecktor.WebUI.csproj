@@ -355,6 +355,7 @@
     <Content Include="Views\Shared\_MultiPostsExternal.cshtml" />
     <Content Include="Views\Shared\_ActivityPost.cshtml" />
     <Content Include="Views\Shared\_MultiActivities.cshtml" />
+    <Content Include="Views\Shared\_NotesDisplay.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

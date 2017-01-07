@@ -169,9 +169,11 @@
             {
                 if (Model.ReblogedFrom == null) {
                     <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                    @Html.Partial("_NotesDisplay", Model.Notes)
                 }
                 else {
                     <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Source.Id, action = "notes"}, new { @class = "post-notes-link" })</label>
+                    @Html.Partial("_NotesDisplay", Model.Notes)
                 }
 
             }
@@ -179,9 +181,11 @@
             {
                 if (Model.ReblogedFrom == null) {
                     <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                    @Html.Partial("_NotesDisplay", Model.Notes)
                 }
                 else {
                     <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Source.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
+                    @Html.Partial("_NotesDisplay", Model.Notes)
                 }
             }
         </div>

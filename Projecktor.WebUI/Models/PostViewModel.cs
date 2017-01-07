@@ -23,5 +23,12 @@ namespace Projecktor.WebUI.Models
             set { images = value; }
         }
         public DateTime TimePosted { get; set; }
+
+        private List<Note> notes = new List<Note>();
+        public List<Note> Notes
+        {
+            get { return notes; }
+            set { notes = value; }
+        }
     }
 }
