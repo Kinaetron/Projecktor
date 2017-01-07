@@ -16,8 +16,6 @@ namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
-        int pageSize = 10;
-
         public ActionResult Index()
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -119,6 +117,8 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Followers(int pageNo)
         {
+            int pageSize = 10;
+
             if (Security.IsAuthenticated == false) {
                 return RedirectToAction("Index", "Home");
             }
@@ -136,6 +136,8 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Following(int pageNo)
         {
+            int pageSize = 10;
+
             if (Security.IsAuthenticated == false) {
                 return RedirectToAction("Index", "Home");
             }
@@ -294,7 +296,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).Take(10).ToList();
+            List<ActivityViewModel> Activity = Users.Activity(CurrentUser.Id).Take(15).ToList();
             return View("Activity", Activity);
         }
 
@@ -320,10 +322,21 @@ namespace Projecktor.WebUI.Controllers
             IEnumerable<ActivityViewModel> activtiyLine = Users.Activity(CurrentUser.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (ActivityViewModel item in activtiyLine) {
-                activityIds.Add(item.PostId);
+                activityIds.Add(item.ActId);
             }
 
             return Json(activityIds.ToArray(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ShowActivity(List<int> data)
+        {
+            List<ActivityViewModel> activities = new List<ActivityViewModel>();
+
+            foreach (var number in data) {
+                activities.Add(Users.Activity(CurrentUser.Id).Where(p => p.ActId == number).FirstOrDefault());
+            }
+
+            return PartialView("_MultiActivities", activities);
         }
 
         [HttpPost]

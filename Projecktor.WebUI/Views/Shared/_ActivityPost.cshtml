@@ -1,0 +1,56 @@
+﻿@model ActivityViewModel
+
+<script src="~/Scripts/infiniteScrollingActivity.js"></script>
+
+<div class="activity">
+    <a class="activity-avatar" href="@String.Format("{0}{1}{2}", "http://", Model.From.Username, ".projecktor.com")">
+        <img class="activity-avatar-img" src="@Url.Action("image", "home", new { path = Model.From.Avatar })" />
+    </a>
+
+    @if (Model.Action == ActionEnum.Like)
+    {
+        <div class="activity-info">
+            <div class="activty-name">
+                <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", Model.From.Username, ".projecktor.com")">@Model.From.Username</a>
+                <span class="activity-action">liked your post</span>
+            </div>
+
+            <div class="activity-description">
+                <span class="activity-date">@Model.Date</span>
+            </div>
+        </div>
+
+                    <a class="activity-origin" href="@String.Format("{0}{1}{2}{3}", "http://", CurrentUser.Username, ".projecktor.com/post/", Model.PostId)">post</a>
+    }
+
+    @if (Model.Action == ActionEnum.Reblog)
+    {
+        <div class="activity-info">
+            <div class="activty-name">
+                <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", Model.From.Username, ".projecktor.com")">@Model.From.Username</a>
+                <a class="activity-action" href="@String.Format("{0}{1}{2}{3}", "http://", Model.From.Username, ".projecktor.com/post/", Model.PostId)">reblogged your post</a>
+            </div>
+
+            <div class="activity-date">
+                <span class="activity-date">@Model.Date</span>
+            </div>
+        </div>
+
+                    <a class="activity-origin" href="@String.Format("{0}{1}{2}{3}", "http://", CurrentUser.Username, ".projecktor.com/post/", Model.SourceId)">post</a>
+    }
+
+    @if (Model.Action == ActionEnum.Followed)
+    {
+        <div class="activity-info">
+            <div class="activty-name">
+                <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", Model.From.Username, ".projecktor.com")">@Model.From.Username</a>
+                <span class="activity-action">is now following you</span>
+            </div>
+
+            <div class="activity-date">
+                <span class="activity-date">@Model.Date</span>
+            </div>
+        </div>
+    }
+
+</div>

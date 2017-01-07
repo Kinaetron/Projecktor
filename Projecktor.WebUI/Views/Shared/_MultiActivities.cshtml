@@ -1,0 +1,9 @@
+﻿@model IEnumerable<ActivityViewModel>
+
+@if (Model.Any() == true)
+{
+    foreach (ActivityViewModel activity in Model) {
+        @Html.Partial("_ActivityPost", activity);
+    }
+}
+

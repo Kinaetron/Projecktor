@@ -9,68 +9,19 @@
     @Html.Partial("_NavigationBar")
 </div>
 
+<script src="~/Scripts/infiniteScrollScriptAct.js"></script>
+<script src="~/Scripts/infiniteScrollingActivity.js"></script>
+
 <div class="activity-list">
-    <div class="white-pane">
+    <div class="white-pane-activity">
 
         <div class="titles-container">
             <h1 class="titles">Activity</h1>
         </div>
 
         <div class="activities">
-            @foreach (var activity in Model)
-            {
-                <div class="activity">
-                      <a class="activity-avatar" href="@String.Format("{0}{1}{2}", "http://", activity.From.Username, ".projecktor.com")">
-                    <img class="activity-avatar-img" src="@Url.Action("image", "home", new { path = activity.From.Avatar })" />
-                </a>
-
-                @if (activity.Action == ActionEnum.Like)
-                {
-                    <div class="activity-info">
-                        <div class="activty-name">
-                            <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", activity.From.Username, ".projecktor.com")">@activity.From.Username</a>
-                            <span class="activity-action">liked your post</span>
-                        </div>
-
-                        <div class="activity-description">
-                            <span class="activity-date">@activity.Date</span>
-                        </div>
-                    </div>
-
-                    <a class="activity-origin" href="@String.Format("{0}{1}{2}{3}", "http://", CurrentUser.Username, ".projecktor.com/post/", activity.PostId)">post</a>
-                }
-
-                @if (activity.Action == ActionEnum.Reblog)
-                {
-                    <div class="activity-info">
-                        <div class="activty-name">
-                            <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", activity.From.Username, ".projecktor.com")">@activity.From.Username</a>
-                            <a class="activity-action" href="@String.Format("{0}{1}{2}{3}", "http://", activity.From.Username, ".projecktor.com/post/", activity.PostId)">reblogged your post</a>
-                        </div>
-
-                        <div class="activity-date">
-                            <span class="activity-date">@activity.Date</span>
-                        </div>
-                    </div>
-
-                    <a class="activity-origin" href="@String.Format("{0}{1}{2}{3}", "http://", CurrentUser.Username, ".projecktor.com/post/", activity.SourceId)">post</a>
-                }
-
-                @if (activity.Action == ActionEnum.Followed)
-                {
-                    <div class="activity-info">
-                        <div class="activty-name">
-                            <a class="activity-link" href="@String.Format("{0}{1}{2}", "http://", activity.From.Username, ".projecktor.com")">@activity.From.Username</a>
-                            <span class="activity-action">is now following you</span>
-                        </div>
-
-                        <div class="activity-date">
-                            <span class="activity-date">@activity.Date</span>
-                        </div>
-                    </div>
-                }
-
-              </div>
+            @foreach (var activity in Model) {
+                @Html.Partial("_ActivityPost", activity)
             }
 
             @Html.Partial("_PostAttachment")

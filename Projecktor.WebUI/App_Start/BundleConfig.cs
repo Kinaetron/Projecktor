@@ -49,6 +49,11 @@ namespace Projecktor.WebUI
               "~/Scripts/infiniteScrollingScript.js",
               "~/Scripts/infiniteScrollingTaggedExternal.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/activityscripts", string.Format(cdnUrl, "/bundles/activityscripts"))
+            { CdnFallbackExpression = "$.taggedactivity" }
+              .Include(
+             "~/Scripts/infiniteScrollingActivity.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/likespagescripts", string.Format(cdnUrl, "/bundles/likespagescripts"))
             { CdnFallbackExpression = "$.likes" }
                 .Include(

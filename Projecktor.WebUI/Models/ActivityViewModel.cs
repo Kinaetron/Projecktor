@@ -12,6 +12,7 @@ namespace Projecktor.WebUI.Models
 
     public class ActivityViewModel
     {
+        public int ActId { get; set; }
         public User From { get; set; }
         public DateTime Date { get; set; }
         public ActionEnum Action { get; set; }

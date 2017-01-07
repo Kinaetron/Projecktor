@@ -124,8 +124,8 @@ namespace Projecktor.WebUI.Controllers
             {
                 SearchModel model = new SearchModel()
                 {
-                    FoundPosts = Posts.GetTagged(searchTerm),
-                    FoundUsers = Users.SearchFor(searchTerm)
+                    FoundPosts = Posts.GetTagged(searchTerm).Take(10),
+                    FoundUsers = Users.SearchFor(searchTerm).Take(5)
                 };
 
                 return View("SearchPage", model);
@@ -134,12 +134,13 @@ namespace Projecktor.WebUI.Controllers
             {
                 SearchModel model = new SearchModel() {
                     SubdomainUser = Users.GetBy(subdomain),
-                    FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain),
+                    FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain).Take(10),
                 };
 
                 return View("SearchPageExternal", model);
             }
         }
+
 
         [HttpGet]
         public JsonResult GetUserLikes(string subdomain, int pageIndex, int pageSize)

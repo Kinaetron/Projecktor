@@ -277,6 +277,12 @@
     position:relative;
 }
 
+.white-pane-activity {
+    background: #fff;
+    border-radius: 6px;
+    padding: 28px;
+}
+
 .titles-container {
     height: 60px;
 }
@@ -301,9 +307,17 @@
     height: 40px;
 }
 
-.follow, .activity, .username, .blog-title-settings, .email, .new-password, .password, .avatar-settings {
+.follow, .username, .blog-title-settings, .email, .new-password, .password, .avatar-settings {
     display: block;
     position: relative;
+    height: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.0509804);
+    padding: 10px;
+    clear: both;
+}
+
+.activity {
+    display: block;
     height: 40px;
     border-bottom: 1px solid rgba(0,0,0,0.0509804);
     padding: 10px;

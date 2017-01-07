@@ -173,10 +173,14 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             List<Post> postsAct = posts.FindAll(p => p.ReblogId == userId).ToList();
             List<Follow> followAct = follows.FindAll(f => f.FollowingId == userId).ToList();
 
+            int index = 0;
+
             foreach (var like in LikesAct)
             {
+                index++;
                 ActivityViewModel act = new ActivityViewModel()
                 {
+                    ActId = index,
                     Date = like.DateCreated,
                     PostId = like.PostId,
                     Action = ActionEnum.Like,
@@ -187,8 +191,10 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             foreach (var reblog in postsAct)
             {
+                index++;
                 ActivityViewModel act = new ActivityViewModel()
                 {
+                    ActId = index,
                     Date = reblog.DateCreated,
                     PostId = reblog.Id,
                     SourceId = reblog.SourceId,
@@ -200,8 +206,10 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             foreach (var follow in followAct)
             {
+                index++;
                 ActivityViewModel act = new ActivityViewModel()
                 {
+                    ActId = index,
                     Date = follow.DateDone,
                     Action = ActionEnum.Followed,
                     From = GetBy(follow.FollowerId),
