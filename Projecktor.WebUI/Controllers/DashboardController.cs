@@ -231,7 +231,9 @@ namespace Projecktor.WebUI.Controllers
             results.AddRange(Users.SearchUsername(id));
             results.AddRange(Posts.GetTagTerms(id));
 
-            return Json(results.OrderBy(q => q).Distinct().Take(5), JsonRequestBehavior.AllowGet);
+            results = results.OrderBy(q => q).Distinct(StringComparer.CurrentCultureIgnoreCase).Take(5).ToList();
+
+            return Json(results, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
