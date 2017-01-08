@@ -167,25 +167,38 @@
             }
             else if (Model.PostCount == 1)
             {
-                if (Model.ReblogedFrom == null) {
-                    <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
-                    @Html.Partial("_NotesDisplay", Model.Notes)
+                if (Model.ReblogedFrom == null)
+                {
+                    <label><a class="post-notes-link" onclick="OpenNotes(@Model.PostId)">@Model.PostCount.ToString() note</a></label>
+
+                    <div class="notes-information" id="notes_@Model.PostId">
+                        @Html.Partial("_NotesDisplay", Model.Notes)
+                    </div>
                 }
-                else {
-                    <label>@Html.RouteLink(Model.PostCount.ToString() + " note", new { controller = "home", id = Model.Source.Id, action = "notes"}, new { @class = "post-notes-link" })</label>
-                    @Html.Partial("_NotesDisplay", Model.Notes)
+                else
+                {
+                    <label><a class="post-notes-link" onclick="OpenNotes(@Model.PostId)">@Model.PostCount.ToString() note</a></label>
+                    <div class="notes-information" id="notes_@Model.PostId">
+                        @Html.Partial("_NotesDisplay", Model.Notes)
+                    </div>
                 }
 
             }
             else
             {
-                if (Model.ReblogedFrom == null) {
-                    <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Author.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
-                    @Html.Partial("_NotesDisplay", Model.Notes)
+                if (Model.ReblogedFrom == null)
+                {
+                    <label><a class="post-notes-link" onclick="OpenNotes(@Model.PostId)">@Model.PostCount.ToString()  notes</a></label>
+                    <div class="notes-information" id="notes_@Model.PostId">
+                        @Html.Partial("_NotesDisplay", Model.Notes)
+                    </div>
                 }
-                else {
-                    <label>@Html.RouteLink(Model.PostCount.ToString() + " notes", new { controller = "home", id = Model.Source.Id, action = "notes" }, new { @class = "post-notes-link" })</label>
-                    @Html.Partial("_NotesDisplay", Model.Notes)
+                else
+                {
+                    <label><a class="post-notes-link" onclick="OpenNotes(@Model.PostId)">@Model.PostCount.ToString() notes</a></label>
+                    <div class="notes-information" id="notes_@Model.PostId">
+                        @Html.Partial("_NotesDisplay", Model.Notes)
+                    </div>
                 }
             }
         </div>

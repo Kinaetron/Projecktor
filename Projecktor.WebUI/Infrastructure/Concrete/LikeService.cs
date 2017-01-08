@@ -16,6 +16,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly IUserRepository users;
         private readonly ITextRepository texts;
         private readonly IHashtagRepository hashtags;
+        private readonly IPostService service;
 
         public LikeService(IContext context)
         {
@@ -25,6 +26,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
             users = context.Users;
             texts = context.Texts;
             hashtags = context.Hashtags;
+            service = new PostService(context);
         }
 
         public Like Like(int userId, int postId, int sourceId)
@@ -70,6 +72,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             foreach (Like like in userLikes)
             {
+
                 PostViewModel model = new PostViewModel();
                 Post details = posts.Find(like.PostId);
 
@@ -83,6 +86,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 model.Source = posts.Find(u => u.Id == details.SourceId);
 
                 model.Hashtags = hashtags.FindAll(h => h.PostId == details.Id).ToArray();
+
+                if(details.SourceId != 0) {
+                    model.Notes = service.Notes(details.SourceId).ToList();
+                }
+                else {
+                    model.Notes = service.Notes(details.Id).ToList();
+                }
 
                 if (details.Image1 != null) {
                     model.Images.Add(details.Image1);

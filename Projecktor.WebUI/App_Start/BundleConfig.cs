@@ -33,21 +33,24 @@ namespace Projecktor.WebUI
                 .Include(
                "~/Scripts/actionScripts.js",
                "~/Scripts/infiniteScrollingScript.js",
-               "~/Scripts/infinteScrollingUserpage.js"));
+               "~/Scripts/infinteScrollingUserpage.js",
+               "~/Scripts/notesScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/taggedscripts", string.Format(cdnUrl, "/bundles/taggedscripts"))
             { CdnFallbackExpression = "$.tagged" }
                .Include(
               "~/Scripts/actionScripts.js",
               "~/Scripts/infiniteScrollingScript.js",
-              "~/Scripts/infinteScrollingTagged.js"));
+              "~/Scripts/infinteScrollingTagged.js",
+              "~/Scripts/notesScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/taggedscriptsexternal", string.Format(cdnUrl, "/bundles/taggedscriptsexternal"))
             { CdnFallbackExpression = "$.taggedexternal" }
                .Include(
               "~/Scripts/actionScripts.js",
               "~/Scripts/infiniteScrollingScript.js",
-              "~/Scripts/infiniteScrollingTaggedExternal.js"));
+              "~/Scripts/infiniteScrollingTaggedExternal.js",
+              "~/Scripts/notesScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/activityscripts", string.Format(cdnUrl, "/bundles/activityscripts"))
             { CdnFallbackExpression = "$.taggedactivity" }
@@ -58,14 +61,16 @@ namespace Projecktor.WebUI
             { CdnFallbackExpression = "$.likes" }
                 .Include(
                "~/Scripts/infiniteScrollingScript.js",
-               "~/Scripts/infiniteScrollingUserLikes.js"));
+               "~/Scripts/infiniteScrollingUserLikes.js",
+               "~/Scripts/notesScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/likesdashboardscripts", string.Format(cdnUrl, "/bundles/likesdashboardscripts"))
             { CdnFallbackExpression = "$.action" }
                 .Include(
                "~/Scripts/actionScripts.js",
                "~/Scripts/infiniteScrollingScript.js",
-               "~/Scripts/infintiteScrollingDashboardLikes.js"));
+               "~/Scripts/infintiteScrollingDashboardLikes.js",
+               "~/Scripts/notesScript.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/dashboardscripts", string.Format(cdnUrl, "/bundles/dashboardscripts"))
             { CdnFallbackExpression = "$.dashboard" }
@@ -75,7 +80,8 @@ namespace Projecktor.WebUI
                 "~/Scripts/infiniteScrollingDashboard.js",
                 "~/Scripts/imagepostScript.js",
                 "~/Scripts/textpostScript.js",
-                "~/Scripts/postValidation.js"
+                "~/Scripts/postValidation.js",
+                "~/Scripts/notesScript.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/followscripts")

@@ -31,6 +31,7 @@
     background-color: #96A3CD;
     width: 100%;
     box-shadow: 0 0 0 1px #888888;
+    z-index: 90;
 }
 
 .ui-autocomplete {
@@ -166,6 +167,7 @@
     padding-right: 40px;
     height : 45px;
     line-height : 45px;
+    z-index: 90;
 }
 
 .input {
@@ -189,6 +191,10 @@
 .poster-source {
     text-decoration: none;
     color: gray;
+}
+
+.post-notes-link {
+    cursor:pointer;
 }
 
 .poster-reblog, .post-body-text {
@@ -434,6 +440,10 @@
     float: right;
 }
 
+.notes-information {
+    display:none;
+}
+
 .notes-display {
     width: 292px;
 }
@@ -462,7 +472,10 @@
     background: #fff;
     border-radius: 6px;
     position:relative;
+    left: 100px;
     bottom: 50px;
+    max-height: 600px;
+    transform: translateY(-50%);
 }
 
 .note-info {

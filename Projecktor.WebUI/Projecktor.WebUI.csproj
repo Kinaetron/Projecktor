@@ -225,6 +225,7 @@
     <Content Include="Scripts\infinteScrollingTagged.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\notesScript.js" />
     <Content Include="Scripts\postValidation.js" />
     <Content Include="Content\projecktorstyle.css" />
     <Content Include="Content\textpostSheet.css" />
