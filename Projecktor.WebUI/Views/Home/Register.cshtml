@@ -11,7 +11,9 @@
             @using (var signupForm = Html.BeginForm("Register", "Home"))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary() <br />
+                <div class="validation">
+                    @Html.ValidationSummary()
+                </div>
                 @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "input" }) <br />
                 @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input" }) <br />
                 @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input" }) <br />

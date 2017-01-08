@@ -487,3 +487,8 @@
    border: 1px solid #e7e7e7;
    height: 40px;
 }
+
+.validation {
+   color: #fff;
+   text-align: center;
+}

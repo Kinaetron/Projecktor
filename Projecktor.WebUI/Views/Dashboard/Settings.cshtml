@@ -19,8 +19,10 @@
             @using (var signupForm = Html.BeginForm("Settings", "Dashboard", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary()
 
+                <div class="validation">
+                    @Html.ValidationSummary()
+                </div>
 
                 <div class="username">
                     <span class="settings-label">Username:</span>@Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input username-input" })
