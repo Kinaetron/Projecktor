@@ -474,8 +474,12 @@
     position:relative;
     left: 100px;
     bottom: 50px;
-    max-height: 600px;
     transform: translateY(-50%);
+}
+
+.note-group {
+    max-height: 600px;
+    overflow-y: auto!important;
 }
 
 .note-info {

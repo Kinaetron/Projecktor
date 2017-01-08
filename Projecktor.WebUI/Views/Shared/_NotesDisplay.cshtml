@@ -15,38 +15,41 @@
                     <span class="note-title">@noteCount Note</span><br />
                 }
             </div>
-            @foreach (var note in Model)
-            {
-                <div class="note-info">
-                    @if (note.Source != null)
-                    {
-                    <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Source.Username, ".projecktor.com")">
-                        <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Source.Avatar })" />
-                    </a>
+            
+            <div class="note-group">
+                @foreach (var note in Model)
+                {
+                    <div class="note-info">
+                        @if (note.Source != null)
+                        {
+                            <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Source.Username, ".projecktor.com")">
+                                <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Source.Avatar })" />
+                            </a>
 
-                    <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Source.Username, ".projecktor.com")">@note.Source.Username</a>
-                    <span class="note-action">posted this</span><br />
-                    }
-                    else if (note.ReblogFrom == null)
-                    {
-                    <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">
-                        <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Author.Avatar })" />
-                    </a>
+                            <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Source.Username, ".projecktor.com")">@note.Source.Username</a>
+                            <span class="note-action">posted this</span><br />
+                        }
+                        else if (note.ReblogFrom == null)
+                        {
+                            <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">
+                                <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Author.Avatar })" />
+                            </a>
 
-                    <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">@note.Author.Username</a>
-                    <span class="note-action">liked this post</span><br />
-                    }
-                    else
-                    {
-                    <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">
-                        <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Author.Avatar })" />
-                    </a>
+                            <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">@note.Author.Username</a>
+                            <span class="note-action">liked this post</span><br />
+                        }
+                        else
+                        {
+                            <a class="note-avatar" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">
+                                <img class="note-avatar-img" src="@Url.Action("image", "home", new { path = note.Author.Avatar })" />
+                            </a>
 
-                    <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">@note.Author.Username</a>
-                    <span><img src="@Url.Action("image", "home", new { path = "~/Images/smallReblog.png" })" /> @note.ReblogFrom.Username</span><br />
-                    }
-                </div>
-            }
+                            <a class="note-link" href="@String.Format("{0}{1}{2}", "http://", note.Author.Username, ".projecktor.com")">@note.Author.Username</a>
+                            <span><img src="@Url.Action("image", "home", new { path = "~/Images/smallReblog.png" })" /> @note.ReblogFrom.Username</span><br />
+                        }
+                    </div>
+                }
+            </div>
 
             <div class="note-footer">
             </div>
