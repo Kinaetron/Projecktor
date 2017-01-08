@@ -1,5 +1,6 @@
 ﻿var pageSize = 10;
 var pageIndex = 1;
+var callScript = true;
 
 function CheckPosts(url, showpost)
 {
@@ -13,6 +14,7 @@ function CheckPosts(url, showpost)
        success: function (check) {
            if (check == true) {
                GetPosts(url, showpost);
+               callScript = false;
            }
        },
    })
@@ -31,6 +33,7 @@ function GetPosts(url, showpost) {
                 $('#container').append(data);
             })
             pageIndex++;
+            callScript = true;
         },
         beforeSend: function () {
             $("#progress").show();
