@@ -360,7 +360,7 @@
     float: left;
 }
 
-.blog-follow-title, .activity-action, .activity-date, .settings-label {
+.blog-follow-title, .activity-action, .activity-date, .settings-label, .user-blogTitle {
     margin: 0;
     padding: 0;
     border: 0;
@@ -370,7 +370,7 @@
     text-decoration: none;
 }
 
-.follow-link, .activity-link, .activity-origin, .note-link {
+.follow-link, .activity-link, .activity-origin, .note-link, .user-link {
    text-decoration: none;
    color: #444;
    font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
@@ -495,4 +495,62 @@
 .validation {
    color: #fff;
    text-align: center;
+}
+
+.search-users {
+    height: 250px;
+}
+
+.user-result {
+    background: #fff;
+    border-radius: 6px;
+    margin: 30px;
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    float: left;
+}
+
+.user-result-top {
+    height: 100px;
+    background-color: #58699C;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+}
+
+.user-result-bottom {
+    height: 100px;
+}
+
+.user-avatar-img {
+    width: 64px;
+    height: 64px;
+}
+
+.user-avatar {
+   text-decoration: none;
+   position: relative;
+   top: 50px;
+}
+
+.user-follow {
+    position: relative;
+    top: 20px;
+    left: 50px;
+}
+
+.user-link {
+   position: relative;
+   text-align: center;
+   top: 40px;
+}
+
+.user-blogTitle {
+    position: relative;
+    text-align: center;
+    top: 50px;
+}
+
+.user-blogTitle {
+    font-size: 18px;
 }
