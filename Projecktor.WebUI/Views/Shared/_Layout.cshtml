@@ -4,13 +4,8 @@
     <title>@ViewBag.Title | Projecktor</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Scripts.Render("~/bundles/basescripts")
     @Styles.Render("~/bundles/css")
-
-
-    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
     @Scripts.Render("~/bundles/galleryscripts")
     @RenderSection("head", false)
 </head>
