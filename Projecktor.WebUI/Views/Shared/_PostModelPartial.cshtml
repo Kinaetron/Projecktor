@@ -1,6 +1,6 @@
 ﻿@model PostViewModel
 
-<div class="post-avatar">
+<div class="post-avatar" id="post-avatar-@Model.PostId">
     <div class="post-avatar-wrapper">
         <a class="post-avatar-link" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">
             <img class="post-avatar-img" src="@Url.Action("image", "home", new { path = Model.Author.Avatar })" />

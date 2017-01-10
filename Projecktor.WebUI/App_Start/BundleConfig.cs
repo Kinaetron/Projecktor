@@ -14,13 +14,6 @@ namespace Projecktor.WebUI
                 "~/Content/*.css",
                 "~/Content/themes/base/*.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/clientfeaturesscripts", string.Format(cdnUrl, "/bundles/clientfeaturesscripts"))
-                { CdnFallbackExpression ="window.jquery" }
-                .Include(
-                "~/Scripts/jquery-3.0.0.min.js",
-                "~/Scripts/jquery.validate.min.js",
-                "~/Scripts/jquery.validate.unobtrusive.min.js",
-                "~/Scripts/jquery-ui-1.12.1.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/galleryscripts", string.Format(cdnUrl, "/bundles/galleryscripts"))
             { CdnFallbackExpression = "$.gallery" }

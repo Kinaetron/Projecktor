@@ -9,8 +9,7 @@
   @Scripts.Render("~/bundles/likespagescripts")
 }
 
-@foreach (PostViewModel textPost in Model)
-{
+@foreach (PostViewModel textPost in Model) {
     @Html.Partial("_PostModelPartial", textPost);
 }
 
