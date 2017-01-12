@@ -476,12 +476,18 @@ namespace Projecktor.WebUI.Controllers
                 return new HttpNotFoundResult();
             }
 
-            var post = Posts.GetPost(int.Parse(id));
+            PostViewModel post = Posts.GetPost(int.Parse(id));
 
-            if(user.Id != post.Author.Id) {
+            ViewModelPostEx postEx = new ViewModelPostEx()
+            {
+                SubdomainUser = user,
+                Post = post
+            };
+
+            if (user.Id != post.Author.Id) {
                 return new HttpNotFoundResult();
             }
-            return View("Post", post);
+            return View("Post", postEx);
         }
 
         public ActionResult Notes(string id)

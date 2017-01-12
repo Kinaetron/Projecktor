@@ -293,6 +293,7 @@
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\ActivityViewModel.cs" />
     <Compile Include="Models\CreateImagePostViewModel.cs" />
+    <Compile Include="Models\ExternalPost.cs" />
     <Compile Include="Models\ExternalViewModel.cs" />
     <Compile Include="Models\FollowViewModel.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />

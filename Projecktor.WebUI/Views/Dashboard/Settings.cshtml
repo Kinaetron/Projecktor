@@ -36,12 +36,12 @@
                     <span class="settings-label">Email:</span>@Html.TextBoxFor(m => m.Email, new { placeholder = "Email", @class = "input email-input" })
                 </div>
 
-                <div class="new-password">
-                    <span class="settings-label">New Password:</span>@Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password", @class = "input new-password-input" })
-                </div>
-
                 <div class="password">
                     <span class="settings-label">Current Password:</span>@Html.PasswordFor(m => m.CurrentPassword, new { placeholder = "Password", @class = "input password-input" })
+                </div>
+
+                <div class="new-password">
+                    <span class="settings-label">New Password:</span>@Html.PasswordFor(m => m.NewPassword, new { placeholder = "Password", @class = "input new-password-input" })
                 </div>
 
                 <div class="avatar-settings">

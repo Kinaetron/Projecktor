@@ -49,7 +49,7 @@
         </div>
 
         <div class="post-external-info">
-            <a class="poster-source-external" href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
+            <a class="poster-source-external" href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">Reblogged from: @Model.ReblogedFrom.Username</a>
             <a class="source-link-external " href="@String.Format("{0}{1}{2}{3}","http://",  Model.Source.Author.Username, ".projecktor.com/post/", Model.Source.Id)">Source: @Model.Source.Author.Username</a>
         </div>
     }
