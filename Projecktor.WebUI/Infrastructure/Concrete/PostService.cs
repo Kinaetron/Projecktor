@@ -260,14 +260,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
 
             model.Hashtags = hashtags.FindAll(h => h.PostId == userPost.Id).ToArray();
 
-            if (userPost.SourceId > 0) {
-                model.PostCount = posts.FindAll(c => c.SourceId == userPost.SourceId).Count() +
-                                  likes.FindAll(l => l.SourceId == userPost.SourceId).Count();
-            }
-            else {
-                model.PostCount = posts.FindAll(c => c.SourceId == userPost.Id).Count() +
-                                  likes.FindAll(l => l.SourceId == userPost.Id).Count();
-            }
+            model.PostCount = model.Notes.Count() - 1;
 
             return model;
         }
@@ -299,7 +292,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 notes.Add(model);
             }
 
-            var userLikes = likes.FindAll(l => l.SourceId == postId).ToList();
+            var userLikes = likes.FindAll(l => l.PostId == postId).ToList();
 
             foreach (Like like in userLikes)
             {

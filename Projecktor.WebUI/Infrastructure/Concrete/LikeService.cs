@@ -76,6 +76,10 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 PostViewModel model = new PostViewModel();
                 Post details = posts.Find(like.PostId);
 
+                if(details == null) {
+                    continue;
+                }
+
                 model.PostId = like.PostId;
 
                 model.TextId = details.TextId;
@@ -113,14 +117,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                     model.Images.Add(details.Image6);
                 }
 
-                if (like.SourceId > 0) {
-                    model.PostCount = posts.FindAll(c => c.SourceId == like.SourceId).Count() +
-                                      likes.FindAll(l => l.SourceId == like.SourceId).Count();
-                }
-                else {
-                    model.PostCount = posts.FindAll(c => c.SourceId == like.Id).Count() +
-                                      likes.FindAll(l => l.SourceId == like.Id).Count();
-                }
+                model.PostCount = model.Notes.Count() - 1;
 
                 postLikes.Add(model);
             }
