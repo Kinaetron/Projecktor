@@ -1,7 +1,7 @@
 ﻿@model ExternalNavViewModel
 
 <div class="navigation-field">
-    @if (Model.Secure.IsAuthenticated == true) {
+    @if (Model.LoggedIn == true) {
         <a href="@String.Format("{0}","http://projecktor.com/dashboard")"><img src='@Url.Content("~/Images/Home.png")' /></a>
          @Html.Partial("_FollowButtonPartial", Model.SubdomainUser);
     }

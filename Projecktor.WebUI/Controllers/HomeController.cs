@@ -58,10 +58,10 @@ namespace Projecktor.WebUI.Controllers
 
             ExternalViewModel posts = new ExternalViewModel()
             {
-                NavigationInfo = 
+                NavigationInfo =
                 {
                     SubdomainUser = user,
-                    Secure = Security
+                    LoggedIn = Security.LoggedIn
                 },
                 Posts = Posts.GetPostsFor(user.Id).Take(10).ToList(),
             };
@@ -146,7 +146,7 @@ namespace Projecktor.WebUI.Controllers
                     NavigationInfo =
                 {
                     SubdomainUser = Users.GetAllFor(subdomain),
-                    Secure = Security
+                    LoggedIn = Security.LoggedIn
                 },
                     FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain).Take(10),
                 };
@@ -421,7 +421,7 @@ namespace Projecktor.WebUI.Controllers
                     NavigationInfo =
                     {
                         SubdomainUser = Users.GetAllFor(subdomain),
-                        Secure = Security
+                        LoggedIn = Security.LoggedIn
                     },
                     Posts = Posts.GetTaggedUser(tagTerm, subdomain).Take(10),
                 };

@@ -11,34 +11,40 @@
     @Html.Partial("_NavigationBar")
 </div>
 
-<div class="search-users">
-    @foreach (var user in Model.FoundUsers)
-    {
-        <div class="user-result">
-            <div class="user-result-top">
-                <div class="user-follow">
-                    @Html.Partial("_FollowButtonPartial", user)<br />
+@if (Model.FoundUsers.Any() == true)
+{
+    <div class="search-users">
+        @foreach (var user in Model.FoundUsers)
+        {
+            <div class="user-result">
+                <div class="user-result-top">
+                    <div class="user-follow">
+                        @Html.Partial("_FollowButtonPartial", user)<br />
+                    </div>
+
+                    <a class="user-avatar" href="@String.Format("{0}{1}{2}", "http://", user.Username, ".projecktor.com")">
+                        <img class="user-avatar-img" src="@Url.Action("image", "home", new { path = user.Avatar })" />
+                    </a>
                 </div>
-
-                <a class="user-avatar" href="@String.Format("{0}{1}{2}", "http://", user.Username, ".projecktor.com")">
-                    <img class="user-avatar-img" src="@Url.Action("image", "home", new { path = user.Avatar })" />
-                </a>
-            </div>
-            <div class="user-result-bottom">
-                <div class="user-details">
-                    <a class="user-link" href="@String.Format("{0}{1}{2}", "http://", user.Username, ".projecktor.com")">@user.Username</a><br />
-                    <span class="user-blogTitle">@user.BlogTitle</span>
+                <div class="user-result-bottom">
+                    <div class="user-details">
+                        <a class="user-link" href="@String.Format("{0}{1}{2}", "http://", user.Username, ".projecktor.com")">@user.Username</a><br />
+                        <span class="user-blogTitle">@user.BlogTitle</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
 
-<div class="posts-all">
+@if (Model.FoundPosts.Any() == true)
+{
+    <div class="posts-all">
 
-    @foreach (PostViewModel textPost in Model.FoundPosts) {
-        @Html.Partial("_PostModelPartial", textPost);
-    }
+        @foreach (PostViewModel textPost in Model.FoundPosts) {
+            @Html.Partial("_PostModelPartial", textPost);
+        }
 
-    @Html.Partial("_PostAttachment")
-</div>
+        @Html.Partial("_PostAttachment")
+    </div>
+}

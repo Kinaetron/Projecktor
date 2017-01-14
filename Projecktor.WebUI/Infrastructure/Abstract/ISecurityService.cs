@@ -11,6 +11,7 @@ namespace Projecktor.WebUI.Infrastructure.Abstract
         bool DoesUserExist(int userId);
         User GetCurrentUser();
         bool IsAuthenticated { get; }
+        bool LoggedIn { get; }
         void Login(User user);
         void Login(string username);
         void Logout();

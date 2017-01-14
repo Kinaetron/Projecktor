@@ -8,15 +8,20 @@ using System.Web.SessionState;
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
 {
-    public class SecurityService : ISecurityService
+    public  class SecurityService : ISecurityService
     {
         private readonly IUserService users;
         private readonly HttpSessionState session;
 
-        private bool isAuthenticated;
         public bool IsAuthenticated
         {
-            get { return isAuthenticated; }
+            get { return  UserId > 0; }
+        }
+
+        private bool loggedIn;
+        public bool LoggedIn
+        {
+            get { return loggedIn; }
         }
 
         public int UserId
@@ -93,13 +98,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         }
 
         public void Login(User user) {
-            isAuthenticated = true;
+            loggedIn = true;
             session["UserId"] = user.Id;
         }
 
         public void Logout()
         {
-            isAuthenticated = false;
+            loggedIn = false;
             session.Abandon();
         }
     }
