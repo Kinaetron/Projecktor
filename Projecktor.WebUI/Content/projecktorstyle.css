@@ -507,8 +507,8 @@
     background: #fff;
     border-radius: 6px;
     margin: 30px;
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
     display: inline-block;
     float: left;
 }
@@ -538,7 +538,7 @@
 .user-follow {
     position: relative;
     top: 20px;
-    left: 50px;
+    left: 60px;
 }
 
 .user-link {
