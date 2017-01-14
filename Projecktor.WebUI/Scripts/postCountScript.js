@@ -17,9 +17,6 @@
                 $("#count-display").text(data - postCount);
             }
 
-        },
-        error: function (result) {
-            alert("Something went terribly wrong with post count" + result);
         }
     })
     setTimeout(arguments.callee, 5000);
