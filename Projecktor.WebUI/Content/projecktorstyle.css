@@ -560,3 +560,10 @@
 .initial-text {
     font-size: 24px;
 }
+
+.follow-external {
+    position: relative;
+    left: 10px;
+    bottom: 9px;
+    display: inline;
+}
