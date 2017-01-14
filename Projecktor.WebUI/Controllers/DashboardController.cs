@@ -27,9 +27,14 @@ namespace Projecktor.WebUI.Controllers
             if(Security.IsAuthenticated == false && cookie != null) {
                 Security.Login(cookie.Value);
             }
-
+     
             IEnumerable<PostViewModel> timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
+
             return View("Dashboard", timeline);
+        }
+
+        public JsonResult PostCount() {
+            return Json(Posts.GetTimeLineFor(Security.UserId).Count(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Likes()

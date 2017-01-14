@@ -567,3 +567,11 @@
     bottom: 9px;
     display: inline;
 }
+
+#count-display {
+    position: relative;
+    bottom: 7px;
+    left: 24px;
+    text-decoration: none;
+    color: #fff;
+}
