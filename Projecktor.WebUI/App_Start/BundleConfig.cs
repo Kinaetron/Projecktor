@@ -84,8 +84,7 @@ namespace Projecktor.WebUI
                 "~/Scripts/infiniteScrollingDashboard.js",
                 "~/Scripts/imagepostScript.js",
                 "~/Scripts/textpostScript.js",
-                "~/Scripts/postValidation.js",
-                "~/Scripts/notesScript.js"
+                "~/Scripts/postValidation.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/followscripts")
