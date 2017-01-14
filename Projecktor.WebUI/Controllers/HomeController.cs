@@ -23,6 +23,10 @@ namespace Projecktor.WebUI.Controllers
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
 
+            if(cookie == null) {
+                Security.Logout();
+            }
+
             if (Security.IsAuthenticated == false && subdomain == null)
             {
                 if (cookie != null)
@@ -140,6 +144,9 @@ namespace Projecktor.WebUI.Controllers
 
                 if (cookie != null) {
                     Security.Login(cookie.Value);
+                }
+                else {
+                    Security.Logout();
                 }
 
                 SearchModel model = new SearchModel() {
@@ -414,6 +421,9 @@ namespace Projecktor.WebUI.Controllers
 
                 if(cookie != null) {
                     Security.Login(cookie.Value);
+                }
+                else {
+                    Security.Logout();
                 }
 
                 ExternalViewModel posts = new ExternalViewModel()

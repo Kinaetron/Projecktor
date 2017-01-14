@@ -105,6 +105,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         public void Logout()
         {
             loggedIn = false;
+            session.Clear();
             session.Abandon();
         }
     }
