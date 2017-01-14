@@ -5,7 +5,12 @@ namespace Projecktor.WebUI.Models
 {
     public class SearchModel
     {
-        public User SubdomainUser { get; set; }
+        private ExternalNavViewModel navigationInfo = new ExternalNavViewModel();
+        public ExternalNavViewModel NavigationInfo
+        {
+            get { return navigationInfo; }
+            set { value = navigationInfo; }
+        }
         public IEnumerable<User> FoundUsers { get; set; }
         public IEnumerable<PostViewModel> FoundPosts { get; set; }
     }

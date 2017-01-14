@@ -1,11 +1,16 @@
-﻿using Projecktor.Domain.Entites;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Projecktor.WebUI.Models
 {
     public class ExternalViewModel
     {
-        public User SubdomainUser { get; set; }
+        private ExternalNavViewModel navigationInfo = new ExternalNavViewModel();
+        public ExternalNavViewModel NavigationInfo
+        {
+           get { return navigationInfo; }
+           set { value = navigationInfo; }
+        }
+
         public IEnumerable<PostViewModel> Posts { get; set; }
     }
 }

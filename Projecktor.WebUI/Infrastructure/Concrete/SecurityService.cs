@@ -13,9 +13,10 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         private readonly IUserService users;
         private readonly HttpSessionState session;
 
+        private bool isAuthenticated;
         public bool IsAuthenticated
         {
-            get { return UserId > 0; }
+            get { return isAuthenticated; }
         }
 
         public int UserId
@@ -92,10 +93,13 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
         }
 
         public void Login(User user) {
+            isAuthenticated = true;
             session["UserId"] = user.Id;
         }
 
-        public void Logout() {
+        public void Logout()
+        {
+            isAuthenticated = false;
             session.Abandon();
         }
     }

@@ -58,7 +58,11 @@ namespace Projecktor.WebUI.Controllers
 
             ExternalViewModel posts = new ExternalViewModel()
             {
-                SubdomainUser = user,
+                NavigationInfo = 
+                {
+                    SubdomainUser = user,
+                    Secure = Security
+                },
                 Posts = Posts.GetPostsFor(user.Id).Take(10).ToList(),
             };
 
@@ -132,8 +136,18 @@ namespace Projecktor.WebUI.Controllers
             }
             else
             {
+                HttpCookie cookie = Request.Cookies["loggedIn"];
+
+                if (cookie != null) {
+                    Security.Login(cookie.Value);
+                }
+
                 SearchModel model = new SearchModel() {
-                    SubdomainUser = Users.GetBy(subdomain),
+                    NavigationInfo =
+                {
+                    SubdomainUser = Users.GetAllFor(subdomain),
+                    Secure = Security
+                },
                     FoundPosts = Posts.GetTaggedUser(searchTerm, subdomain).Take(10),
                 };
 
@@ -396,11 +410,22 @@ namespace Projecktor.WebUI.Controllers
             {
                 taggedPosts = Posts.GetTaggedUser(tagTerm, subdomain);
 
+                HttpCookie cookie = Request.Cookies["loggedIn"];
+
+                if(cookie != null) {
+                    Security.Login(cookie.Value);
+                }
+
                 ExternalViewModel posts = new ExternalViewModel()
                 {
-                    SubdomainUser = Users.GetAllFor(subdomain),
+                    NavigationInfo =
+                    {
+                        SubdomainUser = Users.GetAllFor(subdomain),
+                        Secure = Security
+                    },
                     Posts = Posts.GetTaggedUser(tagTerm, subdomain).Take(10),
                 };
+
 
                 return View("TaggedPageExternal", posts);
             }

@@ -1,17 +1,17 @@
 ﻿@model ExternalViewModel
 
 @{
-    if(Model.SubdomainUser.BlogTitle != "") {
-        ViewBag.Title = Model.SubdomainUser.BlogTitle;
+    if(Model.NavigationInfo.SubdomainUser.BlogTitle != "") {
+        ViewBag.Title = Model.NavigationInfo.SubdomainUser.BlogTitle;
     }
     else {
-        ViewBag.Title = Model.SubdomainUser.Username;
+        ViewBag.Title = Model.NavigationInfo.SubdomainUser.Username;
     }
 }
 
 <div id="navigationBarExternal">
     @Html.Partial("_Searchbar")
-    @Html.Partial("_NavigationBarExternal", Model.SubdomainUser)
+    @Html.Partial("_NavigationBarExternal", Model.NavigationInfo)
 </div>
 
 
@@ -21,7 +21,7 @@
 }
 
 <h1 class="blog-header">
-    <a class="blog-title" href="/">@Model.SubdomainUser.BlogTitle</a>
+    <a class="blog-title" href="/">@Model.NavigationInfo.SubdomainUser.BlogTitle</a>
 </h1>
 
 @foreach (PostViewModel textPost in Model.Posts) {
