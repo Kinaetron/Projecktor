@@ -47,10 +47,8 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            if (Security.IsAuthenticated == false && subdomain != null) {
-                if (cookie != null) {
-                    Security.Login(cookie.Value);
-                }
+            if (cookie != null) {
+                Security.Login(cookie.Value);
             }
 
             User user = Users.GetAllFor(subdomain);

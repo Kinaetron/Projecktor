@@ -4,6 +4,7 @@ using Projecktor.Domain.Abstract;
 using Projecktor.Domain.Entites;
 using Projecktor.WebUI.Infrastructure.Abstract;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Projecktor.WebUI.Infrastructure.Concrete
 {
@@ -30,7 +31,7 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 {
                     PostId = postId,
                     UserId = userId,
-                    Tag = strippedTag
+                    Tag = Regex.Replace(strippedTag, @"[#]", "")
                 };
 
                 hashtags.Create(entry);
@@ -46,8 +47,8 @@ namespace Projecktor.WebUI.Infrastructure.Concrete
                 {
                     PostId = postId,
                     UserId = userId,
-                    Tag = tag.Tag
-                };
+                    Tag = Regex.Replace(tag.Tag, @"[#]", "")
+            };
 
                 hashtags.Create(entry);
                 context.SaveChanges();

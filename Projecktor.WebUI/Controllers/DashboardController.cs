@@ -166,7 +166,10 @@ namespace Projecktor.WebUI.Controllers
             {
                 Post made = Posts.CreateTextPost(Security.UserId, model.TextPost);
 
-                if(model.Hashtags != null) {
+                if(model.Hashtags != null)
+                {
+
+
                     Hashtags.Create(made.Id, Security.UserId, model.Hashtags);
                 }
             }
