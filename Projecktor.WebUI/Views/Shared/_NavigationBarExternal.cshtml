@@ -4,7 +4,7 @@
     @if (Model.LoggedIn == true) {
         <a href="@String.Format("{0}","http://projecktor.com/dashboard")"><img src='@Url.Content("~/Images/Home.png")' /></a>
         <div class="follow-external">
-            @Html.Partial("_FollowButtonPartial", Model.SubdomainUser);
+            @Html.Partial("_FollowButtonPartial", Model.SubdomainUser)
         </div>
     }
     else

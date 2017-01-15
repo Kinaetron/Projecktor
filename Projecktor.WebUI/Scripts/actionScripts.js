@@ -107,6 +107,7 @@ function DeleteReblog(postId) {
        url: '/deletereblog',
        success: function () {
            $("#posts_" + postId).remove();
+           $("#post-avatar-" + postId).remove();
        },
        error: function (result) {
            alert("Something went terribly wrong delete reblog" + result);
