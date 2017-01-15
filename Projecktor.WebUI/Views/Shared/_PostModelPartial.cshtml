@@ -3,7 +3,14 @@
 <div class="post-avatar" id="post-avatar-@Model.PostId">
     <div class="post-avatar-wrapper">
         <a class="post-avatar-link" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">
-            <img class="post-avatar-img" src="@Url.Action("image", "home", new { path = Model.Author.Avatar })" />
+            @if (IsCDNAvailable == true) {
+                string[] avatar = Model.Author.Avatar.Split('~');
+                <img class="post-avatar-img" src="@String.Format("{0}{1}", ProjecktorCDN, avatar[1])" />
+            }
+            else {
+                <img class="post-avatar-img" src="@Url.Action("image", "home", new { path = Model.Author.Avatar })" />
+            }
+
         </a>
     </div>
 </div>
@@ -12,10 +19,21 @@
     @if (Model.ReblogedFrom != null)
     {
         <div class="post-header">
-            <a class="poster-reblog" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="~/Images/Reblog.png" 
+
+            @if(IsCDNAvailable == true)
+            {
+             <a class="poster-reblog" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="@String.Format("{0}{1}", ProjecktorCDN, "/Images/Reblog.png")"
                                                                                                                                   title="@Model.Author.Username reblogged @Model.ReblogedFrom.Username" />
 
             <a class="poster-source" href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
+            }
+            else
+            {
+             <a class="poster-reblog" href="@String.Format("{0}{1}{2}", "http://", Model.Author.Username, ".projecktor.com")">@Model.Author.Username</a><img class="reblog-img" src="~/Images/Reblog.png" 
+                                                                                                                                  title="@Model.Author.Username reblogged @Model.ReblogedFrom.Username" />
+
+            <a class="poster-source" href="@String.Format("{0}{1}{2}","http://",  Model.ReblogedFrom.Username,".projecktor.com")">@Model.ReblogedFrom.Username</a>
+            }
         </div>
 
         for (int i = 0; i < Model.Images.Count; i++)
