@@ -499,6 +499,15 @@ namespace Projecktor.WebUI.Controllers
 
         public ActionResult Post(string subdomain, string id)
         {
+            HttpCookie cookie = Request.Cookies["loggedIn"];
+
+            if (cookie != null) {
+                Security.Login(cookie.Value);
+            }
+            else {
+                Security.Logout();
+            }
+
             if (Security.IsAuthenticated == false && subdomain == null) {
                 return View("Register", new RegisterViewModel());
             }
@@ -513,7 +522,11 @@ namespace Projecktor.WebUI.Controllers
 
             ViewModelPostEx postEx = new ViewModelPostEx()
             {
-                SubdomainUser = user,
+                NavigationInfo =
+                {
+                        SubdomainUser = user,
+                        LoggedIn = Security.LoggedIn
+                },
                 Post = post
             };
 

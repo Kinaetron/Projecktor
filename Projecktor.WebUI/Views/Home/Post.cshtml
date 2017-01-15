@@ -5,12 +5,12 @@
 }
 
 @{
-    ViewBag.Title = Model.SubdomainUser.Username;
+    ViewBag.Title = Model.NavigationInfo.SubdomainUser.Username;
 }
 
 <div id="navigationBarExternal">
     @Html.Partial("_Searchbar")
-    @Html.Partial("_NavigationBarExternal", Model.SubdomainUser)
+    @Html.Partial("_NavigationBarExternal", Model.NavigationInfo)
 </div>
 
 @section head
