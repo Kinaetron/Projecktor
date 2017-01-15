@@ -33,8 +33,12 @@ namespace Projecktor.WebUI.Controllers
             return View("Dashboard", timeline);
         }
 
-        public JsonResult PostCount() {
-            return Json(Posts.GetTimeLineFor(Security.UserId).Count(), JsonRequestBehavior.AllowGet);
+        public JsonResult PostCount()
+        {
+            List<PostViewModel> posts = Posts.GetTimeLineFor(Security.UserId).ToList();
+            posts.RemoveAll(p => p.Author.Id == Security.UserId);
+
+            return Json(posts.Count(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Likes()
