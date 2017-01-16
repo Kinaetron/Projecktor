@@ -139,6 +139,12 @@ $(document).ready(function () {
             }
             ImageSwitch();
         }
+
+        if (e.keyCode == 27) {
+            AssetRemoval();
+            galleryOne = false;
+            galleryMany = false;
+        }
     });
 
     $('body').on('click', '#vignette', function () {
