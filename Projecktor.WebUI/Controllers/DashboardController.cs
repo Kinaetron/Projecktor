@@ -132,7 +132,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> followers = Users.GetFollowers(CurrentUser.Id).Skip(pageNo - 1 * pageSize).Take(pageSize);
+            IEnumerable<User> followers = Users.GetFollowers(CurrentUser.Id).Skip((pageNo - 1) * pageSize).Take(pageSize);
 
             return View("Followers", new FollowViewModel() {
                 FollowData = followers,
@@ -151,7 +151,7 @@ namespace Projecktor.WebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            IEnumerable<User> following = Users.GetFollowing(CurrentUser.Id).Skip(pageNo - 1 * pageSize).Take(pageSize);
+            IEnumerable<User> following = Users.GetFollowing(CurrentUser.Id).Skip((pageNo - 1) * pageSize).Take(pageSize);
 
             return View("Following", new FollowViewModel() {
                 FollowData = following,

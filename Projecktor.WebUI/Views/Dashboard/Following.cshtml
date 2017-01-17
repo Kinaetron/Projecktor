@@ -38,7 +38,15 @@
 
                     <div class="@className">
                         <a class="follow-avatar" href="@String.Format("{0}{1}{2}", "http://", following.Username, ".projecktor.com")">
-                            <img class="follow-avatar-img" src="@Url.Action("image", "home", new { path = following.Avatar })" />
+                            @if (IsCDNAvailable == true)
+                            {
+                                string[] avatar = following.Avatar.Split('~');
+                                <img class="follow-avatar-img" src="@String.Format("{0}{1}", ProjecktorCDN, avatar[1])" />
+                            }
+                            else {
+                                <img class="follow-avatar-img" src="@Url.Action("image", "home", new { path = following.Avatar })" />
+                            }
+                           
                         </a>
 
                         <div class="follow-info">
@@ -65,7 +73,7 @@
                     @Html.ActionLink("Previous", "Following", new { pageNo = Model.PrevPage })
                 }
 
-                @if (Model.FollowingCount > Model.PageSize * Model.NextPage - 1) {
+                @if (Model.FollowingCount > Model.PageSize * (Model.NextPage - 1)) {
                     @Html.ActionLink("Next", "Following", new { pageNo = Model.NextPage })
                 }
             </div>
