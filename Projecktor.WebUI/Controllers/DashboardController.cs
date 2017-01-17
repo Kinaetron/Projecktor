@@ -16,6 +16,12 @@ namespace Projecktor.WebUI.Controllers
 {
     public class DashboardController : ProjecktorControllerBase
     {
+
+        private static int pageIndexDash = 1;
+        private static int pageIndexLikes = 1;
+
+        private const int pageSizeInt = 10;
+
         public ActionResult Index()
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -60,7 +66,7 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetPostsCheck(int pageIndex, int pageSize)
         {
-            if (pageIndex * pageSize > Posts.GetTimeLineFor(Security.UserId).Count()) {
+            if (pageIndexDash * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count()) {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
@@ -71,24 +77,25 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetPosts(int pageIndex, int pageSize)
         {
-            if (pageIndex * pageSize > Posts.GetTimeLineFor(Security.UserId).Count()) {
+            if (pageIndexDash * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count()) {
                 return Json(null);
             }
 
             List<int> postIds = new List<int>();
-            var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndexDash * pageSizeInt).Take(pageSizeInt).ToArray();
 
             foreach (PostViewModel item in timeline) {
                 postIds.Add(item.PostId);
             }
 
+            pageIndexDash++;
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetLikesCheck(int pageIndex, int pageSize)
         {
-            if (pageIndex * pageSize > UserLikes.GetLikesFor(Security.UserId).Count()) {
+            if (pageIndexLikes * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count()) {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
@@ -99,12 +106,12 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetLikes(int pageIndex, int pageSize)
         {
-            if (pageIndex * pageSize > UserLikes.GetLikesFor(Security.UserId).Count()) {
+            if (pageIndexLikes * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count()) {
                 return Json(null);
             }
 
             List<int> postIds = new List<int>();
-            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndexLikes * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in likeLine) {
                 postIds.Add(item.PostId);

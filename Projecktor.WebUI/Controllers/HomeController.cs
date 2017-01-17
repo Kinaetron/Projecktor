@@ -19,6 +19,9 @@ namespace Projecktor.WebUI.Controllers
     {
         public HomeController() : base() { }
 
+        private const int pageSizeInt = 10;
+        private static int pageIndexHome = 1;
+
         public ActionResult Index(string subdomain)
         {
             HttpCookie cookie = Request.Cookies["loggedIn"];
@@ -76,18 +79,19 @@ namespace Projecktor.WebUI.Controllers
         {
             User user = Users.GetAllFor(subdomain);
 
-            if (pageIndex * pageSize > Posts.GetPostsFor(user.Id).Count()) {
+            if (pageIndexHome * pageSizeInt > Posts.GetPostsFor(user.Id).Count()) {
                 return Json(null);
             }
 
             List<int> postIds = new List<int>();
 
-            var timeline = Posts.GetPostsFor(user.Id).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
+            var timeline = Posts.GetPostsFor(user.Id).Skip(pageIndexHome * pageSizeInt).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in timeline) {
                 postIds.Add(item.PostId);
             }
 
+            pageIndexHome++;
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
@@ -96,7 +100,7 @@ namespace Projecktor.WebUI.Controllers
         {
             User user = Users.GetAllFor(subdomain);
 
-            if (pageIndex * pageSize > Posts.GetPostsFor(user.Id).Count()) {
+            if (pageIndexHome * pageSizeInt > Posts.GetPostsFor(user.Id).Count()) {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
