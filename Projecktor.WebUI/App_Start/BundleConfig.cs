@@ -36,7 +36,6 @@ namespace Projecktor.WebUI
             //{ CdnFallbackExpression = "$.infinite" }
                 .Include(
                "~/Scripts/actionScripts.js",
-               "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infinteScrollingUserpage.js",
                "~/Scripts/notesScript.js"));
 
@@ -72,7 +71,6 @@ namespace Projecktor.WebUI
             //{ CdnFallbackExpression = "$.action" }
                 .Include(
                "~/Scripts/actionScripts.js",
-               "~/Scripts/infiniteScrollingScript.js",
                "~/Scripts/infintiteScrollingDashboardLikes.js",
                "~/Scripts/notesScript.js"));
 
@@ -80,7 +78,6 @@ namespace Projecktor.WebUI
             //{ CdnFallbackExpression = "$.dashboard" }
                 .Include(
                 "~/Scripts/actionScripts.js",
-                "~/Scripts/infiniteScrollingScript.js",
                 "~/Scripts/infiniteScrollingDashboard.js",
                 "~/Scripts/imagepostScript.js",
                 "~/Scripts/textpostScript.js",

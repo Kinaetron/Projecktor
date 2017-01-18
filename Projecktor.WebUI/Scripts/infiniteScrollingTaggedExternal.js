@@ -9,6 +9,7 @@
        success: function (check) {
            if (check == true) {
                GetPostsTaggedExternal(url, showpost, postId);
+               $("#progress").show();
            }
        },
    })
@@ -27,9 +28,6 @@ function GetPostsTaggedExternal(url, showpost, postId) {
                 $('#container').append(data);
             })
             pageIndex++;
-        },
-        beforeSend: function () {
-            $("#progress").show();
         },
         complete: function () {
             $("#progress").hide();

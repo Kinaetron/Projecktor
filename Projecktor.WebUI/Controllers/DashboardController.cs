@@ -17,13 +17,16 @@ namespace Projecktor.WebUI.Controllers
     public class DashboardController : ProjecktorControllerBase
     {
 
-        private static int pageIndexDash = 1;
-        private static int pageIndexLikes = 1;
+        private static int lastPageIndex = 0;
+        private static int lastPageIndexLikes = 0;
 
         private const int pageSizeInt = 10;
 
         public ActionResult Index()
         {
+            lastPageIndex = 0;
+            lastPageIndexLikes = 0;
+
             HttpCookie cookie = Request.Cookies["loggedIn"];
 
             if (Security.IsAuthenticated == false && cookie == null) {
@@ -33,7 +36,6 @@ namespace Projecktor.WebUI.Controllers
             if(Security.IsAuthenticated == false && cookie != null) {
                 Security.Login(cookie.Value);
             }
-     
             IEnumerable<PostViewModel> timeline = Posts.GetTimeLineFor(Security.UserId).Take(10).ToArray();
 
             return View("Dashboard", timeline);
@@ -57,6 +59,11 @@ namespace Projecktor.WebUI.Controllers
             return View("Likes", likeLine);
         }
 
+        public ActionResult BookList()
+        {
+            return null;
+        }
+
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();
@@ -66,7 +73,7 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetPostsCheck(int pageIndex, int pageSize)
         {
-            if (pageIndexDash * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count()) {
+            if (pageIndex * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count()) {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
@@ -77,25 +84,26 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetPosts(int pageIndex, int pageSize)
         {
-            if (pageIndexDash * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count()) {
+            if (pageIndex * pageSizeInt > Posts.GetTimeLineFor(Security.UserId).Count() || pageIndex == lastPageIndex) {
                 return Json(null);
             }
 
             List<int> postIds = new List<int>();
-            var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndexDash * pageSizeInt).Take(pageSizeInt).ToArray();
+            var timeline = Posts.GetTimeLineFor(Security.UserId).Skip(pageIndex * pageSizeInt).Take(pageSizeInt).ToArray();
 
             foreach (PostViewModel item in timeline) {
                 postIds.Add(item.PostId);
             }
 
-            pageIndexDash++;
+            lastPageIndex = pageIndex;
+
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
         public JsonResult GetLikesCheck(int pageIndex, int pageSize)
         {
-            if (pageIndexLikes * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count()) {
+            if (pageIndex * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count()) {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
             else {
@@ -106,17 +114,19 @@ namespace Projecktor.WebUI.Controllers
         [HttpGet]
         public JsonResult GetLikes(int pageIndex, int pageSize)
         {
-            if (pageIndexLikes * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count()) {
+            if (pageIndex * pageSizeInt > UserLikes.GetLikesFor(Security.UserId).Count() || pageIndex == lastPageIndexLikes) {
                 return Json(null);
             }
 
             List<int> postIds = new List<int>();
-            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndexLikes * pageSize).Take(pageSize).ToArray();
+            IEnumerable<PostViewModel> likeLine = UserLikes.GetLikesFor(Security.UserId).Skip(pageIndex * pageSize).Take(pageSize).ToArray();
 
             foreach (PostViewModel item in likeLine) {
                 postIds.Add(item.PostId);
             }
 
+
+            lastPageIndexLikes = pageIndex;
             return Json(postIds.ToArray(), JsonRequestBehavior.AllowGet);
         }
 
@@ -277,7 +287,6 @@ namespace Projecktor.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Settings(SettingsViewModel settings)
         {
-
             if (Security.Authenticate(CurrentUser.Username, settings.CurrentPassword) == false)
             {
                 ModelState.AddModelError("Username", "The password was incorrect");

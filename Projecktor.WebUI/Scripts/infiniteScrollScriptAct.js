@@ -14,6 +14,7 @@ function CheckPosts(url, showpost) {
            if (check == true && callScript == true) {
                GetPosts(url, showpost);
                callScript = false;
+               $("#progress").show();
            }
        },
    })
@@ -33,9 +34,6 @@ function GetPosts(url, showpost) {
             })
             pageIndex++;
             callScript = true;
-        },
-        beforeSend: function () {
-            $("#progress").show();
         },
         complete: function () {
             $("#progress").hide();

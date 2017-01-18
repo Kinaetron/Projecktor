@@ -29,7 +29,7 @@ function GetPostsTagged(url, showpost, postId) {
             pageIndex++;
         },
         beforeSend: function () {
-            $("#progress").show();
+
         },
         complete: function () {
             $("#progress").hide();

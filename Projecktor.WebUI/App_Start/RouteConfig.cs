@@ -107,6 +107,11 @@ namespace Projecktor.WebUI
                defaults: new { controller = "dashboard", action = "autocomplete" });
 
             routes.MapRoute(
+              name: "BookList",
+              url: "booklist",
+              defaults: new { controller = "dashboard", action = "booklist" });
+
+            routes.MapRoute(
               name: "PostCount",
               url: "postcount",
               defaults: new { controller = "dashboard", action = "postcount" });
