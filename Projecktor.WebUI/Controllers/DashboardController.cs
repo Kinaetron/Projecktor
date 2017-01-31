@@ -59,11 +59,6 @@ namespace Projecktor.WebUI.Controllers
             return View("Likes", likeLine);
         }
 
-        public ActionResult BookList()
-        {
-            return null;
-        }
-
         public ActionResult Profiles()
         {
             IEnumerable<User> users = Users.AllUsers();
