@@ -19,8 +19,26 @@
 }
 
 <div class="dashboard-upload">
-    <a href="/imagepost" id="imagepost" onclick="GlassOn()">Image Post</a>
-    <a href="/textpost" id="textpost" onclick="GlassOn()">Text Post</a>
+    <div class="white-pane">
+        
+        <div class="post-pane">
+            <div class="image-post">
+                <a href="/imagepost" id="imagepost" onclick="GlassOn()">
+                    <img src='@Url.Content("~/Images/PhotoImage.png")' />
+                    <br />
+                     <span class="image-span">Image</span>
+                </a>
+            </div>
+
+            <div class="text-post">
+                <a href="/textpost" id="textpost" onclick="GlassOn()">
+                    <img src='@Url.Content("~/Images/TextImage.png")' />
+                    <br />
+                    <span class="text-span">Text</span>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
 @Html.Partial("_TextPost", new CreateTextPostViewModel())

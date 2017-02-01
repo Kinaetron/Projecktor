@@ -1,6 +1,4 @@
 ﻿a.selected {
-  background-color:#1F75CC;
-  color:white;
   z-index:100;
 }
 
@@ -13,8 +11,8 @@
   margin: 0;
   position:relative;
   margin: 20px auto 20px auto;
-  top: -40px;
-  left: 40px;
+  top: -140px;
+  left: 30px;
   text-align:left;
   width:540px;
   z-index:997;

@@ -575,3 +575,24 @@
     text-decoration: none;
     color: #fff;
 }
+
+.dashboard-upload {
+    margin: 20px 0 30px 600px;
+    width: 540px;
+}
+
+.post-pane {
+    position: relative;
+    left: 180px;
+    width: 150px;
+}
+
+.image-post {
+    float: left;
+}
+
+.image-span, .text-span, #textpost, #imagepost {
+    text-decoration: none;
+    color: #444;
+    font: normal 14px/1.4 Helvetica Neue,HelveticaNeue,Helvetica,Arial,sans-serif;
+}
