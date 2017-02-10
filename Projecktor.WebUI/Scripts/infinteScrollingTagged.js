@@ -26,12 +26,12 @@ function GetPostsTagged(url, showpost, postId) {
             $.post("/" + showpost, $.param({ data: dataId }, true), function (data) {
                 $('#container').append(data);
             })
-            pageIndex++;
         },
         beforeSend: function () {
 
         },
         complete: function () {
+            pageIndex++;
             $("#progress").hide();
         },
     })

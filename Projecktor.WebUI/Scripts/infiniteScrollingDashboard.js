@@ -44,10 +44,10 @@ function GetPosts(url, showpost) {
             $.post(showpost, $.param({ data: dataId }, true), function (data) {
                 $('#container').append(data);
             })
-            pageIndex++;
-            callScript = true;
         },
         complete: function () {
+            pageIndex++;
+            callScript = true;
             $("#progress").hide();
         },
     })
